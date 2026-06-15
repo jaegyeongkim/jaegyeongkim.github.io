@@ -69,15 +69,15 @@ const TableOfContents = ({ sections }: { sections: TocSection[] }) => {
         return (
           <div key={section.id}>
             <button
-              className="flex items-center gap-2.5 group w-full cursor-pointer"
+              className="flex items-center gap-2.5 group w-full cursor-pointer p-2 -mr-2"
               onClick={() => scrollTo(section.id)}
             >
-              {/* 레이블: xl 이상에서만 표시 */}
+              {/* 레이블: 모바일은 활성일 때만, xl은 hover·활성 모두 */}
               <span
-                className={`hidden xl:inline text-xs font-mono tracking-wide transition-all duration-200 text-right ml-auto ${
+                className={`text-xs font-mono tracking-wide transition-all duration-200 text-right ml-auto ${
                   isActive
                     ? "text-[var(--foreground)] opacity-100"
-                    : "text-[var(--muted)] opacity-0 group-hover:opacity-100"
+                    : "text-[var(--muted)] opacity-0 xl:group-hover:opacity-100"
                 }`}
               >
                 {section.label}
@@ -85,8 +85,8 @@ const TableOfContents = ({ sections }: { sections: TocSection[] }) => {
               <span
                 className={`shrink-0 rounded-full transition-all duration-200 ${
                   isActive
-                    ? "w-2 h-2 bg-[var(--foreground)]"
-                    : "w-1.5 h-1.5 bg-[var(--muted)] group-hover:bg-[var(--foreground)]"
+                    ? "w-2.5 h-2.5 bg-[var(--foreground)]"
+                    : "w-2 h-2 bg-[var(--muted)] group-hover:bg-[var(--foreground)]"
                 }`}
               />
             </button>
