@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-interface Section {
+export interface TocSection {
   id: string;
   label: string;
   children?: { id: string; label: string }[];
 }
 
-const SECTIONS: Section[] = [
+export const PORTFOLIO_SECTIONS: TocSection[] = [
   { id: "hero", label: "Intro" },
   { id: "about", label: "About" },
   { id: "team-lead", label: "Team Lead" },
@@ -25,15 +25,22 @@ const SECTIONS: Section[] = [
   },
 ];
 
-const ALL_IDS = SECTIONS.map((s) => s.id);
+export const RESUME_SECTIONS: TocSection[] = [
+  { id: "resume-tech", label: "Tech Stack" },
+  { id: "resume-achievements", label: "Key Achievements" },
+  { id: "resume-career", label: "Career" },
+  { id: "resume-side-projects", label: "Side Projects" },
+  { id: "resume-education", label: "Education" },
+];
 
-const TableOfContents = () => {
-  const [active, setActive] = useState("hero");
+const TableOfContents = ({ sections }: { sections: TocSection[] }) => {
+  const [active, setActive] = useState(sections[0]?.id ?? "");
 
   useEffect(() => {
+    const allIds = sections.map((s) => s.id);
     const observers: IntersectionObserver[] = [];
 
-    ALL_IDS.forEach((id) => {
+    allIds.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
 
@@ -48,7 +55,7 @@ const TableOfContents = () => {
     });
 
     return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  }, [sections]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -56,7 +63,7 @@ const TableOfContents = () => {
 
   return (
     <nav className="hidden xl:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col gap-1">
-      {SECTIONS.map((section) => {
+      {sections.map((section) => {
         const isActive = active === section.id;
         return (
           <div key={section.id}>

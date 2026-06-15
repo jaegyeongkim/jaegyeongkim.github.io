@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 
 import Footer from "@/components/Footer";
 import PrintButton from "@/components/PrintButton";
+import TableOfContents, { RESUME_SECTIONS } from "@/components/TableOfContents";
 
 const TECH_CORE = [
   "React",
@@ -150,6 +151,7 @@ const EDUCATION = [
 const ResumePage = () => {
   return (
     <>
+      <TableOfContents sections={RESUME_SECTIONS} />
       <main className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-16 space-y-10">
       {/* Header */}
       <header className="space-y-5">
@@ -223,7 +225,7 @@ const ResumePage = () => {
       <div className="h-px bg-[var(--border)]" />
 
       {/* Tech Stack */}
-      <section className="space-y-5">
+      <section className="space-y-5" id="resume-tech">
         <h2 className="text-xs font-mono text-[var(--muted)] uppercase tracking-widest">
           Tech Stack
         </h2>
@@ -313,8 +315,8 @@ const ResumePage = () => {
 
       <div className="h-px bg-[var(--border)]" />
 
-      {/* Key Achievements */}
-      <section className="space-y-6">
+      
+      <section className="space-y-6" id="resume-achievements">
         <h2 className="text-xs font-mono text-[var(--muted)] uppercase tracking-widest">
           Key Achievements
         </h2>
@@ -341,7 +343,7 @@ const ResumePage = () => {
       <div className="h-px bg-[var(--border)]" />
 
       {/* Career */}
-      <section className="space-y-6">
+      <section className="space-y-6" id="resume-career">
         <h2 className="text-xs font-mono text-[var(--muted)] uppercase tracking-widest">
           Career
         </h2>
@@ -379,7 +381,7 @@ const ResumePage = () => {
       <div className="h-px bg-[var(--border)]" />
 
       {/* Side Projects */}
-      <section className="space-y-6">
+      <section className="space-y-6" id="resume-side-projects">
         <h2 className="text-xs font-mono text-[var(--muted)] uppercase tracking-widest">
           Side Projects
         </h2>
@@ -426,7 +428,7 @@ const ResumePage = () => {
       <div className="h-px bg-[var(--border)]" />
 
       {/* Education */}
-      <section className="space-y-4">
+      <section className="space-y-4" id="resume-education">
         <h2 className="text-xs font-mono text-[var(--muted)] uppercase tracking-widest">
           Education
         </h2>

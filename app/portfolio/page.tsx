@@ -17,7 +17,7 @@ import Achievements from "@/components/Achievements";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
-import TableOfContents from "@/components/TableOfContents";
+import TableOfContents, { PORTFOLIO_SECTIONS } from "@/components/TableOfContents";
 import TeamLead from "@/components/TeamLead";
 import TechMigrations from "@/components/TechMigrations";
 import Timeline from "@/components/Timeline";
@@ -25,7 +25,7 @@ import Timeline from "@/components/Timeline";
 const Home = () => {
   return (
     <>
-      <TableOfContents />
+      <TableOfContents sections={PORTFOLIO_SECTIONS} />
       <main>
         <Hero />
         <About />

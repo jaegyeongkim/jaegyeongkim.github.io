@@ -19,7 +19,7 @@ const STATS: StatCard[] = [
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 py-14" id="hero">
+    <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 py-10" id="hero">
       <div className="max-w-6xl mx-auto w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="space-y-8">

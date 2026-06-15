@@ -45,10 +45,10 @@ const TIMELINE_ITEMS: TimelineItem[] = [
 const Timeline = () => {
   return (
     <section
-      className="px-6 md:px-12 lg:px-24 py-14 border-t border-[var(--border)]"
+      className="px-6 md:px-12 lg:px-24 py-10 border-t border-[var(--border)]"
       id="timeline"
     >
-      <div className="max-w-6xl mx-auto w-full space-y-12">
+      <div className="max-w-6xl mx-auto w-full space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12 lg:gap-16">
           <p className="text-sm font-mono text-[var(--muted)] uppercase tracking-widest pt-1">
             History
