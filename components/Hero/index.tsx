@@ -27,9 +27,9 @@ const Hero = () => {
               <Image
                 alt="김재경 프로필"
                 className="rounded-full object-cover grayscale"
-                height={56}
+                height={96}
                 src="/avatar.webp"
-                width={56}
+                width={96}
               />
               <div className="h-px flex-1 bg-[var(--border)]" />
             </div>
