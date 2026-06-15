@@ -26,7 +26,7 @@ const Hero = () => {
             <div className="flex items-center gap-4">
               <Image
                 alt="김재경 프로필"
-                className="rounded-full object-cover grayscale"
+                className="object-cover grayscale"
                 height={96}
                 src="/avatar.webp"
                 width={96}

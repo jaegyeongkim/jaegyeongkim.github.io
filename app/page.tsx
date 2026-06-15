@@ -155,7 +155,7 @@ const ResumePage = () => {
           <div className="flex items-center gap-4">
             <Image
               alt="김재경"
-              className="rounded-full object-cover grayscale"
+              className="object-cover grayscale"
               height={72}
               src="/avatar.webp"
               width={72}
