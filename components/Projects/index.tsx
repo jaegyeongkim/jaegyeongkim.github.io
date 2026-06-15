@@ -287,7 +287,7 @@ const Projects = () => {
       id="projects"
     >
       <div className="max-w-6xl mx-auto w-full space-y-12">
-        <div className="space-y-12">
+        <div className="space-y-12" id="projects-work">
           <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12 lg:gap-16">
             <p className="text-sm font-mono text-[var(--muted)] uppercase tracking-widest pt-1">
               Work
@@ -379,7 +379,7 @@ const Projects = () => {
           </div>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-12" id="projects-side">
           <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12 lg:gap-16">
             <p className="text-sm font-mono text-[var(--muted)] uppercase tracking-widest pt-1">
               Side
