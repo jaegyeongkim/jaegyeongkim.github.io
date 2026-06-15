@@ -14,7 +14,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://jaegyeongkim.github.io";
+const isProd = process.env.NODE_ENV === "production";
+const SITE_URL = isProd
+  ? "https://jaegyeongkim.github.io/profile"
+  : "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
