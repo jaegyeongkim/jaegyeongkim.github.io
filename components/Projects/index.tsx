@@ -222,9 +222,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
             </a>
           ))}
         </div>
-        <p className="text-xs text-[var(--muted)]">
-          {period} · {role}
-        </p>
+        <p className="text-xs text-[var(--muted)]">{role}</p>
       </div>
 
       <p className="text-sm text-[var(--muted)] leading-relaxed max-w-2xl">
