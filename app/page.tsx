@@ -194,70 +194,85 @@ const ResumePage = () => {
       <div className="h-px bg-[var(--border)]" />
 
       {/* Tech Stack */}
-      <section className="space-y-4">
+      <section className="space-y-5">
         <h2 className="text-xs font-mono text-[var(--muted)] uppercase tracking-widest">
           Tech Stack
         </h2>
-        <div className="space-y-3">
-          <div className="space-y-1.5">
-            <p className="text-xs text-[var(--muted)]">Core</p>
-            <div className="flex flex-wrap gap-1.5">
+        <div className="space-y-5">
+          {/* Core */}
+          <div className="flex gap-8 items-start">
+            <p className="text-xs text-[var(--muted)] w-28 shrink-0 pt-1.5 leading-relaxed">
+              Core
+            </p>
+            <div className="flex flex-wrap gap-2">
               {TECH_CORE.map((t) => (
                 <span
                   key={t}
-                  className="text-xs font-mono text-[var(--foreground)] border border-[var(--border)] px-2.5 py-1 rounded-full"
+                  className="text-xs font-mono text-[var(--foreground)] bg-[var(--surface)] border border-[var(--border)] px-3 py-1 rounded-full"
                 >
                   {t}
                 </span>
               ))}
             </div>
           </div>
-          <div className="space-y-1.5">
-            <p className="text-xs text-[var(--muted)]">Frontend Platform / DX</p>
-            <div className="flex flex-wrap gap-1.5">
+          {/* Platform / DX */}
+          <div className="flex gap-8 items-start">
+            <p className="text-xs text-[var(--muted)] w-28 shrink-0 pt-1.5 leading-relaxed">
+              Platform / DX
+            </p>
+            <div className="flex flex-wrap gap-2">
               {TECH_PLATFORM.map((t) => (
                 <span
                   key={t}
-                  className="text-xs font-mono text-[var(--muted)] border border-[var(--border)] px-2.5 py-1 rounded-full"
+                  className="text-xs font-mono text-[var(--muted)] border border-[var(--border)] px-3 py-1 rounded-full"
                 >
                   {t}
                 </span>
               ))}
             </div>
           </div>
-          <div className="space-y-1.5">
-            <p className="text-xs text-[var(--muted)]">Infra / Deploy</p>
-            <div className="flex flex-wrap gap-1.5">
+          {/* Infra */}
+          <div className="flex gap-8 items-start">
+            <p className="text-xs text-[var(--muted)] w-28 shrink-0 pt-1.5 leading-relaxed">
+              Infra
+            </p>
+            <div className="flex flex-wrap gap-2">
               {TECH_INFRA.map((t) => (
                 <span
                   key={t}
-                  className="text-xs font-mono text-[var(--muted)] border border-[var(--border)] px-2.5 py-1 rounded-full"
+                  className="text-xs font-mono text-[var(--muted)] border border-[var(--border)] px-3 py-1 rounded-full"
                 >
                   {t}
                 </span>
               ))}
             </div>
           </div>
-          <div className="space-y-1.5">
-            <p className="text-xs text-[var(--muted)]">사이드 프로젝트</p>
-            <div className="flex flex-wrap gap-1.5">
+          {/* Side */}
+          <div className="flex gap-8 items-start">
+            <p className="text-xs text-[var(--muted)] w-28 shrink-0 pt-1.5 leading-relaxed">
+              Side
+            </p>
+            <div className="flex flex-wrap gap-2">
               {TECH_SIDE.map((t) => (
                 <span
                   key={t}
-                  className="text-xs font-mono text-[var(--muted)] border border-[var(--border)] px-2.5 py-1 rounded-full"
+                  className="text-xs font-mono text-[var(--muted)] border border-[var(--border)] px-3 py-1 rounded-full"
                 >
                   {t}
                 </span>
               ))}
             </div>
           </div>
-          <div className="space-y-1.5">
-            <p className="text-xs text-[var(--muted)]">Experience</p>
-            <div className="flex flex-wrap gap-1.5">
+          {/* Experience */}
+          <div className="flex gap-8 items-start">
+            <p className="text-xs text-[var(--muted)] w-28 shrink-0 pt-1.5 leading-relaxed opacity-50">
+              Experience
+            </p>
+            <div className="flex flex-wrap gap-2">
               {TECH_EXPERIENCE.map((t) => (
                 <span
                   key={t}
-                  className="text-xs font-mono text-[var(--muted)] border border-[var(--border)] px-2.5 py-1 rounded-full opacity-60"
+                  className="text-xs font-mono text-[var(--muted)] border border-[var(--border)] px-3 py-1 rounded-full opacity-50"
                 >
                   {t}
                 </span>
