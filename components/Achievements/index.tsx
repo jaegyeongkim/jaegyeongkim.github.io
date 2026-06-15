@@ -128,18 +128,15 @@ const Achievements = () => {
               className="border border-[var(--border)] overflow-hidden"
             >
               {/* Card header */}
-              <div className="flex items-center justify-between gap-6 px-8 py-6 border-b border-[var(--border)]">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 px-8 py-6 border-b border-[var(--border)]">
                 <h3 className="text-xl font-semibold text-[var(--foreground)]">
                   {title}
                 </h3>
-                <div className="flex items-center gap-6 shrink-0">
-                  <div className="w-px h-10 bg-[var(--border)]" />
-                  <div className="text-right">
-                    <span className="text-4xl font-bold text-[var(--foreground)] tracking-tight leading-none">
-                      {metric}
-                    </span>
-                    <p className="text-xs text-[var(--muted)] mt-1">{metricLabel}</p>
-                  </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-bold text-[var(--accent)] tracking-tight leading-none">
+                    {metric}
+                  </span>
+                  <span className="text-xs text-[var(--muted)]">{metricLabel}</span>
                 </div>
               </div>
 
