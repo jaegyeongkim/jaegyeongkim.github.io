@@ -17,8 +17,8 @@ const GithubIcon = ({ size = 16 }: { size?: number }) => (
 
 const Footer = ({ compact = false }: { compact?: boolean }) => {
   return (
-    <footer className={`px-6 md:px-12 lg:px-24 border-t border-[var(--border)] ${compact ? "py-6" : "py-24"}`}>
-      <div className="max-w-6xl mx-auto w-full">
+    <footer className={`border-t border-[var(--border)] ${compact ? "px-6 md:px-12 py-6" : "px-6 md:px-12 lg:px-24 py-24"}`}>
+      <div className={`mx-auto w-full ${compact ? "max-w-4xl" : "max-w-6xl"}`}>
         <div className={`flex flex-col lg:flex-row lg:justify-between items-end ${compact ? "gap-6" : "gap-16"}`}>
           <div className={compact ? "space-y-1" : "space-y-4"}>
             <p className="text-sm text-[var(--muted)]">

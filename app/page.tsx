@@ -152,11 +152,8 @@ const ResumePage = () => {
     <>
       <main className="max-w-4xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-16">
       {/* Header */}
-      <header className="flex items-start justify-between gap-6">
-        <div className="space-y-5">
-          <p className="text-xs text-[var(--muted)] tracking-widest uppercase font-mono">
-            문제를 끝까지 파고들어 개선하는 개발자
-          </p>
+      <header className="space-y-5">
+        <div className="flex items-start justify-between gap-6">
           <div className="flex items-start gap-5">
             <Image
               alt="김재경"
@@ -172,24 +169,11 @@ const ResumePage = () => {
               <p className="text-base text-[var(--muted)]">
                 Frontend Engineer · Platform & DX
               </p>
+              <p className="text-xs text-[var(--muted)] tracking-widest uppercase font-mono pt-1">
+                문제를 끝까지 파고들어 개선하는 개발자
+              </p>
             </div>
           </div>
-          <p className="text-base text-[var(--foreground)] font-medium leading-relaxed">
-            10개 어드민 서비스의{" "}
-            <span className="underline underline-offset-4 decoration-[var(--accent)]">
-              플랫폼과 DX
-            </span>
-            를 설계하는{" "}
-            <strong>프론트엔드 엔지니어</strong>입니다.
-          </p>
-          <p className="text-sm text-[var(--muted)] leading-relaxed">
-            기능 구현에 머물지 않고,{" "}
-            <strong className="text-[var(--foreground)] font-medium">
-              팀이 더 빠르고 안정적으로 개발할 수 있는 환경
-            </strong>
-            을 직접 설계하고 정착시켜 왔습니다.
-          </p>
-        </div>
         <div className="hidden md:flex flex-col items-end gap-2 shrink-0 pt-1">
           <a
             className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
@@ -217,6 +201,22 @@ const ResumePage = () => {
           </Link>
           <PrintButton />
         </div>
+        </div>
+        <p className="text-base text-[var(--foreground)] font-medium leading-relaxed">
+          10개 어드민 서비스의{" "}
+          <span className="underline underline-offset-4 decoration-[var(--accent)]">
+            플랫폼과 DX
+          </span>
+          를 설계하는{" "}
+          <strong>프론트엔드 엔지니어</strong>입니다.
+        </p>
+        <p className="text-sm text-[var(--muted)] leading-relaxed">
+          기능 구현에 머물지 않고,{" "}
+          <strong className="text-[var(--foreground)] font-medium">
+            팀이 더 빠르고 안정적으로 개발할 수 있는 환경
+          </strong>
+          을 직접 설계하고 정착시켜 왔습니다.
+        </p>
       </header>
 
       {/* Divider */}
