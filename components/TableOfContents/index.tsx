@@ -12,9 +12,9 @@ const SECTIONS: Section[] = [
   { id: "hero", label: "Intro" },
   { id: "about", label: "About" },
   { id: "team-lead", label: "Team Lead" },
-  { id: "achievements", label: "Achievements" },
-  { id: "tech-migrations", label: "Tech Migrations" },
-  { id: "timeline", label: "Timeline" },
+  { id: "achievements", label: "Key Achievements" },
+  { id: "tech-migrations", label: "Migrations" },
+  { id: "timeline", label: "History" },
   {
     id: "projects",
     label: "Projects",
