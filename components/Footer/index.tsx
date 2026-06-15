@@ -50,7 +50,9 @@ const Footer = ({ compact = false }: { compact?: boolean }) => {
                 github.com/jaegyeongkim
               </a>
             </div>
-            <PrintButton label="PDF로 저장" />
+            <div className="hidden md:block">
+              <PrintButton label="PDF로 저장" />
+            </div>
             <p className="text-xs text-[var(--muted)]">
               © {new Date().getFullYear()} 김재경. All rights reserved.
             </p>
