@@ -292,86 +292,88 @@ const Projects = () => {
             <p className="text-sm font-mono text-[var(--muted)] uppercase tracking-widest pt-1">
               Work
             </p>
-            <div className="space-y-1">
-              <p className="text-base text-[var(--foreground)] font-medium">
-                KOKKOK Platform
-              </p>
-              <p className="text-sm text-[var(--muted)]">
-                라오스 현지 O2O 플랫폼. React 어드민 10개, Next.js 랜딩 페이지
-                3개를 설계·개발·운영.
-              </p>
-            </div>
-          </div>
+            <div className="space-y-10">
+              <div className="space-y-1">
+                <p className="text-base text-[var(--foreground)] font-medium">
+                  KOKKOK Platform
+                </p>
+                <p className="text-sm text-[var(--muted)]">
+                  라오스 현지 O2O 플랫폼. React 어드민 10개, Next.js 랜딩 페이지
+                  3개를 설계·개발·운영.
+                </p>
+              </div>
 
-          <div className="space-y-px bg-[var(--border)]">
-            {MAIN_PROJECTS.map((project) => (
-              <ProjectCard key={project.title} project={project} />
-            ))}
-          </div>
-
-          <div className="lg:ml-[calc(200px+6rem)]">
-            <p className="text-xs font-mono text-[var(--muted)] uppercase tracking-wider mb-4">
-              그 외 어드민
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {OTHER_ADMINS.map(({ description, title }) => (
-                <div
-                  key={title}
-                  className="space-y-1 py-4 border-t border-[var(--border)]"
-                >
-                  <p className="text-sm font-medium text-[var(--foreground)]">
-                    {title}
-                  </p>
-                  <p className="text-xs text-[var(--muted)]">{description}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 py-4 border-t border-[var(--border)]">
-              <p className="text-sm font-medium text-[var(--foreground)] mb-3">
-                랜딩 페이지 3종
-              </p>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {LANDING_PAGES.map(({ href, label }) => (
-                  <a
-                    key={label}
-                    className="flex items-center gap-1 text-xs font-mono text-[var(--accent)] hover:underline"
-                    href={href}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {label}
-                    <svg
-                      fill="none"
-                      height="10"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      width="10"
-                    >
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" x2="21" y1="14" y2="3" />
-                    </svg>
-                  </a>
+              <div className="space-y-px bg-[var(--border)]">
+                {MAIN_PROJECTS.map((project) => (
+                  <ProjectCard key={project.title} project={project} />
                 ))}
               </div>
-              <p className="text-xs text-[var(--muted)]">
-                KOKKOK 서비스 소개, 코코넛사일로 회사 소개, 데이터 바우처 신청.
-                웹·모바일 적응형 UI, 다국어.
-              </p>
-              <div className="flex flex-wrap gap-1.5 mt-2">
-                {["Next.js", "TypeScript", "Emotion", "i18next", "TanStack Query"].map(
-                  (tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs font-mono text-[var(--muted)] bg-[var(--surface)] px-2 py-0.5 rounded"
+
+              <div>
+                <p className="text-xs font-mono text-[var(--muted)] uppercase tracking-wider mb-4">
+                  그 외 어드민
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {OTHER_ADMINS.map(({ description, title }) => (
+                    <div
+                      key={title}
+                      className="space-y-1 py-4 border-t border-[var(--border)]"
                     >
-                      {tag}
-                    </span>
-                  ),
-                )}
+                      <p className="text-sm font-medium text-[var(--foreground)]">
+                        {title}
+                      </p>
+                      <p className="text-xs text-[var(--muted)]">{description}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 py-4 border-t border-[var(--border)]">
+                  <p className="text-sm font-medium text-[var(--foreground)] mb-3">
+                    랜딩 페이지 3종
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {LANDING_PAGES.map(({ href, label }) => (
+                      <a
+                        key={label}
+                        className="flex items-center gap-1 text-xs font-mono text-[var(--accent)] hover:underline"
+                        href={href}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        {label}
+                        <svg
+                          fill="none"
+                          height="10"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                          width="10"
+                        >
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" x2="21" y1="14" y2="3" />
+                        </svg>
+                      </a>
+                    ))}
+                  </div>
+                  <p className="text-xs text-[var(--muted)]">
+                    KOKKOK 서비스 소개, 코코넛사일로 회사 소개, 데이터 바우처 신청.
+                    웹·모바일 적응형 UI, 다국어.
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {["Next.js", "TypeScript", "Emotion", "i18next", "TanStack Query"].map(
+                      (tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs font-mono text-[var(--muted)] bg-[var(--surface)] px-2 py-0.5 rounded"
+                        >
+                          {tag}
+                        </span>
+                      ),
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
