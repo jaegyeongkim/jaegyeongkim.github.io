@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: { absolute: "김재경 | Frontend Engineer - 이력서" },
+  title: { absolute: "김재경 이력서 | Frontend Engineer · FE Team Lead" },
 };
 
 import Footer from "@/components/Footer";

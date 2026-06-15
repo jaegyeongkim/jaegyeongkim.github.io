@@ -19,11 +19,11 @@ const SITE_URL = "https://jaegyeongkim.github.io";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "김재경 | Frontend Engineer",
+    default: "김재경 이력서 · 포트폴리오 | Frontend Engineer",
     template: "%s | 김재경",
   },
   description:
-    "10개 어드민 서비스의 플랫폼과 DX를 설계하는 프론트엔드 엔지니어입니다. React · TypeScript · Next.js · Turborepo",
+    "6년차 FE 팀리드 김재경의 이력서·포트폴리오. 모노레포·CI/CD·번들 최적화로 팀 생산성을 높여온 플랫폼 엔지니어.",
   keywords: [
     "프론트엔드",
     "Frontend Engineer",
@@ -33,30 +33,32 @@ export const metadata: Metadata = {
     "팀 리드",
     "플랫폼 엔지니어",
     "김재경",
+    "이력서",
+    "포트폴리오",
   ],
   authors: [{ name: "김재경" }],
   openGraph: {
     type: "website",
     locale: "ko_KR",
     url: SITE_URL,
-    siteName: "김재경 포트폴리오",
-    title: "김재경 | Frontend Engineer",
+    siteName: "김재경 이력서 · 포트폴리오",
+    title: "김재경 이력서 · 포트폴리오 | Frontend Engineer",
     description:
-      "10개 어드민 서비스의 플랫폼과 DX를 설계하는 프론트엔드 엔지니어입니다.",
+      "6년차 FE 팀리드 김재경의 이력서·포트폴리오. 모노레포·CI/CD·번들 최적화로 팀 생산성을 높여온 플랫폼 엔지니어.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "김재경 | Frontend Engineer - Portfolio",
+        alt: "김재경 이력서 · 포트폴리오 — 6년차 Frontend Engineer · FE Team Lead",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "김재경 | Frontend Engineer",
+    title: "김재경 이력서 · 포트폴리오 | Frontend Engineer",
     description:
-      "10개 어드민 서비스의 플랫폼과 DX를 설계하는 프론트엔드 엔지니어입니다.",
+      "6년차 FE 팀리드 김재경의 이력서·포트폴리오. 모노레포·CI/CD·번들 최적화로 팀 생산성을 높여온 플랫폼 엔지니어.",
     images: ["/og-image.png"],
   },
   robots: {
