@@ -15,21 +15,21 @@ const GithubIcon = ({ size = 16 }: { size?: number }) => (
   </svg>
 );
 
-const Footer = () => {
+const Footer = ({ compact = false }: { compact?: boolean }) => {
   return (
-    <footer className="px-6 md:px-12 lg:px-24 py-24 border-t border-[var(--border)]">
+    <footer className={`px-6 md:px-12 lg:px-24 border-t border-[var(--border)] ${compact ? "py-6" : "py-24"}`}>
       <div className="max-w-6xl mx-auto w-full">
-        <div className="flex flex-col lg:flex-row lg:justify-between gap-16 items-end">
-          <div className="space-y-4">
+        <div className={`flex flex-col lg:flex-row lg:justify-between items-end ${compact ? "gap-6" : "gap-16"}`}>
+          <div className={compact ? "space-y-1" : "space-y-4"}>
             <p className="text-sm text-[var(--muted)]">
               문제를 끝까지 파고들어 개선하는 개발자
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-[var(--foreground)] tracking-tight">
+            <h2 className={`font-bold text-[var(--foreground)] tracking-tight ${compact ? "text-xl" : "text-4xl md:text-5xl"}`}>
               김재경
             </h2>
           </div>
 
-          <div className="space-y-6 lg:text-right">
+          <div className={`lg:text-right ${compact ? "space-y-2" : "space-y-6"}`}>
             <div className="flex flex-col lg:items-end gap-3">
               <a
                 className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors group"
