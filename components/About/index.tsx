@@ -1,8 +1,8 @@
 const About = () => {
   return (
-    <section className="px-6 md:px-12 lg:px-24 py-24 border-t border-[var(--border)]">
+    <section className="px-6 md:px-12 lg:px-24 py-14 border-t border-[var(--border)]">
       <div className="max-w-6xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12 lg:gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12 lg:gap-16">
           <p className="text-sm font-mono text-[var(--muted)] uppercase tracking-widest pt-1">
             About
           </p>

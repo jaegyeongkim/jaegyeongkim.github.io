@@ -150,7 +150,7 @@ const EDUCATION = [
 const ResumePage = () => {
   return (
     <>
-      <main className="max-w-4xl mx-auto px-6 md:px-12 py-20 md:py-28 space-y-16">
+      <main className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-16 space-y-10">
       {/* Header */}
       <header className="space-y-5">
         <div className="flex items-start justify-between gap-6">

@@ -283,12 +283,12 @@ const ProjectCard = ({ project }: { project: Project }) => {
 const Projects = () => {
   return (
     <section
-      className="px-6 md:px-12 lg:px-24 py-24 border-t border-[var(--border)]"
+      className="px-6 md:px-12 lg:px-24 py-14 border-t border-[var(--border)]"
       id="projects"
     >
-      <div className="max-w-6xl mx-auto w-full space-y-20">
+      <div className="max-w-6xl mx-auto w-full space-y-12">
         <div className="space-y-12">
-          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12 lg:gap-16">
             <p className="text-sm font-mono text-[var(--muted)] uppercase tracking-widest pt-1">
               Work
             </p>
@@ -380,7 +380,7 @@ const Projects = () => {
         </div>
 
         <div className="space-y-12">
-          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12 lg:gap-16">
             <p className="text-sm font-mono text-[var(--muted)] uppercase tracking-widest pt-1">
               Side
             </p>
