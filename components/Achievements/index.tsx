@@ -89,6 +89,11 @@ const ACHIEVEMENTS: Achievement[] = [
 const OTHER_IMPROVEMENTS: OtherImprovement[] = [
   {
     description:
+      "모노레포에서 i18next 번역 타입 선언 규모가 커지면서 자동완성 계산에 최대 10초가 걸렸습니다. TypeScript 5 업그레이드 + 서비스별 JSON 분리, 타입 선언 단순화(typeof json → Record<key, string>), 배럴 파일 약 1,600개 제거를 단계적으로 적용해 2초로 단축(–80%).",
+    title: "VSCode 자동완성 속도 개선 (10초 → 2초)",
+  },
+  {
+    description:
       "버튼 연속 클릭 시 같은 API가 여러 번 실행되는 문제를 해결하기 위해 useMutation 기반 커스텀 훅 구현. 진행 중인 요청에 고유 ID를 부여해 동일 요청 차단, 에러 처리 방식(전역 / 화면별)을 훅 사용 시점에 반드시 선택하도록 강제해 팀 내 에러 처리 누락 방지.",
     title: "API 중복 호출 방지 (useSafeMutation)",
   },
