@@ -17,22 +17,24 @@ const GithubIcon = ({ size = 16 }: { size?: number }) => (
 
 const Footer = ({ compact = false }: { compact?: boolean }) => {
   return (
-    <footer className={`border-t border-[var(--border)] ${compact ? "px-6 md:px-12 py-6" : "px-6 md:px-12 lg:px-24 py-24"}`}>
+    <footer className={`border-t border-[var(--border)] ${compact ? "px-6 md:px-12 py-6" : "px-6 md:px-12 lg:px-24 py-10 lg:py-24"}`}>
       <div className={`mx-auto w-full ${compact ? "max-w-4xl" : "max-w-6xl"}`}>
-        <div className={`flex flex-col lg:flex-row lg:justify-between items-end ${compact ? "gap-6" : "gap-16"}`}>
-          <div className={compact ? "space-y-1" : "space-y-4"}>
+        <div className={`flex flex-col lg:flex-row lg:justify-between lg:items-end ${compact ? "gap-4" : "gap-8 lg:gap-16"}`}>
+          {/* 이름 + 태그라인 */}
+          <div className={compact ? "space-y-0.5" : "space-y-2"}>
             <p className="text-sm text-[var(--muted)]">
               문제를 끝까지 파고들어 개선하는 개발자
             </p>
-            <h2 className={`font-bold text-[var(--foreground)] tracking-tight ${compact ? "text-xl" : "text-4xl md:text-5xl"}`}>
+            <h2 className={`font-bold text-[var(--foreground)] tracking-tight ${compact ? "text-xl" : "text-3xl md:text-4xl lg:text-5xl"}`}>
               김재경
             </h2>
           </div>
 
-          <div className={`lg:text-right ${compact ? "space-y-2" : "space-y-6"}`}>
-            <div className="flex flex-col lg:items-end gap-3">
+          {/* 연락처 + 버튼 + 저작권 */}
+          <div className={`flex flex-col lg:items-end ${compact ? "gap-2" : "gap-4 lg:gap-6"}`}>
+            <div className="flex flex-col lg:items-end gap-2">
               <a
-                className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors group"
+                className="flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
                 href="mailto:tkwk1205@naver.com"
               >
                 <Mail size={16} />
@@ -48,10 +50,7 @@ const Footer = ({ compact = false }: { compact?: boolean }) => {
                 github.com/jaegyeongkim
               </a>
             </div>
-
-            <div className="flex lg:justify-end">
-              <PrintButton label="PDF로 저장" />
-            </div>
+            <PrintButton label="PDF로 저장" />
             <p className="text-xs text-[var(--muted)]">
               © {new Date().getFullYear()} 김재경. All rights reserved.
             </p>
