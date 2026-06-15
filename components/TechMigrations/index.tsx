@@ -89,7 +89,7 @@ const TechMigrations = () => {
               {MIGRATIONS.map(({ background, from, result, to }) => (
                 <tr
                   key={from}
-                  className="border-b border-[var(--border)] hover:bg-[#fafafa] transition-colors"
+                  className="border-b border-[var(--border)]"
                 >
                   <td className="py-4 pr-6 text-[var(--muted)] font-mono text-xs">
                     {from}
