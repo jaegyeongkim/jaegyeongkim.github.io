@@ -26,6 +26,7 @@ export const PORTFOLIO_SECTIONS: TocSection[] = [
 ];
 
 export const RESUME_SECTIONS: TocSection[] = [
+  { id: "resume-intro", label: "Intro" },
   { id: "resume-tech", label: "Tech Stack" },
   { id: "resume-achievements", label: "Key Achievements" },
   { id: "resume-career", label: "Career" },
@@ -68,7 +69,7 @@ const TableOfContents = ({ sections }: { sections: TocSection[] }) => {
         return (
           <div key={section.id}>
             <button
-              className="flex items-center gap-2.5 group w-full"
+              className="flex items-center gap-2.5 group w-full cursor-pointer"
               onClick={() => scrollTo(section.id)}
             >
               <span
@@ -94,7 +95,7 @@ const TableOfContents = ({ sections }: { sections: TocSection[] }) => {
                 {section.children.map((child) => (
                   <button
                     key={child.id}
-                    className="text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors text-right pr-2"
+                    className="text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors text-right pr-2 cursor-pointer"
                     onClick={() => scrollTo(child.id)}
                   >
                     {child.label}
