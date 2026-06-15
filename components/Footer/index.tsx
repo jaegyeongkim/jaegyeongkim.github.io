@@ -19,7 +19,7 @@ const Footer = () => {
   return (
     <footer className="px-6 md:px-12 lg:px-24 py-24 border-t border-[var(--border)]">
       <div className="max-w-6xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-end">
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-16 items-end">
           <div className="space-y-4">
             <p className="text-sm text-[var(--muted)]">
               문제를 끝까지 파고들어 개선하는 개발자

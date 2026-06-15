@@ -156,9 +156,9 @@ const ResumePage = () => {
             <Image
               alt="김재경"
               className="rounded-full object-cover grayscale"
-              height={48}
+              height={72}
               src="/avatar.webp"
-              width={48}
+              width={72}
             />
             <div>
               <h1 className="text-2xl font-bold text-[var(--foreground)] tracking-tight">
@@ -169,7 +169,7 @@ const ResumePage = () => {
               </p>
             </div>
           </div>
-          <p className="text-base text-[var(--foreground)] font-medium max-w-lg leading-relaxed">
+          <p className="text-base text-[var(--foreground)] font-medium leading-relaxed">
             10개 어드민 서비스의{" "}
             <span className="underline underline-offset-4 decoration-[var(--accent)]">
               플랫폼과 DX
@@ -177,7 +177,7 @@ const ResumePage = () => {
             를 설계하는{" "}
             <strong>프론트엔드 엔지니어</strong>입니다.
           </p>
-          <p className="text-sm text-[var(--muted)] max-w-lg leading-relaxed">
+          <p className="text-sm text-[var(--muted)] leading-relaxed">
             기능 구현에 머물지 않고,{" "}
             <strong className="text-[var(--foreground)] font-medium">
               팀이 더 빠르고 안정적으로 개발할 수 있는 환경
