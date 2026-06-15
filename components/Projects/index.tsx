@@ -18,7 +18,7 @@ interface Project {
   description: string;
   isPrivate?: boolean;
   links?: ProjectLink[];
-  period: string;
+  period?: string;
   role: string;
   stats: ProjectStat[];
   tags: string[];
@@ -41,7 +41,6 @@ const MAIN_PROJECTS: Project[] = [
         label: "서비스 소개",
       },
     ],
-    period: "2020.12 ~ 현재",
     role: "초기 아키텍처 설계, 공용 컴포넌트 설계, API 연동, 권한 시스템 설계, 운영 전반",
     stats: [
       { label: "Pages", value: "172" },
@@ -81,7 +80,6 @@ const MAIN_PROJECTS: Project[] = [
         label: "iOS",
       },
     ],
-    period: "2022 ~",
     role: "프로젝트 초기 세팅, 주요 화면 개발, 지도 기반 차량 위치 기능 구현, 운영 및 유지보수",
     stats: [
       { label: "Pages", value: "27" },
@@ -121,7 +119,6 @@ const MAIN_PROJECTS: Project[] = [
         label: "iOS",
       },
     ],
-    period: "2023 ~",
     role: "프로젝트 초기 세팅, 차량 등록·관리 화면 개발, 공용 컴포넌트 적용, 운영 및 유지보수",
     stats: [
       { label: "Pages", value: "55" },
@@ -158,7 +155,7 @@ const SIDE_PROJECTS: Project[] = [
     description:
       "주식·ETF·예금·부동산·코인 등 12개 자산 유형을 통합 관리하는 개인 자산 추적 웹앱. 날짜별 원금·평가액 기록, 수익률·IRR 자동 계산, 실시간 시세 연동, 데모 모드, 다크모드, 한국어·영어 지원.",
     links: [{ href: "https://asset-management-tools.vercel.app", label: "Live" }],
-    period: "2024 ~",
+    period: "2026.05",
     role: "Solo (기획·설계·개발·배포 전 과정)",
     stats: [
       { label: "Asset Types", value: "12" },
@@ -182,7 +179,7 @@ const SIDE_PROJECTS: Project[] = [
   {
     description:
       "완전 모유수유 기록과 관리를 돕는 Flutter 기반 모바일 앱. Supabase 기반 백엔드 연동 및 앱 개발 진행 중.",
-    period: "2025 ~",
+    period: "2026.06",
     role: "Solo",
     stats: [
       { label: "Platform", value: "Mobile" },
@@ -222,7 +219,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
             </a>
           ))}
         </div>
-        <p className="text-xs text-[var(--muted)]">{role}</p>
+        <p className="text-xs text-[var(--muted)]">
+          {period ? `${period} · ` : ""}{role}
+        </p>
       </div>
 
       <p className="text-sm text-[var(--muted)] leading-relaxed max-w-2xl">
