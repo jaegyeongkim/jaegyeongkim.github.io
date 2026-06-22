@@ -118,10 +118,14 @@ const RootLayout = ({
         <Nav />
         {children}
       </body>
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-R5G6DM9KM5" strategy="afterInteractive" />
-      <Script id="ga-init" strategy="afterInteractive">
-        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R5G6DM9KM5');`}
-      </Script>
+      {process.env.NODE_ENV === "production" && (
+        <>
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-R5G6DM9KM5" strategy="afterInteractive" />
+          <Script id="ga-init" strategy="afterInteractive">
+            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R5G6DM9KM5');`}
+          </Script>
+        </>
+      )}
     </html>
   );
 };
