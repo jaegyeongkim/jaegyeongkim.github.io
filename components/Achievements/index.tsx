@@ -1,4 +1,7 @@
+import BlogLink from "@/components/BlogLink";
+
 interface Achievement {
+  blogSlug?: string;
   detail: string[];
   metric: string;
   metricLabel: string;
@@ -8,6 +11,7 @@ interface Achievement {
 }
 
 interface OtherImprovement {
+  blogSlug?: string;
   description: string;
   title: string;
 }
@@ -30,6 +34,7 @@ const ACHIEVEMENTS: Achievement[] = [
       "개발 서버 기동 시간 최대 88% 단축 (53초 → 6초)",
     ],
     title: "Type-safe API Layer",
+    blogSlug: "typia-runtime-validation",
   },
   {
     detail: [
@@ -48,6 +53,7 @@ const ACHIEVEMENTS: Achievement[] = [
       "반복적인 수동 배포 작업 제거 → 휴먼 에러 감소",
     ],
     title: "CI/CD Automation",
+    blogSlug: "github-actions-cicd",
   },
   {
     detail: [
@@ -66,6 +72,7 @@ const ACHIEVEMENTS: Achievement[] = [
       "테스트 165개로 공용 코드 변경 안전망 확보",
     ],
     title: "Monorepo Architecture",
+    blogSlug: "monorepo-shared-components",
   },
   {
     detail: [
@@ -83,6 +90,7 @@ const ACHIEVEMENTS: Achievement[] = [
       "VSCode 자동완성 속도 10초 → 2초 (-80%)",
     ],
     title: "Bundle & DX Optimization",
+    blogSlug: "vite-manual-chunks",
   },
   {
     detail: [
@@ -101,6 +109,7 @@ const ACHIEVEMENTS: Achievement[] = [
       "10개 앱 전체 불필요 리렌더링 구조 개선",
     ],
     title: "Global State Optimization",
+    blogSlug: "context-to-zustand",
   },
 ];
 
@@ -109,11 +118,13 @@ const OTHER_IMPROVEMENTS: OtherImprovement[] = [
     description:
       "모노레포에서 i18next 번역 타입 선언 규모가 커지면서 자동완성 계산에 최대 10초가 걸렸습니다. TypeScript 5 업그레이드 + 서비스별 JSON 분리, 타입 선언 단순화(typeof json → Record<key, string>), 배럴 파일 약 1,600개 제거를 단계적으로 적용해 2초로 단축(–80%).",
     title: "VSCode 자동완성 속도 개선 (10초 → 2초)",
+    blogSlug: "vite-manual-chunks",
   },
   {
     description:
       "버튼 연속 클릭 시 같은 API가 여러 번 실행되는 문제를 해결하기 위해 useMutation 기반 커스텀 훅 구현. 진행 중인 요청에 고유 ID를 부여해 동일 요청 차단, 에러 처리 방식(전역 / 화면별)을 훅 사용 시점에 반드시 선택하도록 강제해 팀 내 에러 처리 누락 방지.",
     title: "API 중복 호출 방지 (useSafeMutation)",
+    blogSlug: "duplicate-api-call",
   },
   {
     description:
@@ -139,82 +150,93 @@ const Achievements = () => {
             Key Achievements
           </p>
           <p className="text-base text-[var(--muted)]">
-            팀 생산성과 서비스 안정성을 높이기 위해 주도한 플랫폼·아키텍처
-            개선
+            팀 생산성과 서비스 안정성을 높이기 위해 주도한 플랫폼·아키텍처 개선
           </p>
         </div>
 
         <div className="space-y-6">
-          {ACHIEVEMENTS.map(({ detail, metric, metricLabel, problem, results, title }) => (
-            <div
-              key={title}
-              className="border border-[var(--border)] overflow-hidden"
-            >
-              {/* Card header */}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 px-8 py-6 border-b border-[var(--border)]">
-                <h3 className="text-xl font-semibold text-[var(--foreground)]">
-                  {title}
-                </h3>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold text-[var(--accent)] tracking-tight leading-none">
-                    {metric}
-                  </span>
-                  <span className="text-xs text-[var(--muted)]">{metricLabel}</span>
+          {ACHIEVEMENTS.map(
+            ({
+              blogSlug,
+              detail,
+              metric,
+              metricLabel,
+              problem,
+              results,
+              title,
+            }) => (
+              <div
+                className="border border-[var(--border)] overflow-hidden"
+                key={title}
+              >
+                {/* Card header */}
+                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-8 py-6 border-b border-[var(--border)]">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <h3 className="text-xl font-semibold text-[var(--foreground)]">
+                      {title}
+                    </h3>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-2xl font-bold text-[var(--accent)] tracking-tight leading-none">
+                        {metric}
+                      </span>
+                      <span className="text-xs text-[var(--muted)]">
+                        {metricLabel}
+                      </span>
+                    </div>
+                  </div>
+                  {blogSlug && <BlogLink slug={blogSlug} source="portfolio" />}
+                </div>
+
+                {/* Card body */}
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr]">
+                  <div className="p-8 space-y-3 md:border-r border-b md:border-b-0 border-[var(--border)]">
+                    <p className="text-xs font-mono text-[var(--muted)] uppercase tracking-wider">
+                      Problem
+                    </p>
+                    <p className="text-sm text-[var(--foreground)] leading-relaxed">
+                      {problem}
+                    </p>
+                  </div>
+
+                  <div className="p-8 space-y-4 md:border-r border-b md:border-b-0 border-[var(--border)]">
+                    <p className="text-xs font-mono text-[var(--muted)] uppercase tracking-wider">
+                      Solution
+                    </p>
+                    <ol className="space-y-3">
+                      {detail.map((item, i) => (
+                        <li className="flex gap-3 items-start" key={item}>
+                          <span className="text-xs font-mono text-[var(--accent)] shrink-0 mt-0.5 w-5 pt-px">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span className="text-sm text-[var(--muted)] leading-relaxed">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+
+                  <div className="p-8 space-y-4 bg-[var(--surface)]">
+                    <p className="text-xs font-mono text-[var(--accent)] uppercase tracking-wider">
+                      Result
+                    </p>
+                    <ul className="space-y-3">
+                      {results.map((result) => (
+                        <li className="flex gap-3 items-start" key={result}>
+                          <span className="text-[var(--accent)] font-bold text-base shrink-0 mt-0.5">
+                            ↑
+                          </span>
+                          <span className="text-sm font-medium text-[var(--foreground)] leading-relaxed">
+                            {result}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
-
-              {/* Card body */}
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr]">
-                <div className="p-8 space-y-3 md:border-r border-b md:border-b-0 border-[var(--border)]">
-                  <p className="text-xs font-mono text-[var(--muted)] uppercase tracking-wider">
-                    Problem
-                  </p>
-                  <p className="text-sm text-[var(--foreground)] leading-relaxed">
-                    {problem}
-                  </p>
-                </div>
-
-                <div className="p-8 space-y-4 md:border-r border-b md:border-b-0 border-[var(--border)]">
-                  <p className="text-xs font-mono text-[var(--muted)] uppercase tracking-wider">
-                    Solution
-                  </p>
-                  <ol className="space-y-3">
-                    {detail.map((item, i) => (
-                      <li
-                        key={item}
-                        className="flex gap-3 items-start"
-                      >
-                        <span className="text-xs font-mono text-[var(--accent)] shrink-0 mt-0.5 w-5 pt-px">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span className="text-sm text-[var(--muted)] leading-relaxed">
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-
-                <div className="p-8 space-y-4 bg-[var(--surface)]">
-                  <p className="text-xs font-mono text-[var(--accent)] uppercase tracking-wider">
-                    Result
-                  </p>
-                  <ul className="space-y-3">
-                    {results.map((result) => (
-                      <li key={result} className="flex gap-3 items-start">
-                        <span className="text-[var(--accent)] font-bold text-base shrink-0 mt-0.5">
-                          ↑
-                        </span>
-                        <span className="text-sm font-medium text-[var(--foreground)] leading-relaxed">
-                          {result}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          ))}
+            ),
+          )}
         </div>
 
         <div className="space-y-6">
@@ -226,10 +248,10 @@ const Achievements = () => {
           </div>
 
           <div className="lg:ml-[calc(200px+6rem)] grid grid-cols-1 md:grid-cols-3 gap-6">
-            {OTHER_IMPROVEMENTS.map(({ description, title }) => (
+            {OTHER_IMPROVEMENTS.map(({ blogSlug, description, title }) => (
               <div
-                key={title}
                 className="space-y-3 py-6 border-t border-[var(--border)]"
+                key={title}
               >
                 <p className="text-sm font-semibold text-[var(--foreground)]">
                   {title}
@@ -237,6 +259,7 @@ const Achievements = () => {
                 <p className="text-sm text-[var(--muted)] leading-relaxed">
                   {description}
                 </p>
+                {blogSlug && <BlogLink slug={blogSlug} source="portfolio" />}
               </div>
             ))}
           </div>
