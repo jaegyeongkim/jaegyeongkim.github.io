@@ -1,0 +1,110 @@
+## 버그: 로그아웃하면 401이 뜨고 화면이 하얗게 됐다
+
+재현 시나리오는 단순했다. 로그아웃 버튼을 누르면 인증 상태가 초기화되고 로그인 화면으로 이동해야 한다. 그런데 종종 401 에러와 함께 흰 화면이 떴다.
+
+처음엔 로그아웃 API 호출 타이밍 문제인 줄 알았다. 토큰 삭제 전에 다른 API가 먼저 호출되는 경쟁 조건처럼 보였다. 하지만 로그아웃 플로우를 아무리 분석해도 원인이 거기 없었다.
+
+## React DevTools Profiler로 원인 찾기
+
+React DevTools Profiler를 열고 로그아웃 버튼을 눌렀다. 예상치 못한 것을 발견했다.
+
+**Header 전체가 리렌더링됐다.** 로그아웃 처리 중에 Header 컴포넌트 전체가 다시 렌더링되면서, 그 안에 있는 `useModal` 훅이 실행됐다. `useModal`은 렌더링될 때 열려 있던 모달 상태를 읽고 있었다.
+
+문제는 `useModal`이 `ModalProvider`의 Context를 구독하는 방식이었다.
+
+```tsx
+// 기존 구조
+const ModalContext = createContext<ModalContextType>({ modals: [], open: ..., close: ... });
+
+export const useModal = () => useContext(ModalContext);
+
+// Header 어딘가에서
+const { modals } = useModal(); // modals 배열 전체를 구독
+```
+
+`ModalContext`에는 `modals` 배열과 `open`, `close` 함수가 함께 들어 있었다. Context의 값이 조금이라도 바뀌면 `useContext`를 쓰는 모든 컴포넌트가 리렌더링된다. 로그아웃 플로우에서 모달 상태가 변경되면서 Header 전체가 리렌더링됐고, 그 과정에서 인증 확인 로직이 예상치 못한 타이밍에 실행됐다.
+
+## Context API의 구조적 한계
+
+이 프로젝트에는 `ModalProvider` 외에도 `RoutePathProvider`, `AuthProvider` 등이 Context API로 구현돼 있었다. 모두 공통적인 문제를 갖고 있었다.
+
+Context는 **구독 단위를 세밀하게 제어할 수 없다.** 값의 일부만 변경되더라도 `useContext`를 쓰는 컴포넌트는 전부 리렌더링된다. `React.memo`나 `useMemo`로 막을 수도 있지만, 매번 수동으로 추가해야 하고 놓치기 쉽다.
+
+## Zustand Selector로 전환
+
+해결 방향은 명확했다. **구독 단위를 필드 수준으로 제어**할 수 있는 Zustand로 교체하고, selector를 통해 필요한 상태만 구독하도록 바꾼다.
+
+```ts
+// packages/stores/modal.ts
+const useModalStore = create<ModalState>()(
+  immer((set, get) => ({
+    modals: [],
+    handleModalOpen: (modal) => (e) => {
+      e?.stopPropagation();
+      get().handleModalAdd(modal);
+    },
+    handleModalAdd: (modal) =>
+      set((state) => {
+        state.modals.push(modal);
+        document.body.style.cssText = "overflow: hidden";
+      }),
+    handleModalClose: () =>
+      set((state) => {
+        state.modals.pop();
+        if (state.modals.length === 0) {
+          document.body.style.cssText = "overflow: auto";
+        }
+      }),
+    handleModalAllClose: () =>
+      set((state) => {
+        state.modals.splice(0);
+        document.body.style.cssText = "overflow: auto";
+      }),
+  }))
+);
+```
+
+컴포넌트에서 함수만 쓰는 경우:
+
+```tsx
+// Header에서 모달 open 함수만 구독 — modals 배열 변경에 반응 안 함
+const handleModalOpen = useModalStore((state) => state.handleModalOpen);
+```
+
+모달 렌더링 영역에서 배열 구독:
+
+```tsx
+// ModalRenderer에서만 modals 배열 구독
+const modals = useModalStore((state) => state.modals);
+```
+
+이전에는 `useModal()`이 `modals` 배열과 함수를 함께 구독했다. 이제는 **각 컴포넌트가 실제로 필요한 것만** 구독한다.
+
+## `RoutePathProvider`, `AuthProvider` 도 동일하게 전환
+
+버그 수정에서 그치지 않고 다른 Provider들도 Zustand로 전환했다.
+
+```tsx
+// 기존: Context 기반
+const RoutePathContext = createContext<string>("");
+export const useRoutePath = () => useContext(RoutePathContext);
+
+// 전환 후: Zustand selector
+const useRoutePathStore = create<RoutePathState>()((set) => ({
+  currentPath: "",
+  setCurrentPath: (path) => set({ currentPath: path }),
+}));
+
+// 사용처에서 필요한 것만 구독
+const currentPath = useRoutePathStore((state) => state.currentPath);
+```
+
+이 변경들을 `packages/stores`에 공용 패키지로 이동했다. 10개 앱 전체에 일괄 적용되면서 모든 앱에서 동일한 문제가 해결됐다.
+
+## 결과: Header 전체 리렌더링 제거
+
+React DevTools Profiler를 다시 열었다. 로그아웃 플로우에서 Header가 더 이상 리렌더링되지 않았다. 401 + 흰 화면 버그도 재현되지 않았다.
+
+한 가지 교훈을 남겨두면: **Context API는 전역 상태 관리 도구가 아니다.** React 공식 문서도 Context를 "prop drilling을 피하기 위한 도구"로 설명한다. 자주 바뀌는 상태, 여러 컴포넌트에서 부분적으로 구독하는 상태는 처음부터 Zustand 같은 상태 관리 라이브러리로 다루는 게 맞다.
+
+Context를 쓴다면, 값이 바뀌어도 리렌더링이 문제 없을 만큼 **변경 빈도가 낮고 구독 범위가 작은 경우**에 한정하는 것이 좋다.

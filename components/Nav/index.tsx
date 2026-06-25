@@ -32,6 +32,16 @@ const Nav = () => {
       >
         포트폴리오
       </Link>
+      <Link
+        className={`text-xs px-3 py-1.5 rounded-full transition-colors duration-150 ${
+          pathname.startsWith("/blog")
+            ? "bg-[var(--foreground)] text-[var(--background)]"
+            : "text-[var(--muted)] hover:text-[var(--foreground)]"
+        }`}
+        href="/blog"
+      >
+        블로그
+      </Link>
     </nav>
   );
 };

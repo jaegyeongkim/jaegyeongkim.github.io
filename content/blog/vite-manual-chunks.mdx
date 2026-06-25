@@ -1,0 +1,145 @@
+## 숫자부터: 4,990kB → 375kB
+
+초기 번들 사이즈가 4,990kB였다. 사용자가 앱을 처음 열 때 5MB짜리 JS를 다운로드해야 했다는 뜻이다. 이걸 375kB까지 줄였다. 줄인 방법은 세 가지였다.
+
+1. **배럴 파일 1,600개 제거** — 가장 큰 효과
+2. **lazy import** — 라우트별 코드 분리
+3. **Vite manualChunks** — 청크 캐싱 전략
+
+## 왜 배럴 파일이 문제였나
+
+배럴 파일은 이런 패턴이다.
+
+```ts
+// packages/components/index.ts (배럴 파일)
+export { Button } from "./Button";
+export { Input } from "./Input";
+export { Table } from "./Table";
+// ... 206개 컴포넌트
+```
+
+편리해 보이지만 치명적인 문제가 있다. Vite가 번들링할 때 `Button` 하나만 사용하더라도 `index.ts`를 통해 **206개 컴포넌트를 모두 분석**해야 한다. tree-shaking이 작동하긴 하지만, 모노레포 환경에서 여러 패키지의 배럴 파일이 중첩되면 번들러가 처리해야 할 모듈 그래프가 기하급수적으로 커진다.
+
+부수 효과로 **VSCode 자동완성이 10초가 걸렸다**. TypeScript 언어 서버가 배럴 파일을 통해 수천 개의 타입을 추론하느라 멈추는 것이었다.
+
+### 제거 방법
+
+배럴 파일을 제거하고 직접 경로로 임포트하도록 전환했다.
+
+```ts
+// Before
+import { Button } from "@repo/components";
+
+// After
+import { Button } from "@repo/components/Button";
+```
+
+1,600개 배럴 파일을 앱 전체에서 제거하는 작업이었다. 자동화 스크립트를 작성해서 진행했고, ESLint 규칙으로 새로운 배럴 파일 생성을 차단했다.
+
+결과: VSCode 자동완성 **10초 → 2초**, 초기 번들 사이즈 대폭 감소.
+
+## lazy import — 라우트별 코드 분리
+
+모노레포에서 10개 앱이 공통 패키지를 쓰다 보면, 특정 라우트에서만 쓰는 무거운 컴포넌트(PDF 렌더러, 지도, 에디터 등)가 초기 번들에 포함되는 문제가 생긴다.
+
+```tsx
+// Before: 초기 번들에 포함
+import { SunEditor } from "suneditor-react";
+import { PDFViewer } from "@react-pdf/renderer";
+
+// After: 해당 라우트 진입 시에만 로드
+const SunEditor = lazy(() => import("suneditor-react"));
+const PDFViewer = lazy(() => import("@react-pdf/renderer").then(m => ({ default: m.PDFViewer })));
+```
+
+`@react-pdf/renderer` 같은 패키지는 압축 전 기준 수백 kB에 달한다. 이것들을 초기 번들에서 분리하는 것만으로도 의미 있는 크기 감소가 가능하다.
+
+## Vite manualChunks — 캐싱 전략
+
+배럴 파일 제거와 lazy import로 번들 크기를 줄였다면, `manualChunks`는 **캐시 효율**을 높이기 위한 전략이다.
+
+Vite 기본 설정은 `node_modules`를 하나의 `vendor` 청크로 묶는다. 라이브러리 하나만 업데이트해도 `vendor` 청크 전체가 캐시 무효화된다.
+
+```ts
+// packages/utils/vite.ts
+export const createManualChunks = (id: string): string | undefined => {
+  if (id.includes("node_modules")) {
+    return generateChunkName({
+      list: CHUNK_LIST.library,
+      prefix: CHUNK_PREFIX.library,
+      id,
+    });
+  }
+
+  if (id.includes("/packages/assets/") || id.includes("/apps/assets/")) {
+    return generateChunkName({
+      list: CHUNK_LIST.assets,
+      prefix: CHUNK_PREFIX.assets,
+      id,
+    });
+  }
+
+  return undefined;
+};
+```
+
+`generateChunkName`은 모듈 경로를 보고 미리 정의한 청크 이름 목록과 매칭한다.
+
+```ts
+export const CHUNK_LIST = {
+  library: [
+    "@tanstack/react-query",
+    "react-dom",
+    "react-router-dom",
+    "zustand",
+    "lodash-es",
+    "dayjs",
+    "axios",
+    // ... 라이브러리별 청크
+  ],
+  assets: ["assets"],
+};
+
+export const CHUNK_PREFIX = {
+  library: "__Libraries",
+  assets: "__Assets",
+} as const;
+```
+
+결과 청크 예시:
+- `__Libraries-react-dom.[hash].js` — React DOM (업데이트 드뭄)
+- `__Libraries-zustand.[hash].js` — Zustand (업데이트 드뭄)
+- `__Libraries-dayjs.[hash].js` — dayjs (업데이트 드뭄)
+
+각 라이브러리가 독립적인 청크가 되면, `dayjs`만 업데이트해도 `react-dom` 청크는 캐시 그대로 유지된다.
+
+## 모노레포에서 공통 설정 공유
+
+10개 앱이 동일한 청크 전략을 쓰도록 `packages/utils/vite.ts`에 팩토리 함수를 두고, 각 앱의 `vite.config.ts`에서 가져다 썼다.
+
+```ts
+// apps/carAdmin/vite.config.ts
+import { createManualChunks } from "@repo/utils/vite";
+
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: createManualChunks,
+      },
+    },
+  },
+});
+```
+
+앱마다 번들 전략을 따로 고민하지 않아도 된다. 청크 목록(`CHUNK_LIST`)을 업데이트하면 10개 앱이 모두 자동으로 반영된다.
+
+## 개발 서버 기동 시간도 함께 줄었다
+
+번들 최적화의 부수 효과로 **개발 서버 기동 시간이 53초에서 6초로 줄었다**. 배럴 파일 제거 효과가 컸다. Vite의 HMR도 훨씬 빨라졌다. 코드를 바꾸고 브라우저에서 확인하는 피드백 루프가 짧아지면서 개발 경험이 체감상 크게 달라졌다.
+
+| 항목 | 이전 | 이후 |
+|------|------|------|
+| 초기 번들 | 4,990 kB | 375 kB |
+| 개발 서버 기동 | 53초 | 6초 |
+| VSCode 자동완성 | 10초 | 2초 |

@@ -1,0 +1,87 @@
+## 문제: 10개 앱이 같은 컴포넌트를 따로 관리하고 있었다
+
+처음에는 각 앱이 독립적인 저장소였다. `Button`, `Table`, `Input` 같은 컴포넌트가 앱마다 조금씩 다른 버전으로 복사돼 있었다. 버그를 한 곳에서 고치면 다른 9개 앱에는 반영되지 않았다. 디자인 변경이 생기면 모든 앱에서 각자 수정해야 했다.
+
+이걸 해결하기 위해 **pnpm workspace + Turborepo 기반 모노레포**로 전환했다.
+
+## 전환 의사결정
+
+모노레포 도구로 Lerna, Nx, Turborepo를 검토했다.
+
+- **Lerna**: 오래된 툴링, 빌드 캐싱이 약함
+- **Nx**: 기능이 많지만 학습 비용이 높고 설정이 복잡
+- **Turborepo**: 파이프라인 설정이 단순하고, pnpm workspace와 궁합이 좋음
+
+pnpm workspace를 선택한 이유는 **phantom dependency 문제**를 방지하기 위해서다. npm/yarn은 `node_modules` hoisting으로 직접 설치하지 않은 패키지를 `import`할 수 있다. pnpm은 symlink 구조로 이를 차단한다. 10개 앱이 공용 패키지를 쓰는 환경에서 의존성을 명시적으로 관리하는 게 중요했다.
+
+## 패키지 구조
+
+```
+packages/
+├── components/    # 공용 UI 컴포넌트 206개+
+├── stores/        # 공용 Zustand 스토어
+├── hooks/         # 공용 훅
+├── types/         # 공용 TypeScript 타입
+├── utils/         # 공용 유틸리티
+├── schemas/       # Zod 스키마
+├── assets/        # 정적 리소스 + 설정 상수
+└── styles/        # 공용 스타일
+```
+
+각 패키지는 `tsup`으로 빌드하고, `package.json`의 `exports` 필드로 진입점을 명시한다. 앱에서는 `@repo/components/Button`처럼 직접 경로로 임포트한다.
+
+## Turborepo 파이프라인 — 빌드 순서 보장
+
+모노레포에서 가장 중요한 것은 **빌드 순서**다. `apps/kokkokAdmin`이 `packages/components`를 사용한다면, 패키지가 먼저 빌드돼 있어야 앱 빌드가 성공한다.
+
+Turborepo는 `turbo.json`에 태스크 의존성을 선언하면 자동으로 순서를 결정한다.
+
+```json
+{
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".built-packages/**", "dist/**"]
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "persistent": true
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    }
+  }
+}
+```
+
+`^build`는 "내가 의존하는 패키지들의 build가 먼저 완료돼야 한다"는 의미다. 패키지 간 의존성 그래프를 Turborepo가 분석해서 최적 순서로 병렬 실행한다.
+
+**빌드 캐싱**도 핵심이다. Turborepo는 입력 파일의 해시를 계산해서 변경이 없으면 이전 결과를 재사용한다. CI에서 변경되지 않은 패키지는 캐시 히트로 건너뛰기 때문에 전체 빌드 시간이 크게 줄었다.
+
+## 공용 컴포넌트 테스트 — 165개 테스트 운영
+
+공용 컴포넌트가 206개+ 있다는 것은, 하나가 바뀌면 10개 앱 전체에 영향을 준다는 의미다. 테스트 없이는 변경이 두렵다.
+
+Vitest + Testing Library로 컴포넌트마다 테스트를 작성했다. 모노레포에서 테스트를 실행하면 패키지별로 격리된 환경에서 돌아간다.
+
+```ts
+// packages/components/navbar/__tests__/Navbar.test.tsx
+vi.mock("@repo/stores/queryFilterState", () => ({
+  useQueryFilterStore: (selector: (store: typeof mockUseQueryFilterStore) => unknown) =>
+    selector(mockUseQueryFilterStore),
+}));
+```
+
+Zustand 스토어를 사용하는 컴포넌트는 스토어 mock을 selector 함수 인터페이스 그대로 구현한다. 실제 스토어를 가져다 쓰지 않으면서도 컴포넌트의 동작을 정확하게 검증한다.
+
+PR에서 공용 패키지가 변경되면 GitHub Actions가 해당 패키지의 테스트를 실행한다. 테스트가 실패하면 merge가 차단된다.
+
+## 실제 운영에서 생긴 이점
+
+**변경의 영향 범위가 명확해졌다.** 예전에는 "이 컴포넌트를 바꿔도 되나?"를 확신할 수 없었다. 지금은 테스트가 통과하면 바꿔도 된다는 신호가 된다.
+
+**신기술 도입이 쉬워졌다.** TypeScript, TanStack Query, Vite, MSW를 한 곳에서 전환하면 10개 앱이 모두 혜택을 받는다. 전환 이전에는 앱마다 각자 마이그레이션해야 했다.
+
+**개발 서버 기동 속도.** `pnpm --filter @repo/components dev`로 패키지 하나만 개발 모드로 실행할 수 있다. 10개 앱 전체를 띄울 필요가 없다.
+
+처음 모노레포 전환을 제안했을 때 팀에서 "복잡해지는 것 아니냐"는 우려가 있었다. 지금은 팀원 모두가 "예전에 어떻게 개발했지?"라고 이야기한다.
