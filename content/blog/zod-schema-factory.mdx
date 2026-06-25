@@ -1,0 +1,120 @@
+10개 앱을 운영하다 보면 폼이 정말 많다. 로그인 폼, 필터 폼, 상품 등록 폼, 설정 폼... 각자 유효성 검사를 Zod로 작성하는데, 처음에는 각 앱에서 비슷한 패턴을 반복해서 썼다.
+
+```ts
+// 여기저기서 이런 코드가 반복됐다
+name: z.string().trim().min(1, "필수 입력 항목입니다"),
+email: z.string().trim().min(1, "필수 입력 항목입니다").refine(
+  (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+  { message: "올바른 이메일 형식이 아닙니다" }
+),
+```
+
+문제는 에러 메시지가 앱마다 미묘하게 달랐다는 것이다. "필수 입력입니다" "필수값입니다" "입력이 필요합니다" 같은 것들이 섞여 있었다. 유지보수도 어려웠다. 이메일 유효성 검사 로직을 바꾸려면 10개 앱에서 각각 찾아서 바꿔야 했다.
+
+## SCHEMA 객체
+
+공용 패키지에 `SCHEMA` 객체를 만들어서 자주 쓰는 Zod 타입을 한 곳에서 관리하기 시작했다.
+
+```ts
+export const SCHEMA = {
+  STRING: {
+    DEFAULT: z.string().trim(),
+    OPTIONAL: z.string().trim().optional(),
+    REQUIRED: z.string().trim().min(1, COMMON_ERROR_MESSAGE.FIELD),
+    NULLABLE: z.string().nullable(),
+    LENGTH: ({ length, message }: StringLengthType) =>
+      z.string().trim().min(1, COMMON_ERROR_MESSAGE.FIELD).length(length, message),
+    MIN_MAX: ({ minLength, maxLength, minMessage, maxMessage }: StringMinMaxType) =>
+      z.string().trim()
+        .min(1, COMMON_ERROR_MESSAGE.FIELD)
+        .min(minLength, minMessage)
+        .max(maxLength, maxMessage),
+  },
+  ARRAY: {
+    OBJECT: {
+      NULLABLE: <T extends ZodRawShape>(schema: T) =>
+        z.array(z.object(schema)).nullable(),
+    },
+    UNION: {
+      STRING_FILE_NULLABLE: z.array(z.union([z.string(), z.instanceof(File)])).nullable(),
+    },
+  },
+  ENUM: {
+    DEFAULT: <T extends string>(keys: T[]) => z.enum(keys),
+    NULLABLE: <T extends string>(keys: T[]) => z.enum(keys).nullable(),
+  },
+  OBJECT: {
+    DEFAULT: <T extends ZodRawShape>(schema: T) => z.object(schema),
+  },
+};
+```
+
+`SCHEMA.STRING.REQUIRED`는 `z.string().trim().min(1, COMMON_ERROR_MESSAGE.FIELD)`의 단축이다. 에러 메시지는 `COMMON_ERROR_MESSAGE`에서 관리하기 때문에 전체를 한 번에 바꿀 수 있다.
+
+`LENGTH`, `MIN_MAX`처럼 파라미터가 필요한 것들은 함수로 만들었다. 호출하는 쪽에서 조건만 넘기면 된다.
+
+## REFINE 객체
+
+커스텀 유효성 검사는 `REFINE`으로 분리했다.
+
+```ts
+export const REFINE = {
+  EMAIL: {
+    test: (value: string): boolean => checkEmailValidation(value),
+    error: { error: COMMON_ERROR_MESSAGE.EMAIL_VALID },
+  },
+  VERSION: {
+    test: (value: string): boolean => checkVersion(value),
+    error: { error: COMMON_ERROR_MESSAGE.VERSION_INCORRECT },
+  },
+  PASSWORD: {
+    TYPE: {
+      test: (value: string) => checkPasswordType(value),
+      error: { error: COMMON_ERROR_MESSAGE.PASSWORD_TYPE },
+    },
+    CONFIRM: {
+      test: ({ confirmPassword, newPassword }) => newPassword === confirmPassword,
+      error: { error: COMMON_ERROR_MESSAGE.PASSWORD_CONFIRM, path: ["confirmPassword"] },
+    },
+  },
+  NOTICE_CONTENTS: {
+    test: (value: string): boolean => {
+      const text = value.replace(/(<([^>]+)>|&nbsp;)/gi, "").trim();
+      const hasImage = /<img\s+[^>]*src=/i.test(value);
+      return !!text.length || hasImage;
+    },
+    error: { error: COMMON_ERROR_MESSAGE.FIELD },
+  },
+};
+```
+
+`test`와 `error`를 함께 담아둔 구조다. Zod의 `.refine()`에 스프레드해서 쓴다.
+
+```ts
+email: SCHEMA.STRING.REQUIRED.refine(REFINE.EMAIL.test, REFINE.EMAIL.error),
+```
+
+`REFINE.PASSWORD.CONFIRM`처럼 필드 간 비교가 필요한 경우는 `path`를 지정해서 에러가 `confirmPassword` 필드에 표시되도록 한다.
+
+## 실제 사용 예시
+
+버전 관리 폼 스키마를 예로 들면:
+
+```ts
+export const versionSchema = SCHEMA.OBJECT.DEFAULT({
+  os: SCHEMA.ENUM.NULLABLE(getLiteralArrayFromKeyPair(VERSION_OS))
+    .refine(REFINE.REQUIRED_STRING.test, REFINE.REQUIRED_STRING.error()),
+  old: SCHEMA.STRING.REQUIRED
+    .refine(REFINE.VERSION.test, REFINE.VERSION.error),
+  new: SCHEMA.STRING.REQUIRED
+    .refine(REFINE.VERSION.test, REFINE.VERSION.error),
+});
+```
+
+Zod를 직접 쓰는 것보다 의도가 더 명확하게 드러난다. `SCHEMA.STRING.REQUIRED`를 보면 "필수 문자열"이라는 게 한 눈에 보이고, `REFINE.VERSION`을 보면 "버전 형식 검사"라는 게 바로 읽힌다.
+
+---
+
+처음에 이 패턴을 도입할 때 "그냥 Zod 직접 쓰면 되지 않나?"라는 의견도 있었다. 틀린 말은 아니다. 앱이 1~2개면 굳이 이렇게까지 할 필요가 없다.
+
+10개 앱이 같은 폼 유효성 검사를 공유할 때, 에러 메시지 하나 바꾸는 게 한 줄 수정으로 끝나는지, 아니면 10개 파일을 열어서 각각 바꿔야 하는지의 차이다.

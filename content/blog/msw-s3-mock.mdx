@@ -1,0 +1,89 @@
+파일 업로드가 있는 화면을 개발할 때 문제가 생겼다. 로컬에서 개발하려면 S3 버킷이 있어야 했다. 개발용 버킷을 따로 쓰고 있긴 했는데, 매번 실제 S3에 파일을 올리면서 개발하는 게 불편했다. 업로드 후 이미지를 확인하려면 실제 S3 URL이 필요했고, 네트워크 연결이 없는 환경에서는 아예 개발이 안 됐다.
+
+MSW를 쓰고 있었는데, API 응답만 모킹하고 있었다. 생각해보니 S3 업로드 자체도 HTTP 요청이었다. MSW로 S3를 통째로 흉내 낼 수 있겠다고 판단했다.
+
+## 프리사인드 URL 플로우
+
+S3에 파일을 업로드하는 일반적인 플로우는 이렇다.
+
+1. 백엔드에 프리사인드 URL 발급 요청 (`POST /presigned/:key`)
+2. 백엔드가 S3 프리사인드 URL 반환
+3. 해당 URL로 직접 파일 업로드 (`POST https://s3.amazonaws.com/...`)
+4. 업로드된 파일은 S3 URL로 조회 (`GET https://s3.amazonaws.com/...`)
+
+모킹해야 할 게 세 단계다. 프리사인드 URL 발급, 업로드, 그리고 조회.
+
+## in-memory Map으로 가짜 S3 구현
+
+```ts
+const localS3Memory = new Map<string, File>();
+
+export const mockingCommon = [
+  // 1. 프리사인드 URL 발급
+  http.post("/presigned/:key*", ({ params }) => {
+    const key = Array.isArray(params.key) ? params.key.join("/") : params.key;
+
+    return HttpResponse.json({
+      url: `http://mocking.local/${key}`,
+      fields: { key },
+    });
+  }),
+
+  // 2. 파일 업로드
+  http.post("http://mocking.local/:key*", async ({ request }) => {
+    const formData = await request.formData();
+    const file = formData.get("file") as File | null;
+    const key = formData.get("key") as string;
+
+    if (!key || !file) {
+      return new HttpResponse("Invalid FormData", { status: 400 });
+    }
+
+    localS3Memory.set(key, file);
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  // 3. 파일 조회
+  http.get("http://mocking.local/:key*", ({ params }) => {
+    const key = Array.isArray(params.key) ? params.key.join("/") : params.key;
+    const file = localS3Memory.get(key!);
+
+    if (!file) {
+      return new HttpResponse("Not Found", { status: 404 });
+    }
+
+    return new HttpResponse(file, {
+      status: 200,
+      headers: { "Content-Type": file.type },
+    });
+  }),
+];
+```
+
+`localS3Memory`는 모듈 레벨의 `Map`이다. 키는 파일 경로, 값은 `File` 객체다. 브라우저 메모리에 파일을 저장하고 꺼내는 가짜 스토리지다.
+
+프리사인드 URL 발급 핸들러는 실제 S3 URL 대신 `http://mocking.local/${key}`를 반환한다. 앱 코드는 이 URL로 업로드 요청을 보내는데, MSW가 `http://mocking.local` 패턴을 가로채서 Map에 저장한다.
+
+이미지 태그나 다운로드에서 `http://mocking.local` URL로 GET 요청이 오면, Map에서 꺼내서 실제 파일처럼 응답한다. `Content-Type`을 원본 파일의 타입으로 설정하기 때문에 이미지라면 `<img>` 태그에서 정상적으로 렌더링된다.
+
+## 앱 코드는 전혀 바뀌지 않는다
+
+핵심은 앱 코드가 개발 환경인지 실제 환경인지 구별하지 않는다는 것이다. 항상 프리사인드 URL을 발급받고, 그 URL로 업로드하고, 그 URL로 조회한다. 모킹 환경에서는 그 URL이 `http://mocking.local`이 되는 것뿐이다.
+
+MSW를 development 모드에서만 활성화하면 된다.
+
+```ts
+// main.tsx
+if (process.env.NODE_ENV === "development" && process.env.VITE_USE_MSW === "true") {
+  const { worker } = await import("./mocks/browser");
+  await worker.start({ onUnhandledRequest: "bypass" });
+}
+```
+
+`mockingCommon`은 파일 업로드가 있는 앱이라면 어디서든 쓸 수 있도록 공용으로 뒀다. 각 앱의 `browser.ts`에서 가져다 펼쳐 넣기만 하면 된다.
+
+## 실제로 무엇이 좋아졌나
+
+개발 중에 파일을 올리면 즉시 화면에서 미리보기가 됐다. 네트워크 없이도 됐고, 실제 S3에 파일이 쌓이지도 않았다. 이미지 업로드 → 미리보기 → 폼 제출로 이어지는 전체 플로우를 로컬에서 완전히 재현할 수 있었다.
+
+MSW를 처음 쓸 때는 API 응답 모킹 도구라고만 생각했는데, 결국 HTTP 요청을 가로채는 도구다. S3처럼 외부 서비스의 HTTP 인터페이스도 동일하게 모킹할 수 있다. 이 시각이 생기면서 MSW 활용 범위가 넓어졌다.

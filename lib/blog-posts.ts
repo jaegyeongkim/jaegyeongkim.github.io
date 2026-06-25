@@ -51,4 +51,38 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "2026-06-25",
     tags: ["GitHub Actions", "CI/CD", "AWS", "Docker"],
   },
+  {
+    slug: "duplicate-api-call",
+    title: "따닥 클릭으로 API가 두 번 호출되는 문제를 API 레이어에서 막기",
+    description:
+      "버튼 disabled 처리만으로는 충분하지 않았다. Set 기반 락으로 진행 중인 요청을 추적하고, useSafeMutation으로 TanStack Query에 통합해 중복 호출과 예상치 못한 에러를 한 번에 처리한 방법을 공유합니다.",
+    date: "2026-06-25",
+    tags: ["TanStack Query", "TypeScript", "API", "패턴"],
+  },
+  {
+    slug: "navigation-blocking",
+    title:
+      "폼 작성 중 실수로 나가면? — React Router useBlocker로 이탈 방지 구현",
+    description:
+      "SPA 내부 라우팅과 브라우저 이탈을 모두 처리하는 useNavigationBlocking 훅 구현기. useBlocker로 라우팅을 가로채고 beforeunload로 탭 닫기까지 막은 다음, useFormWithNavigationBlocking으로 한 줄 적용까지.",
+    date: "2026-06-25",
+    tags: ["React Router", "React Hook Form", "UX", "패턴"],
+  },
+  {
+    slug: "zod-schema-factory",
+    title:
+      "10개 앱의 폼 유효성 검사를 한 곳에서 관리하기 — SCHEMA + REFINE 패턴",
+    description:
+      "앱마다 조금씩 달랐던 에러 메시지와 중복된 Zod 스키마를 공용 팩토리 패턴으로 통일한 과정. SCHEMA 객체와 REFINE 객체로 선언적 유효성 검사를 구성하고 10개 앱에 일괄 적용했습니다.",
+    date: "2026-06-25",
+    tags: ["Zod", "React Hook Form", "TypeScript", "DX"],
+  },
+  {
+    slug: "msw-s3-mock",
+    title: "MSW로 S3 프리사인드 URL 업로드 플로우 완전히 모킹하기",
+    description:
+      "파일 업로드 기능을 개발할 때 실제 S3 없이 MSW만으로 프리사인드 URL 발급 → 파일 업로드 → 조회까지 전체 플로우를 재현한 방법. in-memory Map으로 가짜 S3 스토리지를 구현해 E2E에 가까운 개발 환경을 만든 과정을 공유합니다.",
+    date: "2026-06-25",
+    tags: ["MSW", "테스트", "DX", "S3"],
+  },
 ];

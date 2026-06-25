@@ -1,0 +1,107 @@
+어드민 앱에서 버튼을 빠르게 두 번 누르면 같은 API가 두 번 호출되는 문제가 있었다. "따닥" 클릭이라고 부르는 패턴이다.
+
+UI를 disabled 처리하는 방법도 있다. 실제로 그렇게 하고 있기도 했는데, 뮤테이션이 진행 중일 때 버튼을 비활성화해도 완벽하지 않았다. 비동기 타이밍 때문에 짧은 순간에 두 번 호출되는 케이스가 있었고, disabled 처리를 빠뜨린 버튼도 있었다.
+
+근본적인 해결이 필요했다. API 레이어에서 중복 호출 자체를 막는 것이었다.
+
+## Set으로 진행 중인 호출 추적
+
+구현은 생각보다 단순하다.
+
+```ts
+export const activeMutations = new Set<string>();
+
+export const detectApiDuplicateCall = async <TVariables, TData>({
+  keyString,
+  variables,
+  mutationFn,
+}: DetectApiDuplicateCallProps<TVariables, TData>): Promise<TData | undefined> => {
+  if (activeMutations.has(keyString)) {
+    console.warn("Duplicate request ignored");
+    return Promise.resolve(undefined);
+  }
+  activeMutations.add(keyString);
+
+  try {
+    return await mutationFn(variables);
+  } finally {
+    activeMutations.delete(keyString);
+  }
+};
+```
+
+`activeMutations` Set에 현재 진행 중인 요청의 키를 담아둔다. 같은 키로 호출이 들어오면 `undefined`를 반환하고 무시한다. 첫 번째 호출이 끝나면 — 성공이든 실패든 — `finally`에서 키를 제거한다.
+
+`finally`가 중요하다. 에러가 발생했을 때 락이 해제되지 않으면, 그 이후 같은 키로 호출이 전부 막힌다. 에러가 나도 반드시 `finally`에서 제거해야 재호출이 가능하다.
+
+키는 `mutationKey`를 `JSON.stringify`한 값이다. TanStack Query의 `mutationKey`를 그대로 재활용한다.
+
+## useSafeMutation으로 통합
+
+이 함수를 직접 쓰지 않고, `useMutation`을 래핑한 `useSafeMutation` 훅에서 자동으로 처리되도록 했다.
+
+```ts
+export function useSafeMutation<TData, TError, TVariables, TContext>({
+  mutationKey,
+  mutationFn,
+  options,
+  needShowUnexpectedApiErrorAlert,
+  errorHandlingMode,
+}) {
+  const keyString = JSON.stringify(mutationKey);
+
+  const mutation = useMutation({
+    mutationKey,
+    mutationFn: (variables) =>
+      detectApiDuplicateCall({ keyString, variables, mutationFn }),
+    ...options,
+    onSuccess: (data, variables, context) => {
+      if (data === undefined) return; // 중복 호출은 콜백도 실행 안 함
+      options?.onSuccess?.(data, variables, context);
+    },
+    onSettled: (data, error, variables, context) => {
+      if (data === undefined) return;
+      options?.onSettled?.(data, error, variables, context);
+    },
+  });
+  // ...
+}
+```
+
+`data === undefined` 체크가 있다. 중복 호출로 인해 `undefined`가 반환된 경우 `onSuccess`, `onSettled` 콜백도 실행하지 않는다. 중복 횟수만큼 콜백이 실행되는 부작용을 방지한다.
+
+## 예상치 못한 에러 처리까지
+
+`useSafeMutation`에는 에러 처리 모드가 두 가지다.
+
+`localApiError` 모드는 `onError`에서 직접 에러를 처리한다. `useUnexpectedApiErrorHandler` 모드는 `onError`에서 처리하지 못한 에러를 자동으로 alert으로 보여준다.
+
+```ts
+export const fallbackApiErrorHandler = ({ mutation, mutationOptions, needShowUnexpectedApiErrorAlert, variables }) => {
+  mutation.mutate(variables, {
+    ...mutationOptions,
+    onError: (apiError, variables, context) => {
+      if (mutationOptions?.onError) {
+        const handlingResult = mutationOptions.onError(apiError, variables, context);
+        if (handlingResult === "handled") return; // 처리됨, fallback 불필요
+      }
+
+      needShowUnexpectedApiErrorAlert &&
+        showUnexpectedApiError({
+          method: apiError.config?.method,
+          message: apiError.response?.data?.message,
+          statusCode: apiError.response?.data?.statusCode,
+          url: apiError.config?.url,
+        });
+    },
+  });
+};
+```
+
+`onError`에서 `"handled"`를 반환하면 alert을 띄우지 않는다. `"unhandled"`를 반환하거나 반환값이 없으면 `needShowUnexpectedApiErrorAlert` 설정에 따라 알림이 뜬다.
+
+---
+
+버튼 disabled 처리는 여전히 한다. 하지만 이제 그건 UX를 위한 것이지, 중복 호출을 막기 위한 최후의 방어선이 아니다. 실제 방어는 API 레이어에서 한다.
+
+테스트가 한 가지 더 확인해준다 — 에러 발생 후에도 락이 해제되는 것. 이런 케이스는 UI 레벨 disabled로는 검증할 수가 없다.
