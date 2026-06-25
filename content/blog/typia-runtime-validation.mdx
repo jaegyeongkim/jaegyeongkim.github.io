@@ -1,33 +1,32 @@
-## 발단: 백엔드가 타입을 바꿨는데 프론트가 몰랐다
+TypeScript를 쓰면 타입 안전성이 보장된다고 생각했다. 그 생각이 틀렸다는 걸 런타임 crash로 배웠다.
 
-10개 어드민 앱을 운영하다 보면 백엔드 API 응답 타입이 예고 없이 바뀌는 일이 생긴다. 타입스크립트는 컴파일 타임에만 동작하기 때문에, 런타임에 실제로 오는 데이터가 타입과 다를 때 아무것도 잡아주지 않는다.
+백엔드 API 응답은 컴파일 타임에 검증되지 않는다. `interface DeliveryItem`을 아무리 정확하게 선언해도, 실제로 서버가 다른 값을 보내면 TypeScript는 모른다. 처음엔 이걸 "백엔드 문제"로 보고 넘겼는데, 10개 앱을 운영하다 보니 언제든 터질 수 있는 구조라는 게 더 정확했다.
 
 ```ts
-// 이 타입이 정의돼 있어도
+// 타입은 맞는데
 interface DeliveryItem {
   id: number;
   status: "pending" | "delivered";
 }
 
-// 실제 API가 { id: "123", status: null } 을 보내면 TypeScript는 모른다
+// 실제로 오는 데이터는 { id: "123", status: null }
 const data: DeliveryItem = await fetchDelivery(id);
 data.status.toUpperCase(); // 런타임 crash
 ```
 
-어드민 앱 특성상 일부 필드가 깨져도 **화면 전체가 터지는 것**은 최악의 결과다. 백엔드 배포 시점과 프론트 배포 시점이 다른 경우 이 문제는 더 자주 발생한다.
+문제를 해결하기 전에 목표를 먼저 정했다. 두 가지였다.
 
-## 해결책의 설계 방향
+하나는 **서비스 중단 없이 대응**하는 것. 불일치 필드가 있어도 앱이 터지면 안 된다. 어드민 앱 특성상 일부 필드가 깨졌을 때 화면 전체가 멈추는 건 최악이다.
 
-두 가지를 동시에 달성해야 했다.
+다른 하나는 **즉시 특정 가능**할 것. 어떤 API의 어떤 필드가 잘못됐는지 개발 환경에서 바로 알 수 있어야 한다. 실제로 불일치가 생겼을 때 원인을 찾는 데 시간이 너무 많이 들었었다.
 
-1. **서비스 중단 없이 대응** — 불일치 필드가 있어도 앱이 터지면 안 된다
-2. **즉시 특정 가능** — 어떤 API의 어떤 필드가 잘못됐는지 개발 환경에서 바로 알 수 있어야 한다
+## RecursiveUndefined
 
-Zod로 해결하는 방법도 있었지만, 10개 앱 전체에 적용하려면 **빌드 타임 타입 추론을 그대로 쓰면서 런타임 검증만 추가**하는 방식이 필요했다. 스키마를 따로 작성하고 싶지 않았다. 그래서 선택한 것이 [Typia](https://typia.io/)다.
+Zod로도 해결할 수 있었다. 하지만 10개 앱 전체에 적용하려면 타입 선언 외에 스키마를 따로 관리해야 한다는 게 걸렸다. TypeScript 타입과 Zod 스키마가 두 벌이 생기면, 하나가 바뀔 때 다른 하나를 놓치는 일이 반드시 생긴다.
 
-## RecursiveUndefined — Pessimistic 타입 설계
+그래서 **기존 TypeScript 타입을 그대로 분석해서 런타임 검증 코드를 자동 생성**하는 Typia를 선택했다.
 
-먼저 `RecursiveUndefined<T>` 타입을 정의했다. 이것이 핵심 설계다.
+런타임에 불일치가 발생하면 그 필드를 `undefined`로 교체하는 방식을 쓰기로 했다. 이때 타입 시스템을 어떻게 설계할지가 중요했다. 검증 실패 시 반환 타입이 원본 `T`와 달라야, 컴포넌트에서 `undefined` 처리를 강제할 수 있기 때문이다.
 
 ```ts
 export type RecursiveUndefined<T> =
@@ -38,27 +37,16 @@ export type RecursiveUndefined<T> =
       : T | undefined;
 ```
 
-이 타입은 **모든 필드가 `undefined`일 수 있다**고 가정한다. API 응답이 명세와 다를 때, 불일치 필드를 `undefined`로 설정하면 TypeScript가 컴포넌트에서 해당 필드를 사용할 때 옵셔널 체이닝을 강제한다.
+모든 필드가 `undefined`일 수 있다고 가정하는 타입이다. API 응답을 낙관적으로 신뢰하지 않는다는 의미에서 내부적으로 "Pessimistic 타입"이라고 부른다. 이 타입을 쓰면 컴포넌트에서 옵셔널 체이닝을 쓰지 않으면 TypeScript가 컴파일을 막는다.
 
 ```ts
 // RecursiveUndefined<DeliveryItem>을 받는 컴포넌트
-const status = item?.status ?? "unknown"; // undefined 처리 강제
+const status = item?.status ?? "unknown"; // 이렇게 쓰지 않으면 컴파일 에러
 ```
 
-이름을 "Pessimistic 타입"이라고 부르는 이유는, API 응답의 모든 필드를 **낙관적으로 신뢰하지 않고 비관적으로 의심**하는 구조이기 때문이다.
-
-## createTypiaValidator 구현
+## 검증 레이어
 
 ```ts
-import type { IValidation } from "typia";
-
-interface CreateTypiaValidatorProps<T> {
-  is: () => (data: unknown) => boolean;
-  sanitize: (params: TypiaSanitizeParams<T>) => RecursiveUndefined<T>;
-  useTypia: boolean;
-  validate: () => { (data: unknown): IValidation<T> };
-}
-
 export const createTypiaValidator = <T>({
   is,
   validate,
@@ -73,7 +61,7 @@ export const createTypiaValidator = <T>({
   return (data: T, path: string): T | RecursiveUndefined<T> => {
     if (isMatched(data)) {
       clearTypiaLog(path);
-      return data; // 정상 케이스: 빠른 경로
+      return data;
     }
 
     const response = validateFn(data);
@@ -88,17 +76,12 @@ export const createTypiaValidator = <T>({
 };
 ```
 
-`is()`는 Typia가 생성하는 타입 가드 함수다. 타입이 맞으면 즉시 반환하고, 맞지 않으면 `validate()`로 상세 에러를 수집한 뒤 `sanitize()`로 불일치 필드를 `undefined`로 교체한다.
+`is()`는 Typia가 TypeScript 타입에서 자동 생성하는 타입 가드다. 정상이면 그냥 반환하고, 아니면 `validate()`로 어떤 필드가 문제인지 수집한 뒤 `sanitize()`로 해당 필드를 `undefined`로 교체한다.
 
-## sanitize — 불일치 필드를 undefined로
+`sanitize`는 이렇게 동작한다.
 
 ```ts
-export const sanitizeTypiaErrors = <T>({
-  data,
-  errors,
-  path,
-  needTypeMismatchAlert,
-}: SanitizeTypiaErrorsProps<T>): RecursiveUndefined<T> => {
+export const sanitizeTypiaErrors = <T>({ data, errors, ... }) => {
   const cloned = cloneDeep<T>(data) as object;
 
   for (const error of errors) {
@@ -110,53 +93,20 @@ export const sanitizeTypiaErrors = <T>({
 };
 ```
 
-`setDeepValue`는 `"items[0].status"` 같은 중첩 경로를 파싱해서 해당 필드만 `undefined`로 바꾼다. 원본 데이터를 `cloneDeep`으로 복사하기 때문에 다른 필드는 그대로 유지된다.
+`setDeepValue`는 `"items[0].status"` 같은 경로를 파싱해서 해당 필드만 `undefined`로 바꾼다. 나머지 필드는 그대로다. 서비스가 부분적으로만 망가지고 계속 동작하는 게 목표다.
 
-## 앱별 팩토리 패턴
+## 앱별 설정과 디버깅
 
-앱마다 `sanitize` 옵션이 다를 수 있어서(일부 앱은 불일치 시 alert 필요) 팩토리로 분리했다.
+앱마다 설정이 조금씩 달라서(일부는 불일치 시 alert 필요, 일부는 조용히 처리) 팩토리 패턴으로 분리했다.
 
 ```ts
 // apps/carAdmin/src/utils/api.ts
-import { createTypiaValidatorFactory, sanitizeTypiaErrors } from "@repo/utils/api";
-import { SERVICE_INFO } from "@repo/assets/static/serviceInfo";
-
-const sanitizeTypiaErrors = <T>(params) =>
-  baseSanitizeTypiaErrors<T>({
-    ...params,
-    needTypeMismatchAlert: SERVICE_INFO.CAR_ADMIN.needTypeMismatchAlert,
-  });
-
 export const createTypiaValidator = createTypiaValidatorFactory({
   sanitize: sanitizeTypiaErrors,
   useTypia: import.meta.env.VITE_USE_TYPIA,
 });
 ```
 
-각 앱은 이 팩토리로 만든 `createTypiaValidator`를 API 레이어에서 사용한다. Typia는 `build` 또는 `typia` 키워드가 포함된 명령어에서만 활성화된다.
+개발 환경에서 에러는 Zustand 스토어에 쌓인다. 어느 API 엔드포인트에서 어떤 필드가 불일치했는지 개발 중에 바로 볼 수 있다. 이전에는 런타임 에러가 터진 다음에야 추적을 시작했는데, 지금은 앱이 살아있는 상태에서 불일치를 먼저 발견한다.
 
-## 개발 환경 디버깅 — apiDebug 스토어
-
-검증 에러는 Zustand 스토어에 축적된다.
-
-```ts
-export const apiDebug = create<ApiDebugProps>((set, get) => ({
-  logs: {},
-  onSetLog: ({ path, errors }) => {
-    set((state) => ({ logs: { ...state.logs, [path]: errors } }));
-  },
-  onGetHasError: () => !!Object.keys(get().logs).length,
-  // ...
-}));
-```
-
-개발 환경에서는 어드민 UI 어딘가에 이 스토어를 연결해두면, API가 불일치할 때 어느 엔드포인트의 어느 필드가 문제인지 즉시 확인할 수 있다.
-
-## 결과
-
-- API 명세 불일치가 발생해도 앱이 터지지 않는다 — 해당 필드만 `undefined`로 처리
-- 개발 환경에서 `apiDebug` 스토어로 불일치 필드를 즉시 특정
-- 타입 선언을 따로 작성하지 않고 기존 TypeScript 타입을 Typia가 그대로 분석
-- 빌드 설정(`VITE_USE_TYPIA`)으로 환경별 활성화 제어
-
-타입스크립트만으로는 런타임을 막을 수 없다. 하지만 Typia + Pessimistic 타입으로 런타임 불일치를 **격리**하는 것은 가능하다.
+TypeScript로도 완벽한 런타임 안전성을 보장할 수는 없다. 하지만 불일치를 격리하고 어디가 문제인지 드러내는 것은 할 수 있다.
