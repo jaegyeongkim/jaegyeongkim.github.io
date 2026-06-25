@@ -1,0 +1,1 @@
+"$(dirname "$0")/scripts/check_commit_prefix.sh" "$1"
