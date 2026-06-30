@@ -2,21 +2,26 @@
 
 import Link from "next/link";
 
+import { blogLinkCopy } from "@/content/copy/blogLink";
 import { trackBlogLinkClick } from "@/lib/gtag";
+import type { Locale } from "@/lib/locale";
 
 interface BlogLinkProps {
+  locale?: Locale;
   slug: string;
   source: "portfolio" | "resume";
 }
 
-const BlogLink = ({ slug, source }: BlogLinkProps) => {
+const BlogLink = ({ locale = "ko", slug, source }: BlogLinkProps) => {
+  const t = blogLinkCopy[locale];
+
   return (
     <Link
       className="text-xs font-mono text-[var(--accent)] hover:underline underline-offset-2 shrink-0"
       href={`/blog/${slug}`}
       onClick={() => trackBlogLinkClick(slug, source)}
     >
-      글 읽기 →
+      {t.readMore}
     </Link>
   );
 };

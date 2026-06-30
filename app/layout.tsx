@@ -82,10 +82,17 @@ export const metadata: Metadata = {
 const JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Person",
+  alternateName: "김재경",
   email: "tkwk1205@naver.com",
   jobTitle: "Frontend Engineer",
-  knowsAbout: ["React", "TypeScript", "Next.js", "Turborepo", "Frontend Platform"],
-  name: "김재경",
+  knowsAbout: [
+    "React",
+    "TypeScript",
+    "Next.js",
+    "Turborepo",
+    "Frontend Platform",
+  ],
+  name: "Jaegyeong Kim",
   sameAs: ["https://github.com/jaegyeongkim"],
   url: SITE_URL,
   worksFor: {
@@ -94,9 +101,7 @@ const JSON_LD = {
   },
 };
 
-const RootLayout = ({
-  children,
-}: Readonly<{ children: React.ReactNode }>) => {
+const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
@@ -110,8 +115,8 @@ const RootLayout = ({
           }}
         />
         <script
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
           type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
       </head>
       <body className="min-h-full">
@@ -120,7 +125,10 @@ const RootLayout = ({
       </body>
       {process.env.NODE_ENV === "production" && (
         <>
-          <Script src="https://www.googletagmanager.com/gtag/js?id=G-R5G6DM9KM5" strategy="afterInteractive" />
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-R5G6DM9KM5"
+            strategy="afterInteractive"
+          />
           <Script id="ga-init" strategy="afterInteractive">
             {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-R5G6DM9KM5');`}
           </Script>

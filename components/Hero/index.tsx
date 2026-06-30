@@ -2,44 +2,42 @@ import Image from "next/image";
 import Link from "next/link";
 
 import PrintButton from "@/components/PrintButton";
+import { heroCopy } from "@/content/copy/hero";
+import type { Locale } from "@/lib/locale";
 
-interface StatCard {
-  href: string;
-  label: string;
-  suffix: string;
-  value: string;
+interface HeroProps {
+  locale?: Locale;
 }
 
-const STATS: StatCard[] = [
-  { href: "/portfolio#projects", label: "Admin Services", suffix: "+", value: "10" },
-  { href: "/portfolio#achievements", label: "Shared Components", suffix: "+", value: "206" },
-  { href: "/portfolio#achievements", label: "Tests", suffix: "+", value: "165" },
-  { href: "/portfolio#achievements", label: "Bundle Reduction", suffix: "%", value: "92" },
-];
+const Hero = ({ locale = "ko" }: HeroProps) => {
+  const t = heroCopy[locale];
+  const portfolioPath = locale === "en" ? "/en/portfolio" : "/portfolio";
 
-const Hero = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 py-10" id="hero">
+    <section
+      className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 py-10"
+      id="hero"
+    >
       <div className="max-w-6xl mx-auto w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="space-y-8">
             <div className="flex items-center gap-4">
               <Image
-                alt="김재경 프로필"
                 className="object-cover"
                 height={160}
-                src="/avatar.webp"
                 width={160}
+                alt={t.avatarAlt}
+                src="/avatar.webp"
               />
               <div className="h-px flex-1 bg-[var(--border)]" />
             </div>
 
             <div className="space-y-3">
               <p className="text-xs text-[var(--muted)] tracking-widest uppercase font-mono">
-                문제를 끝까지 파고들어 개선하는 개발자
+                {t.tagline}
               </p>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[var(--foreground)] leading-none">
-                김재경
+                {t.name}
               </h1>
               <div className="space-y-1">
                 <p className="text-xl md:text-2xl font-medium text-[var(--foreground)]">
@@ -54,8 +52,8 @@ const Hero = () => {
             <div className="flex flex-wrap gap-2">
               {["React", "TypeScript", "Next.js"].map((tech) => (
                 <span
-                  key={tech}
                   className="text-sm font-mono text-[var(--muted)] border border-[var(--border)] px-3 py-1 rounded-full"
+                  key={tech}
                 >
                   {tech}
                 </span>
@@ -63,7 +61,7 @@ const Hero = () => {
             </div>
 
             <div className="space-y-1 pt-2">
-              <p className="text-sm text-[var(--muted)]">2020.12 ~ 현재</p>
+              <p className="text-sm text-[var(--muted)]">{t.period}</p>
               <p className="text-base font-medium text-[var(--foreground)]">
                 Frontend Team Lead{" "}
                 <span className="text-[var(--muted)] font-normal">
@@ -73,16 +71,16 @@ const Hero = () => {
             </div>
 
             <div className="hidden md:block pt-2">
-              <PrintButton label="PDF로 저장" />
+              <PrintButton label={t.printLabel} />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {STATS.map(({ href, label, suffix, value }) => (
+            {t.stats.map(({ anchor, label, suffix, value }) => (
               <Link
-                key={label}
                 className="border border-[var(--border)] p-6 space-y-2 hover:border-[var(--foreground)] transition-colors duration-200 group block"
-                href={href}
+                href={`${portfolioPath}${anchor}`}
+                key={label}
               >
                 <div className="flex items-baseline gap-0.5">
                   <span className="text-4xl font-bold text-[var(--foreground)] tracking-tight">

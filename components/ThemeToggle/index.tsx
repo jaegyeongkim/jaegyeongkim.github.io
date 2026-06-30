@@ -2,7 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-const ThemeToggle = () => {
+import { themeToggleCopy } from "@/content/copy/themeToggle";
+import type { Locale } from "@/lib/locale";
+
+interface ThemeToggleProps {
+  locale?: Locale;
+}
+
+const ThemeToggle = ({ locale = "ko" }: ThemeToggleProps) => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -23,20 +30,20 @@ const ThemeToggle = () => {
 
   return (
     <button
-      aria-label="다크모드 전환"
       className="w-7 h-7 flex items-center justify-center rounded-full text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-150 cursor-pointer"
+      aria-label={themeToggleCopy[locale].ariaLabel}
       onClick={toggle}
     >
       {isDark ? (
         <svg
-          fill="none"
           height="14"
+          width="14"
+          fill="none"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
           viewBox="0 0 24 24"
-          width="14"
         >
           <circle cx="12" cy="12" r="5" />
           <line x1="12" x2="12" y1="1" y2="3" />
@@ -50,14 +57,14 @@ const ThemeToggle = () => {
         </svg>
       ) : (
         <svg
-          fill="none"
           height="14"
+          width="14"
+          fill="none"
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
           viewBox="0 0 24 24"
-          width="14"
         >
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>

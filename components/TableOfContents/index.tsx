@@ -95,8 +95,8 @@ const TableOfContents = ({ sections }: { sections: TocSection[] }) => {
               <div className="hidden md:flex flex-col gap-0.5 mt-0.5 ml-auto pr-[18px] border-r border-[var(--border)]">
                 {section.children.map((child) => (
                   <button
-                    key={child.id}
                     className="text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors text-right pr-2 cursor-pointer"
+                    key={child.id}
                     onClick={() => scrollTo(child.id)}
                   >
                     {child.label}

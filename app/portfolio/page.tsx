@@ -1,16 +1,6 @@
 import type { Metadata } from "next";
 
-import About from "@/components/About";
-import Achievements from "@/components/Achievements";
-import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
-import Projects from "@/components/Projects";
-import TableOfContents, {
-  PORTFOLIO_SECTIONS,
-} from "@/components/TableOfContents";
-import TeamLead from "@/components/TeamLead";
-import TechMigrations from "@/components/TechMigrations";
-import Timeline from "@/components/Timeline";
+import PortfolioView from "@/components/PortfolioView";
 
 export const metadata: Metadata = {
   title: { absolute: "김재경 포트폴리오 | Frontend Engineer · Platform & DX" },
@@ -52,25 +42,12 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://jaegyeongkim.github.io/portfolio",
+    languages: {
+      en: "https://jaegyeongkim.github.io/en/portfolio",
+    },
   },
 };
 
-const Home = () => {
-  return (
-    <>
-      <TableOfContents sections={PORTFOLIO_SECTIONS} />
-      <main>
-        <Hero />
-        <About />
-        <TeamLead />
-        <Achievements />
-        <TechMigrations />
-        <Timeline />
-        <Projects />
-        <Footer />
-      </main>
-    </>
-  );
-};
+const Home = () => <PortfolioView locale="ko" />;
 
 export default Home;
