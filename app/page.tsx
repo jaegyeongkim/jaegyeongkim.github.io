@@ -36,14 +36,14 @@ const TECH_CORE = [
   "Emotion",
 ];
 const TECH_PLATFORM = [
-  "Vite",
   "Turborepo",
-  "pnpm",
   "Typia",
   "MSW",
-  "Vitest",
   "i18next",
   "Google Maps API",
+  "pnpm",
+  "Vite",
+  "Vitest",
 ];
 const TECH_INFRA = [
   "GitHub Actions",
@@ -52,7 +52,7 @@ const TECH_INFRA = [
   "Docker",
   "Vercel",
 ];
-const TECH_SIDE = ["Supabase", "Redis", "Flutter", "Dart"];
+const TECH_SIDE = ["Supabase", "Flutter", "Dart", "R2"];
 const TECH_EXPERIENCE = [
   "Playwright",
   "Storybook",
