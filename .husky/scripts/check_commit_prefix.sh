@@ -7,7 +7,7 @@ if grep -qE '^Merge ' "$commit_msg_file"; then
   exit 0
 fi
 
-allowed_prefixes="^(:sparkles:|:art:|:recycle:|:zap:|:bug:)"
+allowed_prefixes="^(:sparkles:|:art:|:recycle:|:zap:|:bug:|:fire:)"
 
 if ! echo "$original_first_line" | grep -qE "$allowed_prefixes"; then
   echo "\033[31m❌ 커밋 메시지의 첫 줄은 반드시 다음 prefix 중 하나로 시작해야 합니다:\033[0m" >&2
