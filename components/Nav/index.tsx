@@ -30,6 +30,16 @@ const Nav = () => {
   return (
     <nav className="fixed top-6 right-6 z-50 flex items-center gap-1 bg-[var(--background)] border border-[var(--border)] rounded-full px-1.5 py-1.5 shadow-sm">
       <ThemeToggle locale={locale} />
+      {langTarget && (
+        <>
+          <Link
+            className="text-xs px-3 py-1.5 rounded-full font-mono text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-150"
+            href={langTarget}
+          >
+            {locale === "en" ? "KO" : "EN"}
+          </Link>
+        </>
+      )}
       <div className="w-px h-4 bg-[var(--border)] mx-0.5" />
       <Link
         className={`text-xs px-3 py-1.5 rounded-full transition-colors duration-150 ${
@@ -61,17 +71,6 @@ const Nav = () => {
       >
         {t.blog}
       </Link>
-      {langTarget && (
-        <>
-          <div className="w-px h-4 bg-[var(--border)] mx-0.5" />
-          <Link
-            className="text-xs px-3 py-1.5 rounded-full font-mono text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-150"
-            href={langTarget}
-          >
-            {locale === "en" ? "KO" : "EN"}
-          </Link>
-        </>
-      )}
     </nav>
   );
 };
