@@ -8,7 +8,6 @@ import TableOfContents, {
 } from "@/components/TableOfContents";
 import TeamLead from "@/components/TeamLead";
 import TechMigrations from "@/components/TechMigrations";
-import Timeline from "@/components/Timeline";
 import type { Locale } from "@/lib/locale";
 
 interface PortfolioViewProps {
@@ -25,7 +24,6 @@ const PortfolioView = ({ locale = "ko" }: PortfolioViewProps) => {
         <TeamLead locale={locale} />
         <Achievements locale={locale} />
         <TechMigrations locale={locale} />
-        <Timeline locale={locale} />
         <Projects locale={locale} />
         <Footer locale={locale} />
       </main>

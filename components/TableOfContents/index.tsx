@@ -14,7 +14,6 @@ export const PORTFOLIO_SECTIONS: TocSection[] = [
   { id: "team-lead", label: "Team Lead" },
   { id: "achievements", label: "Key Achievements" },
   { id: "tech-migrations", label: "Migrations" },
-  { id: "timeline", label: "History" },
   {
     id: "projects",
     label: "Projects",
