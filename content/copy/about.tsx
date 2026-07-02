@@ -11,12 +11,12 @@ export const aboutCopy: Dictionary<AboutCopy> = {
   ko: {
     headline: (
       <>
-        10개 어드민 서비스의{" "}
+        라오스 O2O 플랫폼 KOKKOK의{" "}
         <span className="underline underline-offset-4 decoration-[var(--accent)]">
-          플랫폼과 DX
+          어드민 서비스 10개
         </span>
         를<br className="hidden md:block" />
-        설계하는 프론트엔드 엔지니어입니다.
+        설계·운영해온 프론트엔드 엔지니어입니다.
       </>
     ),
     paragraphs: [
@@ -53,11 +53,11 @@ export const aboutCopy: Dictionary<AboutCopy> = {
   en: {
     headline: (
       <>
-        A frontend engineer designing the{" "}
+        A frontend engineer who has designed and operated{" "}
         <span className="underline underline-offset-4 decoration-[var(--accent)]">
-          platform and DX
+          10 admin services
         </span>{" "}
-        for 10+ admin services.
+        for KOKKOK, an O2O platform in Laos.
       </>
     ),
     paragraphs: [

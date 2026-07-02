@@ -109,90 +109,33 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
     achievements: [
       {
         blogSlug: "typia-runtime-validation",
-        description: (
-          <>
-            Typia 런타임 검증 + Pessimistic 타입 설계. API 명세 불일치 시{" "}
-            <strong className="text-[var(--foreground)]">
-              서비스 중단 없이
-            </strong>{" "}
-            대응, 불일치 필드{" "}
-            <strong className="text-[var(--foreground)]">즉시 특정</strong>으로
-            디버깅 시간 단축. 팩토리 함수로 공용화해{" "}
-            <strong className="text-[var(--foreground)] underline underline-offset-2 decoration-[var(--accent)]">
-              10개 앱 전체
-            </strong>
-            에 동일한 검증 자동 적용
-          </>
-        ),
-        title: "Type-safe API Layer",
+        description:
+          "Typia 런타임 검증 + Pessimistic 타입 설계. API 명세 불일치 시 서비스 중단 없이 대응, 불일치 필드 즉시 특정으로 디버깅 시간 단축. 팩토리 함수로 공용화해 10개 앱 전체에 동일한 검증 자동 적용",
+        title: "타입 안전 API 검증",
       },
       {
         blogSlug: "monorepo-shared-components",
-        description: (
-          <>
-            pnpm workspace + Turborepo 기반 전환. 10개 앱이 동일 공용 패키지
-            사용,{" "}
-            <strong className="text-[var(--foreground)]">
-              공용 컴포넌트 206개+
-            </strong>{" "}
-            · 테스트 165개 운영
-          </>
-        ),
-        title: "Monorepo Architecture",
+        description:
+          "pnpm workspace + Turborepo 기반 전환. 10개 앱이 동일 공용 패키지 사용, 공용 컴포넌트 164개 · 테스트 153개, 라인 커버리지 52%",
+        title: "모노레포 아키텍처",
       },
       {
         blogSlug: "github-actions-cicd",
-        description: (
-          <>
-            GitHub Actions 기반{" "}
-            <strong className="text-[var(--foreground)]">
-              20개 파이프라인
-            </strong>{" "}
-            구축. React(S3/CloudFront) · Next.js(Docker/ECR/EC2){" "}
-            <strong className="text-[var(--foreground)]">
-              수 분 내 배포·롤백
-            </strong>
-          </>
-        ),
-        title: "CI/CD Automation",
+        description:
+          "React(SPA) 2단계 · Next.js(SSR) 3단계로 배포 파이프라인 분리, validation 워크플로우로 배포 전 자동 검증. 모노레포 안에서도 서비스별 독립 배포, 배포·롤백 수 분 내 처리",
+        title: "CI/CD 자동화",
       },
       {
         blogSlug: "vite-manual-chunks",
-        description: (
-          <>
-            lazy import · manualChunks · 배럴 파일 1,600개 제거. 초기 번들{" "}
-            <strong className="text-[var(--foreground)] underline underline-offset-2 decoration-[var(--accent)]">
-              92% 감소
-            </strong>{" "}
-            (4,990kB → 375kB). VSCode 자동완성{" "}
-            <strong className="text-[var(--foreground)] underline underline-offset-2 decoration-[var(--accent)]">
-              10초 → 2초
-            </strong>{" "}
-            (배럴 파일 제거·타입 선언 단순화)
-          </>
-        ),
-        title: "Bundle & DX Optimization",
+        description:
+          "lazy import · manualChunks · 배럴 파일 1,600개 제거. 초기 번들 92% 감소 (4,990kB → 375kB), index.js 91% 감소 (925kB → 86kB)",
+        title: "번들 최적화",
       },
       {
         blogSlug: "context-to-zustand",
-        description: (
-          <>
-            전역 상태를 잘못 공유하는 구조를 직접 발굴·이슈화해 단계적으로 해결.{" "}
-            <strong className="text-[var(--foreground)]">useModal</strong>{" "}
-            과도한 상태 구독으로 인한{" "}
-            <strong className="text-[var(--foreground)]">
-              로그아웃 시 401 + 흰 화면 버그 수정
-            </strong>
-            . ContextAPI 기반 RoutePathProvider·AuthProvider 등을 Zustand
-            selector로 전환,{" "}
-            <strong className="text-[var(--foreground)] underline underline-offset-2 decoration-[var(--accent)]">
-              Header 전체 리렌더링 제거
-            </strong>{" "}
-            (React DevTools Profiler 확인). 공통 코드를 packages/로 이동해 10개
-            앱 전체 일괄 적용.
-          </>
-        ),
-        title: "Global State Optimization",
+        description:
+          "ContextAPI 기반 전역 상태를 Zustand + selector로 전환해 리렌더링 범위 최소화. useModal 과도한 구독으로 인한 로그아웃 시 401 + 흰 화면 버그 수정, Header 전체 리렌더링 제거 (React DevTools Profiler 확인). 공통 코드를 packages/로 이동해 10개 앱 전체 일괄 적용.",
+        title: "전역 상태 최적화",
       },
     ],
     career: [
@@ -275,91 +218,32 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
     achievements: [
       {
         blogSlug: "typia-runtime-validation",
-        description: (
-          <>
-            Typia runtime validation + pessimistic type design. When the API
-            spec drifts, the service{" "}
-            <strong className="text-[var(--foreground)]">keeps running</strong>,
-            and mismatched fields can be{" "}
-            <strong className="text-[var(--foreground)]">
-              pinpointed instantly
-            </strong>
-            , cutting debugging time. Generalized via a factory function, now
-            applied automatically across{" "}
-            <strong className="text-[var(--foreground)] underline underline-offset-2 decoration-[var(--accent)]">
-              all 10 apps
-            </strong>
-          </>
-        ),
+        description:
+          "Typia runtime validation + pessimistic type design. When the API spec drifts, the service keeps running, and mismatched fields can be pinpointed instantly, cutting debugging time. Generalized via a factory function, now applied automatically across all 10 apps",
         title: "Type-safe API Layer",
       },
       {
         blogSlug: "monorepo-shared-components",
-        description: (
-          <>
-            Migrated to pnpm workspace + Turborepo. 10 apps share identical
-            packages —{" "}
-            <strong className="text-[var(--foreground)]">
-              206+ shared components
-            </strong>{" "}
-            · 165 tests
-          </>
-        ),
+        description:
+          "Migrated to pnpm workspace + Turborepo. 10 apps share identical packages — 164 shared components · 153 tests, 52% line coverage",
         title: "Monorepo Architecture",
       },
       {
         blogSlug: "github-actions-cicd",
-        description: (
-          <>
-            Built{" "}
-            <strong className="text-[var(--foreground)]">20 pipelines</strong>{" "}
-            on GitHub Actions. React (S3/CloudFront) · Next.js (Docker/ECR/EC2)
-            —{" "}
-            <strong className="text-[var(--foreground)]">
-              deploy and rollback in minutes
-            </strong>
-          </>
-        ),
+        description:
+          "Split deploy pipelines into 2 stages for React (SPA) and 3 stages for Next.js (SSR), with a shared validation workflow that checks every deploy automatically. Even inside the monorepo, services deploy independently, deploy and rollback in minutes",
         title: "CI/CD Automation",
       },
       {
         blogSlug: "vite-manual-chunks",
-        description: (
-          <>
-            Lazy imports · manualChunks · removed 1,600 barrel files. Initial
-            bundle{" "}
-            <strong className="text-[var(--foreground)] underline underline-offset-2 decoration-[var(--accent)]">
-              cut 92%
-            </strong>{" "}
-            (4,990kB → 375kB). VSCode autocomplete{" "}
-            <strong className="text-[var(--foreground)] underline underline-offset-2 decoration-[var(--accent)]">
-              10s → 2s
-            </strong>{" "}
-            (removed barrel files, simplified type declarations)
-          </>
-        ),
-        title: "Bundle & DX Optimization",
+        description:
+          "Lazy imports · manualChunks · removed 1,600 barrel files. Initial bundle cut 92% (4,990kB → 375kB), index.js cut 91% (925kB → 86kB)",
+        title: "Bundle Optimization",
       },
       {
         blogSlug: "context-to-zustand",
-        description: (
-          <>
-            Found and resolved a structure that mis-shared global state, on my
-            own initiative.{" "}
-            <strong className="text-[var(--foreground)]">useModal</strong>{" "}
-            over-subscription caused a{" "}
-            <strong className="text-[var(--foreground)]">
-              401 + white screen bug on logout
-            </strong>{" "}
-            — fixed. Converted ContextAPI-based RoutePathProvider, AuthProvider,
-            and others to Zustand selectors,{" "}
-            <strong className="text-[var(--foreground)] underline underline-offset-2 decoration-[var(--accent)]">
-              eliminating full Header re-renders
-            </strong>{" "}
-            (confirmed via React DevTools Profiler). Moved shared code into
-            packages/ and rolled it out across all 10 apps.
-          </>
-        ),
+        description:
+          "Converted ContextAPI-based global state to Zustand + selectors to minimize re-render scope. useModal over-subscription caused a 401 + white screen bug on logout — fixed, eliminating full Header re-renders (confirmed via React DevTools Profiler). Moved shared code into packages/ and rolled it out across all 10 apps.",
         title: "Global State Optimization",
       },
     ],
