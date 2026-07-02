@@ -79,18 +79,17 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       },
       {
         detail: [
-          "lazy import 코드 스플리팅 — 페이지 단위 분리로 초기 로드 범위 축소",
-          "Vite manualChunks 설계 — 외부 라이브러리·공용 패키지·앱 코드를 종류별 분리, 미변경 라이브러리는 브라우저 캐시 재사용",
-          "배럴 파일 1,600개 제거 + assets·i18n 앱별 이관 — 미사용 파일 번들 포함 차단",
+          "lazy import 코드 스플리팅 — 페이지 단위로 분리해 초기 로드 범위 축소",
+          "Vite manualChunks 분리 규칙 설계 — 외부 라이브러리·공용 패키지·앱 코드를 종류별로 분리해, 변경 없는 라이브러리는 브라우저 캐시로 재사용",
+          "배럴 파일 1,600개 제거 + assets·i18n 앱별 이관 — 사용하지 않는 SVG·PNG·언어 파일이 번들에 포함되는 것을 차단",
         ],
         problem:
           "초기 React 앱 빌드 결과물이 단일 index.js에 집중되어 초기 로딩이 느렸습니다.",
         results: [
           "초기 진입 번들 최대 92% 감소 (carAdmin 4,990kB → 375kB)",
-          "index.js 최대 91% 감소 (carInspection 925kB → 86kB)",
-          "VSCode 자동완성 속도 10초 → 2초 (-80%)",
+          "manualChunks 적용 후 index.js 최대 91% 감소 (carInspection 925kB → 86kB)",
         ],
-        title: "번들 · DX 최적화",
+        title: "번들 최적화",
         blogSlug: "vite-manual-chunks",
       },
       {
@@ -194,17 +193,16 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       {
         detail: [
           "Code-split with lazy imports, scoping the initial load to a per-page basis",
-          "Designed Vite manualChunks to separate vendor libraries, shared packages, and app code, so unchanged libraries reuse the browser cache",
-          "Removed 1,600 barrel files and moved assets/i18n into each app — blocking unused files from being bundled",
+          "Designed Vite manualChunks separation rules — vendor libraries, shared packages, and app code split by kind, so unchanged libraries reuse the browser cache",
+          "Removed 1,600 barrel files and moved assets/i18n into each app — blocking unused SVGs, images, and language files from being bundled",
         ],
         problem:
           "The React apps' build output was concentrated into a single index.js, making initial load slow.",
         results: [
           "Entry bundle cut up to 92% (carAdmin 4,990kB → 375kB)",
-          "index.js cut up to 91% (carInspection 925kB → 86kB)",
-          "VSCode autocomplete sped up from 10s to 2s (-80%)",
+          "index.js cut up to 91% after manualChunks (carInspection 925kB → 86kB)",
         ],
-        title: "Bundle & DX Optimization",
+        title: "Bundle Optimization",
         blogSlug: "vite-manual-chunks",
       },
       {
