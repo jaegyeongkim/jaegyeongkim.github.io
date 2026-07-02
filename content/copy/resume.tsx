@@ -79,7 +79,6 @@ interface ResumeCopy {
   githubLabel: string;
   intro1: ReactNode;
   intro2: ReactNode;
-  portfolioLink: string;
   sideProjects: SideProjectItem[];
   tagline: string;
 }
@@ -91,25 +90,20 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
     emailHref: "mailto:tkwk1205@naver.com",
     githubLabel: "github.com/jaegyeongkim",
     name: "김재경",
-    portfolioLink: "포트폴리오 전체 보기 →",
-    role: "Frontend Engineer · Platform & DX",
-    tagline: "문제를 끝까지 파고들어 개선하는 개발자",
+    role: "Frontend Engineer",
+    tagline: "문제를 끝까지 파고들어 구조로 개선하는 개발자",
     intro1: (
       <>
-        10개 어드민 서비스의{" "}
-        <span className="underline underline-offset-4 decoration-[var(--accent)]">
-          플랫폼과 DX
-        </span>
-        를 설계하는 <strong>프론트엔드 엔지니어</strong>입니다.
+        6년차 프론트엔드 엔지니어로, 라오스 O2O 플랫폼 KOKKOK의 어드민 서비스
+        10개와 랜딩 페이지 3개를 설계·개발하며 2~6인 규모의 팀을 리드해왔습니다.
       </>
     ),
     intro2: (
       <>
-        기능 구현에 머물지 않고,{" "}
-        <strong className="text-[var(--foreground)] font-medium">
-          팀이 더 빠르고 안정적으로 개발할 수 있는 환경
-        </strong>
-        을 직접 설계하고 정착시켜 왔습니다.
+        개별 레포를 모노레포로 통합하고, 수동 배포를 CI/CD로 자동화했으며,
+        런타임 타입 검증 체계를 도입해 API 불안정성으로 인한 장애를 줄이는 등,
+        초기 번들 92% 감소와 개발 서버 기동 88% 단축까지 팀 전체의 개발 속도와
+        안정성을 끌어올려왔습니다.
       </>
     ),
     achievements: [
@@ -261,25 +255,21 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
     emailHref: "mailto:tkwk1205@naver.com",
     githubLabel: "github.com/jaegyeongkim",
     name: "Jaegyeong Kim",
-    portfolioLink: "See full portfolio →",
-    role: "Frontend Engineer · Platform & DX",
-    tagline: "Engineer who digs into problems until they're solved",
+    role: "Frontend Engineer",
+    tagline: "Engineer who digs into problems until they become structure",
     intro1: (
       <>
-        A <strong>frontend engineer</strong> designing the{" "}
-        <span className="underline underline-offset-4 decoration-[var(--accent)]">
-          platform and DX
-        </span>{" "}
-        for 10+ admin services.
+        A frontend engineer with 6 years of experience, I&apos;ve designed and
+        built 10 admin tools and 3 landing pages for KOKKOK, an O2O platform in
+        Laos, leading a 2–6 person team along the way.
       </>
     ),
     intro2: (
       <>
-        Beyond shipping features, I&apos;ve directly designed and embedded{" "}
-        <strong className="text-[var(--foreground)] font-medium">
-          the environment that lets the team build faster and more reliably
-        </strong>
-        .
+        I consolidated separate repos into a monorepo, automated manual deploys
+        with CI/CD, and introduced runtime type validation to cut outages from
+        API drift — trimming the initial bundle by 92% and dev server startup by
+        88%, raising the whole team&apos;s development speed and stability.
       </>
     ),
     achievements: [

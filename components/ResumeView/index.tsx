@@ -60,9 +60,7 @@ const ResumeView = ({ locale = "ko" }: ResumeViewProps) => {
                   {t.name}
                 </h1>
                 <p className="text-base text-[var(--muted)]">{t.role}</p>
-                <p className="text-xs text-[var(--muted)] tracking-widest uppercase font-mono pt-1">
-                  {t.tagline}
-                </p>
+                <p className="text-sm text-[var(--muted)] pt-1">{t.tagline}</p>
               </div>
             </div>
             <div className="hidden md:flex flex-col items-end gap-2 shrink-0 pt-1">
@@ -82,12 +80,6 @@ const ResumeView = ({ locale = "ko" }: ResumeViewProps) => {
                 <GithubIcon />
                 {t.githubLabel}
               </a>
-              <Link
-                className="text-sm text-[var(--accent)] hover:underline transition-colors"
-                href={portfolioHref}
-              >
-                {t.portfolioLink}
-              </Link>
               <PrintButton label={footer.printLabel} />
             </div>
           </div>
