@@ -24,34 +24,16 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
 
         <div className="space-y-6">
           {t.achievements.map(
-            ({
-              blogSlug,
-              detail,
-              metric,
-              metricLabel,
-              problem,
-              results,
-              title,
-            }) => (
+            ({ blogSlug, detail, problem, results, title }) => (
               <div
                 className="border border-[var(--border)] overflow-hidden"
                 key={title}
               >
                 {/* Card header */}
                 <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-8 py-6 border-b border-[var(--border)]">
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                    <h3 className="text-xl font-semibold text-[var(--foreground)]">
-                      {title}
-                    </h3>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-2xl font-bold text-[var(--accent)] tracking-tight leading-none">
-                        {metric}
-                      </span>
-                      <span className="text-xs text-[var(--muted)]">
-                        {metricLabel}
-                      </span>
-                    </div>
-                  </div>
+                  <h3 className="text-xl font-semibold text-[var(--foreground)]">
+                    {title}
+                  </h3>
                   {blogSlug && (
                     <BlogLink
                       locale={locale}

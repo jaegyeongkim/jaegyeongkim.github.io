@@ -3,8 +3,6 @@ import type { Dictionary } from "@/lib/locale";
 interface Achievement {
   blogSlug?: string;
   detail: string[];
-  metric: string;
-  metricLabel: string;
   problem: string;
   results: string[];
   title: string;
@@ -36,53 +34,47 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "모든 API 응답 필드를 undefined 가능으로 가정하는 Pessimistic 타입 설계로, 코드에서 undefined 예외 처리를 하도록 타입 레벨에서 강제",
           "이 과정을 팩토리 함수로 공용화 → 타입만 넘기면 10개 앱 전체에 동일한 검증 자동 적용",
         ],
-        metric: "10개 앱",
-        metricLabel: "런타임 검증 자동 적용",
         problem:
           "API 명세와 실제 API 반환 값이 불일치 시 흰 화면이 보여 서비스를 이용할 수 없었습니다. 또한, 원인 필드 특정에 시간이 오래 걸렸습니다.",
         results: [
           "API 응답 값과 명세가 불일치해도 서비스 중단 없이 정상 동작 유지",
-          "불일치 발생 즉시 원인 필드 특정 가능",
+          "불일치 발생 즉시 원인 필드 특정 가능 & 빠르게 이슈 대응 가능",
         ],
-        title: "Type-safe API Layer",
+        title: "타입 안전 API 검증",
         blogSlug: "typia-runtime-validation",
       },
       {
         detail: [
-          "React 앱 — 빌드·업로드와 배포(CloudFront 캐시 무효화) 단계 분리, 원하는 시점에 배포 명령만 실행",
-          "시맨틱 버저닝으로 S3에 버전별 결과물 보관 → 즉시 롤백 가능",
-          "Next.js 앱 — Docker 이미지 빌드 → AWS ECR 푸시 → EC2 Pull → 컨테이너 실행 자동화",
-          "10개 프로젝트 × 개발·운영 환경 = 20개 파이프라인을 3개 워크플로우 파일로 관리",
+          "React(SPA) — 재빌드 없이 이미 올라간 버전으로 즉시 재배포·롤백할 수 있도록, 빌드·S3 업로드용과 배포·CloudFront 무효화용 GitHub Actions 2개로 단계를 분리",
+          "Next.js(SSR) — 매번 새로 빌드하지 않고 ECR에 쌓인 이미지로 재배포할 수 있도록, Docker 이미지 빌드 / AWS ECR 푸시 / EC2 Pull·컨테이너 실행 GitHub Actions 3개로 단계를 분리",
+          "공용 validation 워크플로우로 배포 전 버전 형식·환경별 실행 권한·AWS 리소스 존재 여부를 자동 검증",
+          "모노레포 안에서도 10개 서비스를 한 번에 배포하지 않고, 원하는 서비스만 원하는 시점에 독립적으로 배포할 수 있도록 구성",
+          "시맨틱 버저닝으로 S3에 버전별 결과물을 보관해 문제 발생 시 즉시 이전 버전으로 롤백",
         ],
-        metric: "20개",
-        metricLabel: "파이프라인 (수 분 내 배포·롤백)",
         problem:
-          "React 앱은 S3 수동 업로드 → CloudFront 초기화, Next.js 앱은 EC2 접속 → git pull → 빌드 → 재시작을 배포마다 반복했습니다. 롤백도 수동 복구로 오래 걸렸습니다.",
+          "React(SPA)는 로컬 빌드 → S3 업로드 → CloudFront 초기화 과정을 배포할 때마다 사람이 수동으로 반복해야했습니다. 또한, Next.js(SSR)는 EC2 접속 → git pull → 빌드 → 재시작을 배포할 때마다 사람이 직접 반복해야 했습니다. 배포 절차가 문서로 작성되어 있었지만, 관리해야할 문서도 많았고, 수동 작업이 많아 휴먼 에러도 자주 발생했습니다. 롤백도 수동 복구라 오래 걸렸습니다.",
         results: [
-          "배포·롤백을 수 분 내 처리",
-          "문제 발생 시 이전 버전으로 즉시 롤백",
-          "반복적인 수동 배포 작업 제거 → 휴먼 에러 감소",
+          "복잡한 배포 지식 없이 누구나 간단하게 배포 명령만 실행",
+          "validation 워크플로우가 버전 형식·환경 권한을 자동 검증해 잘못된 배포를 사전에 차단",
+          "배포·롤백 모두 수 분 내 처리",
+          "반복적인 수동 작업 제거로 휴먼 에러 방지",
         ],
-        title: "CI/CD Automation",
+        title: "CI/CD 자동화",
         blogSlug: "github-actions-cicd",
       },
       {
         detail: [
-          "pnpm workspace + Turborepo 기반 모노레포 전환",
-          "turbo.json 하나로 전 앱의 환경별 태스크(dev / dev-mock / dev-typia / build-prod) 일관 관리",
-          "공용 패키지: apis · components(206개+) · hooks · utils · services · types · styles · mocks",
-          "Vitest + Testing Library로 공용 패키지 테스트 165개 구축 → 공용 코드 변경 시 오류 사전 감지",
+          "10개로 흩어져 있던 멀티 레포를 Turborepo 기반 모노레포 1개로 전환",
+          "공용 코드를 apis · components · hooks · utils · services · types · styles 8개 카테고리 패키지로 구조화 — 컴포넌트 164개, hooks 46개, utils 40개 등 총 300개+ 모듈",
+          "Vitest + Testing Library로 hooks·utils·components에 테스트 153개 구축 → 공용 코드 변경 시 오류 사전 감지",
         ],
-        metric: "206+",
-        metricLabel: "공용 컴포넌트 · 테스트 165개",
         problem:
-          "서비스가 늘어날수록 공용 컴포넌트와 유틸이 레포마다 중복 복사됐습니다. 한 곳에서 버그를 고쳐도 다른 레포에 반영이 안 되고 버전 불일치 문제가 반복됐습니다.",
+          "O2O 내 서비스가 늘어날수록 관리해야 할 레포도 함께 늘어났고, 동일한 컴포넌트와 유틸이 레포마다 중복 복사됐습니다. 한 레포에서 컴포넌트 버그를 고쳐도 다른 레포에는 반영되지 않아 코드 불일치 문제가 반복됐습니다. 코드를 일치시키려면 레포 수만큼 같은 작업과 PR 확인을 반복해야 해서 업무 비효율이 컸습니다.",
         results: [
-          "10개 앱에서 동일 공용 패키지 사용 — 수정 즉시 전 앱 반영",
-          "환경별 태스크 turbo.json 하나로 전 앱 일관 적용",
-          "테스트 165개로 공용 코드 변경 안전망 확보",
+          "10개 앱에서 동일 공용 패키지 사용 — 수정 즉시 전 앱 반영, 관리할 레포 수 감소로 업무 효율 향상",
+          "hooks 46개 중 44개, utils 40개 중 37개, components 164개 중 72개에 테스트 적용 — 공용 코드 라인 커버리지 52%로 핵심 로직 안전망 확보",
         ],
-        title: "Monorepo Architecture",
+        title: "모노레포 아키텍처",
         blogSlug: "monorepo-shared-components",
       },
       {
@@ -91,8 +83,6 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "Vite manualChunks 설계 — 외부 라이브러리·공용 패키지·앱 코드를 종류별 분리, 미변경 라이브러리는 브라우저 캐시 재사용",
           "배럴 파일 1,600개 제거 + assets·i18n 앱별 이관 — 미사용 파일 번들 포함 차단",
         ],
-        metric: "92%",
-        metricLabel: "초기 번들 감소 (4,990kB → 375kB)",
         problem:
           "초기 React 앱 빌드 결과물이 단일 index.js에 집중되어 초기 로딩이 느렸습니다.",
         results: [
@@ -100,7 +90,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "index.js 최대 91% 감소 (carInspection 925kB → 86kB)",
           "VSCode 자동완성 속도 10초 → 2초 (-80%)",
         ],
-        title: "Bundle & DX Optimization",
+        title: "번들 · DX 최적화",
         blogSlug: "vite-manual-chunks",
       },
       {
@@ -110,8 +100,6 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "useLocation 의존성을 window.location.pathname과 router 싱글톤 패턴으로 대체해 react-router-dom 상태 변경에 의한 추가 리렌더링 제거",
           "개선된 공통 코드(Auth.tsx, authStore.ts 등)를 packages/로 이동해 10개 앱 전체에 일괄 적용",
         ],
-        metric: "10개 앱",
-        metricLabel: "전체 리렌더링 구조 개선",
         problem:
           "전역 상태를 잘못 공유하는 구조가 불필요한 리렌더링을 유발하고 있었고, 일부는 실제 버그로 이어지고 있었습니다. useModal이 modals 배열 전체를 구독하는 구조로 인해, 로그아웃 시 모달 상태 초기화 → 전체 리렌더링 → 만료된 토큰으로 API 재요청 → 401 오류 → 흰 화면이 뜨는 버그가 있었습니다. 또한 RoutePathProvider, AuthProvider 등이 ContextAPI 기반이라 NavigationBar를 클릭할 때마다 Header 내 모든 아이콘·버튼·드롭다운이 리렌더링되는 상황을 React DevTools Profiler로 확인했습니다.",
         results: [
@@ -119,7 +107,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "NavigationBar 클릭 시 Header 전체 리렌더링 제거 (React DevTools Profiler 확인)",
           "10개 앱 전체 불필요 리렌더링 구조 개선",
         ],
-        title: "Global State Optimization",
+        title: "전역 상태 최적화",
         blogSlug: "context-to-zustand",
       },
     ],
@@ -159,8 +147,6 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "Generalized via a factory function — pass a type, and every one of the 10 apps gets the same validation automatically",
           "Pessimistic type design — every API response field is assumed possibly undefined, forcing components to handle undefined at the type level",
         ],
-        metric: "10 apps",
-        metricLabel: "Automatic runtime validation",
         problem:
           "When the API spec drifted, the service went down, and pinpointing the offending field took a long time. Components that missed undefined handling also caused repeated screen-breaking incidents.",
         results: [
@@ -172,38 +158,35 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       },
       {
         detail: [
-          "React apps — separated build/upload from deploy (CloudFront cache invalidation), so deploys run only on demand",
+          "React (SPA) — split build/upload from deploy across 2 GitHub Actions workflows, so an already-built version can redeploy or roll back instantly without rebuilding",
+          "Next.js (SSR) — split image build, ECR push, and container run across 3 GitHub Actions workflows, so an image already in ECR can redeploy without rebuilding",
+          "A shared validation workflow automatically checks version format, per-environment permissions, and that the target AWS resources exist before every deploy",
+          "Even inside the monorepo, services deploy independently rather than all at once — any service can ship on its own schedule",
           "Semantic versioning keeps every build in S3, enabling instant rollback",
-          "Next.js apps — automated Docker image build → push to AWS ECR → pull on EC2 → run container",
-          "10 projects × dev/prod environments = 20 pipelines, managed with just 3 workflow files",
         ],
-        metric: "20",
-        metricLabel: "Pipelines (deploy/rollback in minutes)",
         problem:
-          "React apps required manual S3 upload and CloudFront invalidation on every deploy; Next.js apps meant SSH into EC2, git pull, build, and restart every time. Rollbacks were manual recoveries that took a long time.",
+          "Even though 10 apps lived in one monorepo, every deploy meant a person manually repeating the same steps — a local build, S3 upload, and CloudFront invalidation for React; SSH into EC2, git pull, build, and restart for Next.js. The procedure lived in people's heads instead of being automated, so it had to be re-explained every time ownership changed, and all that manual work meant human error kept creeping in. Rollbacks were manual recoveries that took a long time too.",
         results: [
-          "Deploy and rollback now complete in minutes",
-          "Instant rollback to a previous version when issues occur",
-          "Eliminated repetitive manual deploy work, reducing human error",
+          "Anyone can run the same deploy procedure without hand-offs, no matter who owns the service now",
+          "No deployment expertise needed — anyone can ship with a single command",
+          "The validation workflow auto-checks version format and permissions, blocking bad deploys before they happen",
+          "Deploy and rollback both complete in minutes",
+          "Eliminated repetitive manual work, preventing human error",
         ],
         title: "CI/CD Automation",
         blogSlug: "github-actions-cicd",
       },
       {
         detail: [
-          "Migrated to a monorepo on pnpm workspace + Turborepo",
-          "A single turbo.json consistently manages per-environment tasks (dev / dev-mock / dev-typia / build-prod) across all apps",
-          "Shared packages: apis · components (206+) · hooks · utils · services · types · styles · mocks",
-          "Built 165 tests for shared packages with Vitest + Testing Library, catching regressions before they ship",
+          "Migrated 10 scattered multi-repos into a single Turborepo-based monorepo",
+          "Structured shared code into 8 category packages — apis · components · hooks · utils · services · types · styles — with 164 components, 46 hooks, 40 utils, and 300+ modules in total",
+          "Built 153 tests across hooks, utils, and components with Vitest + Testing Library, catching regressions before they ship",
         ],
-        metric: "206+",
-        metricLabel: "Shared components · 165 tests",
         problem:
           "As services grew, shared components and utilities kept getting copy-pasted across repos. Fixing a bug in one place didn't propagate to the others, causing repeated version drift.",
         results: [
           "10 apps share identical packages — fixes apply instantly everywhere",
-          "Per-environment tasks applied consistently across all apps via one turbo.json",
-          "165 tests provide a safety net for shared code changes",
+          "44 of 46 hooks, 37 of 40 utils, and 72 of 164 components have tests — 52% line coverage across shared packages",
         ],
         title: "Monorepo Architecture",
         blogSlug: "monorepo-shared-components",
@@ -214,8 +197,6 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "Designed Vite manualChunks to separate vendor libraries, shared packages, and app code, so unchanged libraries reuse the browser cache",
           "Removed 1,600 barrel files and moved assets/i18n into each app — blocking unused files from being bundled",
         ],
-        metric: "92%",
-        metricLabel: "Smaller initial bundle (4,990kB → 375kB)",
         problem:
           "The React apps' build output was concentrated into a single index.js, making initial load slow.",
         results: [
@@ -233,8 +214,6 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "Replaced the useLocation dependency with window.location.pathname and a router singleton pattern, removing extra re-renders from react-router-dom state changes",
           "Moved the improved shared code (Auth.tsx, authStore.ts, etc.) into packages/ and rolled it out across all 10 apps at once",
         ],
-        metric: "10 apps",
-        metricLabel: "Re-render structure overhauled",
         problem:
           "A structure that mis-shared global state was causing unnecessary re-renders, some of which turned into real bugs. Because useModal subscribed to the entire modals array, logging out triggered modal state reset → full re-render → API re-request with an expired token → 401 error → a blank white screen. We also confirmed via React DevTools Profiler that, since RoutePathProvider, AuthProvider, and others were ContextAPI-based, every click on the NavigationBar re-rendered every icon, button, and dropdown inside the Header.",
         results: [
