@@ -7,15 +7,16 @@ import ThemeToggle from "@/components/ThemeToggle";
 import { navCopy } from "@/content/copy/nav";
 import type { Locale } from "@/lib/locale";
 
-const EN_COUNTERPART: Record<string, string> = {
-  "/": "/en",
-  "/portfolio": "/en/portfolio",
-};
+// EN-KO 전환 임시 비활성화 (추후 재작업 예정)
+// const EN_COUNTERPART: Record<string, string> = {
+//   "/": "/en",
+//   "/portfolio": "/en/portfolio",
+// };
 
-const KO_COUNTERPART: Record<string, string> = {
-  "/en": "/",
-  "/en/portfolio": "/portfolio",
-};
+// const KO_COUNTERPART: Record<string, string> = {
+//   "/en": "/",
+//   "/en/portfolio": "/portfolio",
+// };
 
 const Nav = () => {
   const pathname = usePathname();
@@ -24,12 +25,13 @@ const Nav = () => {
 
   const homeHref = locale === "en" ? "/en" : "/";
   const portfolioHref = locale === "en" ? "/en/portfolio" : "/portfolio";
-  const langTarget =
-    locale === "en" ? KO_COUNTERPART[pathname] : EN_COUNTERPART[pathname];
+  // const langTarget =
+  //   locale === "en" ? KO_COUNTERPART[pathname] : EN_COUNTERPART[pathname];
 
   return (
     <nav className="fixed top-6 right-6 z-50 flex items-center gap-1 bg-[var(--background)] border border-[var(--border)] rounded-full px-1.5 py-1.5 shadow-sm">
       <ThemeToggle locale={locale} />
+      {/* EN-KO 전환 임시 비활성화 (추후 재작업 예정)
       {langTarget && (
         <>
           <Link
@@ -40,6 +42,7 @@ const Nav = () => {
           </Link>
         </>
       )}
+      */}
       <div className="w-px h-4 bg-[var(--border)] mx-0.5" />
       <Link
         className={`text-xs px-3 py-1.5 rounded-full transition-colors duration-150 ${
@@ -61,6 +64,7 @@ const Nav = () => {
       >
         {t.portfolio}
       </Link>
+      {/* 블로그 임시 비활성화 (추후 재작업 예정)
       <Link
         className={`text-xs px-3 py-1.5 rounded-full transition-colors duration-150 ${
           pathname.startsWith("/blog")
@@ -71,6 +75,7 @@ const Nav = () => {
       >
         {t.blog}
       </Link>
+      */}
     </nav>
   );
 };
