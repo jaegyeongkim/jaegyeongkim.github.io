@@ -117,11 +117,11 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
             </strong>{" "}
             대응, 불일치 필드{" "}
             <strong className="text-[var(--foreground)]">즉시 특정</strong>으로
-            디버깅 시간 단축. 개발 서버 기동{" "}
+            디버깅 시간 단축. 팩토리 함수로 공용화해{" "}
             <strong className="text-[var(--foreground)] underline underline-offset-2 decoration-[var(--accent)]">
-              88% 단축
-            </strong>{" "}
-            (53초 → 6초)
+              10개 앱 전체
+            </strong>
+            에 동일한 검증 자동 적용
           </>
         ),
         title: "Type-safe API Layer",
@@ -284,11 +284,11 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
             <strong className="text-[var(--foreground)]">
               pinpointed instantly
             </strong>
-            , cutting debugging time. Dev server startup{" "}
+            , cutting debugging time. Generalized via a factory function, now
+            applied automatically across{" "}
             <strong className="text-[var(--foreground)] underline underline-offset-2 decoration-[var(--accent)]">
-              cut 88%
-            </strong>{" "}
-            (53s → 6s)
+              all 10 apps
+            </strong>
           </>
         ),
         title: "Type-safe API Layer",

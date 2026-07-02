@@ -31,19 +31,18 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
     achievements: [
       {
         detail: [
-          "Typia 런타임 검증 — API 응답 수신 시 명세 불일치 필드를 즉시 로그 출력, 해당 필드 undefined 처리로 서비스 유지",
-          "팩토리 함수로 공용화 → 타입만 넘기면 10개 앱 전체에 동일한 검증 자동 적용",
-          "Pessimistic 타입 설계 — 모든 API 응답 필드를 undefined 가능으로 가정, 컴포넌트에서 undefined 처리를 타입 레벨에서 강제",
-          "dev / dev-typia 스크립트 분리로 일반 개발은 속도 우선, QA·디버깅은 검증 모드로 전환",
+          "Typia로 API 응답 값과 명세를 비교해 런타임에 일치 여부 검증",
+          "불일치 필드는 즉시 로그로 기록하고 불일치하는 모든 필드를 undefined 처리",
+          "모든 API 응답 필드를 undefined 가능으로 가정하는 Pessimistic 타입 설계로, 코드에서 undefined 예외 처리를 하도록 타입 레벨에서 강제",
+          "이 과정을 팩토리 함수로 공용화 → 타입만 넘기면 10개 앱 전체에 동일한 검증 자동 적용",
         ],
-        metric: "88%",
-        metricLabel: "서버 기동 단축 (53초 → 6초)",
+        metric: "10개 앱",
+        metricLabel: "런타임 검증 자동 적용",
         problem:
-          "API 명세 불일치 시 서비스가 중단됐고, 원인 필드 특정에 시간이 오래 걸렸습니다. 컴포넌트의 undefined 처리 누락으로 화면이 깨지는 사고도 반복됐습니다.",
+          "API 명세와 실제 API 반환 값이 불일치 시 흰 화면이 보여 서비스를 이용할 수 없었습니다. 또한, 원인 필드 특정에 시간이 오래 걸렸습니다.",
         results: [
-          "API 명세 불일치 시에도 서비스 중단 없이 정상 동작 유지",
+          "API 응답 값과 명세가 불일치해도 서비스 중단 없이 정상 동작 유지",
           "불일치 발생 즉시 원인 필드 특정 가능",
-          "개발 서버 기동 시간 최대 88% 단축 (53초 → 6초)",
         ],
         title: "Type-safe API Layer",
         blogSlug: "typia-runtime-validation",
@@ -159,16 +158,14 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "Typia runtime validation — on every API response, mismatched fields are logged immediately and treated as undefined so the service keeps running",
           "Generalized via a factory function — pass a type, and every one of the 10 apps gets the same validation automatically",
           "Pessimistic type design — every API response field is assumed possibly undefined, forcing components to handle undefined at the type level",
-          "Split dev / dev-typia scripts so everyday development stays fast while QA and debugging run in validation mode",
         ],
-        metric: "88%",
-        metricLabel: "Faster server startup (53s → 6s)",
+        metric: "10 apps",
+        metricLabel: "Automatic runtime validation",
         problem:
           "When the API spec drifted, the service went down, and pinpointing the offending field took a long time. Components that missed undefined handling also caused repeated screen-breaking incidents.",
         results: [
           "Service keeps running normally even when the API spec drifts",
           "The offending field can be pinpointed the moment a mismatch occurs",
-          "Dev server startup time cut up to 88% (53s → 6s)",
         ],
         title: "Type-safe API Layer",
         blogSlug: "typia-runtime-validation",
