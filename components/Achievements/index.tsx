@@ -1,4 +1,5 @@
-import BlogLink from "@/components/BlogLink";
+// 블로그 임시 비활성화 (추후 재작업 예정)
+// import BlogLink from "@/components/BlogLink";
 import { achievementsCopy } from "@/content/copy/achievements";
 import type { Locale } from "@/lib/locale";
 
@@ -34,6 +35,7 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
                   <h3 className="text-xl font-semibold text-[var(--foreground)]">
                     {title}
                   </h3>
+                  {/* 블로그 임시 비활성화 (추후 재작업 예정)
                   {blogSlug && (
                     <BlogLink
                       locale={locale}
@@ -41,6 +43,7 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
                       source="portfolio"
                     />
                   )}
+                  */}
                 </div>
 
                 {/* Card body */}
@@ -115,6 +118,7 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
                 <p className="text-sm text-[var(--muted)] leading-relaxed">
                   {description}
                 </p>
+                {/* 블로그 임시 비활성화 (추후 재작업 예정)
                 {blogSlug && (
                   <BlogLink
                     locale={locale}
@@ -122,6 +126,7 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
                     source="portfolio"
                   />
                 )}
+                */}
               </div>
             ))}
           </div>

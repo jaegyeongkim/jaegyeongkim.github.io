@@ -2,7 +2,8 @@ import { Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import BlogLink from "@/components/BlogLink";
+// 블로그 임시 비활성화 (추후 재작업 예정)
+// import BlogLink from "@/components/BlogLink";
 import Footer from "@/components/Footer";
 import PrintButton from "@/components/PrintButton";
 import TableOfContents, { RESUME_SECTIONS } from "@/components/TableOfContents";
@@ -190,7 +191,9 @@ const ResumeView = ({ locale = "ko" }: ResumeViewProps) => {
                   <p className="text-sm font-semibold text-[var(--foreground)]">
                     {title}
                   </p>
+                  {/* 블로그 임시 비활성화 (추후 재작업 예정)
                   <BlogLink locale={locale} slug={blogSlug} source="resume" />
+                  */}
                 </div>
                 <p className="text-sm text-[var(--muted)] leading-relaxed">
                   {description}
