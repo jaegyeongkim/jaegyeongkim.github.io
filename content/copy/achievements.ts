@@ -94,13 +94,14 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       },
       {
         detail: [
-          "useModal 구독 범위를 필요한 함수 참조만으로 좁혀 로그아웃 버그 수정 — modals 배열 전체 구독을 제거해 불필요한 리렌더링 차단",
-          "RoutePathProvider, AuthProvider(class 인스턴스 + ContextAPI), useGoogleMap, Toast, Navbar 등을 Zustand selector 기반과 React.memo로 전환해 불필요한 리렌더링 제거",
+          "ContextAPI 기반 전역 상태를 Zustand + selector로 전환 — 컴포넌트가 실제로 쓰는 값이 바뀔 때만 리렌더링되도록 구독 범위를 좁힘",
+          "useModal 구독 범위를 필요한 함수 참조만으로 좁혀 로그아웃 버그 수정 — modals 배열 전체 구독 제거",
+          "RoutePathProvider, AuthProvider(class 인스턴스 + ContextAPI), useGoogleMap, Toast, Navbar 등을 Zustand selector와 React.memo로 전환",
           "useLocation 의존성을 window.location.pathname과 router 싱글톤 패턴으로 대체해 react-router-dom 상태 변경에 의한 추가 리렌더링 제거",
           "개선된 공통 코드(Auth.tsx, authStore.ts 등)를 packages/로 이동해 10개 앱 전체에 일괄 적용",
         ],
         problem:
-          "전역 상태를 잘못 공유하는 구조가 불필요한 리렌더링을 유발하고 있었고, 일부는 실제 버그로 이어지고 있었습니다. useModal이 modals 배열 전체를 구독하는 구조로 인해, 로그아웃 시 모달 상태 초기화 → 전체 리렌더링 → 만료된 토큰으로 API 재요청 → 401 오류 → 흰 화면이 뜨는 버그가 있었습니다. 또한 RoutePathProvider, AuthProvider 등이 ContextAPI 기반이라 NavigationBar를 클릭할 때마다 Header 내 모든 아이콘·버튼·드롭다운이 리렌더링되는 상황을 React DevTools Profiler로 확인했습니다.",
+          "전역 상태를 ContextAPI로 관리하고 있었는데, 컴포넌트가 실제로 필요한 값보다 넓은 범위의 상태를 구독하는 구조였습니다. 그래서 상태 하나만 바뀌어도 관련 없는 하위 컴포넌트까지 전부 리렌더링됐고, 일부는 실제 버그로 이어졌습니다. useModal이 modals 배열 전체를 구독해 로그아웃 시 모달 상태 초기화 → 전체 리렌더링 → 만료된 토큰으로 API 재요청 → 401 오류 → 흰 화면이 뜨는 버그가 있었고, RoutePathProvider·AuthProvider 등도 ContextAPI 기반이라 NavigationBar를 클릭할 때마다 Header 내 모든 아이콘·버튼·드롭다운이 리렌더링되는 것을 React DevTools Profiler로 확인했습니다.",
         results: [
           "로그아웃 시 401 오류 + 흰 화면 버그 수정",
           "NavigationBar 클릭 시 Header 전체 리렌더링 제거 (React DevTools Profiler 확인)",
@@ -113,25 +114,25 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
     otherImprovements: [
       {
         description:
-          "모노레포에서 i18next 번역 타입 선언 규모가 커지면서 자동완성 계산에 최대 10초가 걸렸습니다. TypeScript 5 업그레이드 + 서비스별 JSON 분리, 타입 선언 단순화(typeof json → Record<key, string>), 배럴 파일 약 1,600개 제거를 단계적으로 적용해 2초로 단축(–80%).",
-        title: "VSCode 자동완성 속도 개선 (10초 → 2초)",
-        blogSlug: "vite-manual-chunks",
-      },
-      {
-        description:
-          "버튼 연속 클릭 시 같은 API가 여러 번 실행되는 문제를 해결하기 위해 useMutation 기반 커스텀 훅 구현. 진행 중인 요청에 고유 ID를 부여해 동일 요청 차단, 에러 처리 방식(전역 / 화면별)을 훅 사용 시점에 반드시 선택하도록 강제해 팀 내 에러 처리 누락 방지.",
+          "버튼 연속 클릭 시 같은 API가 여러 번 실행되는 문제를 막기 위해 useMutation 기반 커스텀 훅을 만들었습니다. 진행 중인 요청에 고유 ID를 부여해 중복 요청을 차단하고, 훅을 쓸 때 에러 처리 방식(전역 / 화면별)을 반드시 선택하도록 강제해 팀 내 에러 처리 누락을 방지했습니다.",
         title: "API 중복 호출 방지 (useSafeMutation)",
         blogSlug: "duplicate-api-call",
       },
       {
         description:
-          "커밋 전 ESLint 자동 수정 + Prettier 포매팅 강제 실행, 허용된 커밋 prefix 없으면 커밋 차단, 스테이징된 파일을 분석해 서비스명을 커밋 메시지에 자동 추가. PR 리뷰에서 코드 스타일 nitpick이 사라져 핵심 로직 리뷰에 집중 가능.",
+          "커밋 전 ESLint 자동 수정과 Prettier 포매팅을 강제 실행하고, 허용된 prefix가 없으면 커밋을 차단합니다. 스테이징된 파일을 분석해 서비스명을 커밋 메시지에 자동으로 추가해, 커밋 메시지 표준을 체계적으로 관리합니다.",
         title: "커밋 자동화 (Husky + lint-staged)",
       },
       {
         description:
-          "ESLint — import 순서 자동 정렬, import type 자동 강제. Stylelint — CSS 속성 순서 자동 정렬. 정적 분석 자동화로 코드 스타일 지적 없이 핵심 로직 리뷰에만 집중.",
+          "ESLint — import 순서 자동 정렬, import type 사용 강제. Stylelint — CSS 속성 순서 자동 정렬. 정적 분석을 자동화해 PR 리뷰에서 코드 스타일 지적이 사라지고, 핵심 로직 리뷰에만 집중할 수 있게 됐습니다.",
         title: "정적 분석 자동화 (ESLint / Stylelint)",
+      },
+      {
+        description:
+          "모노레포에서 i18next 번역 타입 선언 규모가 커지면서 VSCode IntelliSense 자동완성 계산에 최대 10초가 걸렸습니다. TypeScript 5 업그레이드, 서비스별 JSON 분리, 타입 선언 단순화(typeof json → Record<key, string>), 배럴 파일 약 1,600개 제거를 단계적으로 적용해 2초로 단축했습니다(-80%).",
+        title: "VSCode 자동완성 속도 개선 (10초 → 2초)",
+        blogSlug: "vite-manual-chunks",
       },
     ],
   },
@@ -207,13 +208,14 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       },
       {
         detail: [
-          "Fixed a logout bug by narrowing useModal's subscription to only the function references it needed, removing the full modals-array subscription that caused unnecessary re-renders",
-          "Converted RoutePathProvider, AuthProvider (class instance + ContextAPI), useGoogleMap, Toast, Navbar, and others to Zustand selectors and React.memo to eliminate unnecessary re-renders",
+          "Converted ContextAPI-based global state to Zustand + selectors, narrowing subscriptions so components only re-render when the value they actually use changes",
+          "Fixed a logout bug by narrowing useModal's subscription to only the function references it needed, removing the full modals-array subscription",
+          "Converted RoutePathProvider, AuthProvider (class instance + ContextAPI), useGoogleMap, Toast, Navbar, and others to Zustand selectors and React.memo",
           "Replaced the useLocation dependency with window.location.pathname and a router singleton pattern, removing extra re-renders from react-router-dom state changes",
           "Moved the improved shared code (Auth.tsx, authStore.ts, etc.) into packages/ and rolled it out across all 10 apps at once",
         ],
         problem:
-          "A structure that mis-shared global state was causing unnecessary re-renders, some of which turned into real bugs. Because useModal subscribed to the entire modals array, logging out triggered modal state reset → full re-render → API re-request with an expired token → 401 error → a blank white screen. We also confirmed via React DevTools Profiler that, since RoutePathProvider, AuthProvider, and others were ContextAPI-based, every click on the NavigationBar re-rendered every icon, button, and dropdown inside the Header.",
+          "Global state was managed through ContextAPI, and components subscribed to a wider slice of state than they actually needed. So a single state change re-rendered unrelated child components too, and some of that turned into real bugs. Because useModal subscribed to the entire modals array, logging out triggered modal state reset → full re-render → API re-request with an expired token → 401 error → a blank white screen. We also confirmed via React DevTools Profiler that, since RoutePathProvider, AuthProvider, and others were ContextAPI-based, every click on the NavigationBar re-rendered every icon, button, and dropdown inside the Header.",
         results: [
           "Fixed the 401 error + white screen bug on logout",
           "Eliminated full Header re-renders on NavigationBar clicks (confirmed via React DevTools Profiler)",
