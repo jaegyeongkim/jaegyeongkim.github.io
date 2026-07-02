@@ -180,6 +180,15 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
         tags: ["Flutter", "Dart", "Supabase"],
         title: "모유미유",
       },
+      {
+        description:
+          "모바일·태블릿·웹 전 기기에서 쓸 수 있는 반응형 PWA로 실사용자 대상 운영 중. R2 Cache-Control · next/image · cache tag revalidate 3중 캐싱으로 이미지 네트워크 요청 최소화, 크롤링 기반 일괄 등록 파이프라인 구현. 추후 Flutter 앱으로 확장 예정.",
+        href: "https://jamjoong.vercel.app",
+        period: "2026.06",
+        role: "Solo (기획·설계·개발·배포 전 과정)",
+        tags: ["Next.js 16", "TypeScript", "Drizzle ORM", "Supabase", "R2"],
+        title: "주보 뷰어 PWA (잠실중앙교회)",
+      },
     ],
     education: [
       {
@@ -288,6 +297,15 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
         role: "Solo",
         tags: ["Flutter", "Dart", "Supabase"],
         title: "Moyu Miyu",
+      },
+      {
+        description:
+          "A responsive PWA usable across mobile, tablet, and web, running in production for real users. Minimizes image network requests with 3-layer caching — R2 Cache-Control, next/image optimization, and cache-tag-based revalidation. Also built a crawling-based bulk import pipeline. A native Flutter app is planned for future release.",
+        href: "https://jamjoong.vercel.app",
+        period: "Jun 2026",
+        role: "Solo (planning, design, development, and deployment end-to-end)",
+        tags: ["Next.js 16", "TypeScript", "Drizzle ORM", "Supabase", "R2"],
+        title: "Bulletin Viewer PWA (Jamsil Joongang Church)",
       },
     ],
     education: [
