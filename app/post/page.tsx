@@ -2,19 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import Footer from "@/components/Footer";
-import { BLOG_POSTS, VISIBLE_BLOG_SLUGS } from "@/lib/blog-posts";
+import { POSTS, VISIBLE_POST_SLUGS } from "@/lib/posts";
 
-// 블로그 임시 비활성화 중, Typia·Turborepo 관련 글만 목록에 노출
-const VISIBLE_POSTS = BLOG_POSTS.filter((post) =>
-  VISIBLE_BLOG_SLUGS.includes(post.slug),
+// 포스트 임시 비활성화 중, 검토가 끝난 글만 목록에 노출
+const VISIBLE_POSTS = POSTS.filter((post) =>
+  VISIBLE_POST_SLUGS.includes(post.slug),
 );
 
 export const metadata: Metadata = {
-  title: "블로그 | 김재경",
+  title: "포스트 | 김재경",
   description:
-    "Frontend 플랫폼 엔지니어 김재경의 기술 블로그. 번들 최적화, 모노레포 아키텍처, CI/CD 자동화, 타입 안전성, 상태관리 등 실무에서 겪은 문제와 해결 과정을 기록합니다.",
+    "Frontend 플랫폼 엔지니어 김재경의 기술 포스트. 번들 최적화, 모노레포 아키텍처, CI/CD 자동화, 타입 안전성, 상태관리 등 실무에서 겪은 문제와 해결 과정을 기록합니다.",
   keywords: [
-    "기술 블로그",
+    "기술 포스트",
     "Frontend",
     "TypeScript",
     "React",
@@ -25,43 +25,43 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    url: "https://jaegyeongkim.github.io/blog",
-    title: "블로그 | 김재경",
+    url: "https://jaegyeongkim.github.io/post",
+    title: "포스트 | 김재경",
     description:
-      "Frontend 플랫폼 엔지니어 김재경의 기술 블로그. 번들 최적화, 모노레포 아키텍처, CI/CD 자동화, 타입 안전성, 상태관리 등 실무에서 겪은 문제와 해결 과정을 기록합니다.",
+      "Frontend 플랫폼 엔지니어 김재경의 기술 포스트. 번들 최적화, 모노레포 아키텍처, CI/CD 자동화, 타입 안전성, 상태관리 등 실무에서 겪은 문제와 해결 과정을 기록합니다.",
     locale: "ko_KR",
-    siteName: "김재경 블로그",
+    siteName: "김재경 포스트",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "김재경 기술 블로그",
+        alt: "김재경 기술 포스트",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "블로그 | 김재경",
+    title: "포스트 | 김재경",
     description:
-      "Frontend 플랫폼 엔지니어 김재경의 기술 블로그. 번들 최적화, 모노레포 아키텍처, CI/CD 자동화 등 실무 기록.",
+      "Frontend 플랫폼 엔지니어 김재경의 기술 포스트. 번들 최적화, 모노레포 아키텍처, CI/CD 자동화 등 실무 기록.",
     images: ["/og-image.png"],
   },
   alternates: {
-    canonical: "https://jaegyeongkim.github.io/blog",
+    canonical: "https://jaegyeongkim.github.io/post",
   },
 };
 
-const BlogPage = () => {
+const PostListPage = () => {
   return (
     <>
       <main className="max-w-3xl mx-auto px-6 md:px-12 py-12 md:py-16">
         <header className="mb-12 space-y-2">
           <p className="text-xs font-mono text-[var(--muted)] uppercase tracking-widest">
-            Blog
+            Post
           </p>
           <h1 className="text-2xl font-bold text-[var(--foreground)]">
-            기술 블로그
+            기술 포스트
           </h1>
           <p className="text-sm text-[var(--muted)]">
             플랫폼·DX 설계를 하면서 마주친 문제와 해결 과정을 기록합니다.
@@ -71,7 +71,7 @@ const BlogPage = () => {
         <div className="space-y-0">
           {VISIBLE_POSTS.map((post, i) => (
             <article key={post.slug}>
-              <Link className="group block py-6" href={`/blog/${post.slug}`}>
+              <Link className="group block py-6" href={`/post/${post.slug}`}>
                 <div className="flex items-start justify-between gap-4 mb-2">
                   <h2 className="text-sm font-semibold text-[var(--foreground)] group-hover:text-[var(--accent)] transition-colors leading-relaxed">
                     {post.title}
@@ -106,4 +106,4 @@ const BlogPage = () => {
   );
 };
 
-export default BlogPage;
+export default PostListPage;

@@ -66,13 +66,13 @@ const Nav = () => {
       </Link>
       <Link
         className={`text-xs px-3 py-1.5 rounded-full transition-colors duration-150 ${
-          pathname.startsWith("/blog")
+          pathname.startsWith("/post")
             ? "bg-[var(--foreground)] text-[var(--background)]"
             : "text-[var(--muted)] hover:text-[var(--foreground)]"
         }`}
-        href="/blog"
+        href="/post"
       >
-        {t.blog}
+        {t.post}
       </Link>
     </nav>
   );

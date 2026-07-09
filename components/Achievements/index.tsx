@@ -1,7 +1,7 @@
-import BlogLink from "@/components/BlogLink";
+import PostLink from "@/components/PostLink";
 import { achievementsCopy } from "@/content/copy/achievements";
-import { VISIBLE_BLOG_SLUGS } from "@/lib/blog-posts";
 import type { Locale } from "@/lib/locale";
+import { VISIBLE_POST_SLUGS } from "@/lib/posts";
 
 interface AchievementsProps {
   locale?: Locale;
@@ -25,7 +25,7 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
 
         <div className="space-y-6">
           {t.achievements.map(
-            ({ blogSlug, detail, problem, results, title }) => (
+            ({ detail, postSlug, problem, results, title }) => (
               <div
                 className="border border-[var(--border)] overflow-hidden"
                 key={title}
@@ -35,10 +35,10 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
                   <h3 className="text-xl font-semibold text-[var(--foreground)]">
                     {title}
                   </h3>
-                  {blogSlug && VISIBLE_BLOG_SLUGS.includes(blogSlug) && (
-                    <BlogLink
+                  {postSlug && VISIBLE_POST_SLUGS.includes(postSlug) && (
+                    <PostLink
                       locale={locale}
-                      slug={blogSlug}
+                      slug={postSlug}
                       source="portfolio"
                     />
                   )}
@@ -105,7 +105,7 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
           </div>
 
           <div className="lg:ml-[calc(200px+6rem)] grid grid-cols-1 md:grid-cols-3 gap-6">
-            {t.otherImprovements.map(({ blogSlug, description, title }) => (
+            {t.otherImprovements.map(({ description, postSlug, title }) => (
               <div
                 className="space-y-3 py-6 border-t border-[var(--border)]"
                 key={title}
@@ -116,10 +116,10 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
                 <p className="text-sm text-[var(--muted)] leading-relaxed">
                   {description}
                 </p>
-                {blogSlug && VISIBLE_BLOG_SLUGS.includes(blogSlug) && (
-                  <BlogLink
+                {postSlug && VISIBLE_POST_SLUGS.includes(postSlug) && (
+                  <PostLink
                     locale={locale}
-                    slug={blogSlug}
+                    slug={postSlug}
                     source="portfolio"
                   />
                 )}

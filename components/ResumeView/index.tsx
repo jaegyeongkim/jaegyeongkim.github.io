@@ -2,8 +2,8 @@ import { Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import BlogLink from "@/components/BlogLink";
 import Footer from "@/components/Footer";
+import PostLink from "@/components/PostLink";
 import PrintButton from "@/components/PrintButton";
 import TableOfContents, { RESUME_SECTIONS } from "@/components/TableOfContents";
 import { footerCopy } from "@/content/copy/footer";
@@ -16,8 +16,8 @@ import {
   TECH_PLATFORM,
   TECH_SIDE,
 } from "@/content/copy/resume";
-import { VISIBLE_BLOG_SLUGS } from "@/lib/blog-posts";
 import type { Locale } from "@/lib/locale";
+import { VISIBLE_POST_SLUGS } from "@/lib/posts";
 
 const GithubIcon = () => (
   <svg
@@ -185,14 +185,14 @@ const ResumeView = ({ locale = "ko" }: ResumeViewProps) => {
             Key Achievements
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {t.achievements.map(({ blogSlug, description, title }) => (
+            {t.achievements.map(({ description, postSlug, title }) => (
               <div className="space-y-1.5" key={title}>
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-sm font-semibold text-[var(--foreground)]">
                     {title}
                   </p>
-                  {VISIBLE_BLOG_SLUGS.includes(blogSlug) && (
-                    <BlogLink locale={locale} slug={blogSlug} source="resume" />
+                  {VISIBLE_POST_SLUGS.includes(postSlug) && (
+                    <PostLink locale={locale} slug={postSlug} source="resume" />
                   )}
                 </div>
                 <p className="text-sm text-[var(--muted)] leading-relaxed">

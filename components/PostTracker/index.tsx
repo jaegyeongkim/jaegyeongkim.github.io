@@ -2,19 +2,19 @@
 
 import { useEffect, useRef } from "react";
 
-import { trackBlogPostView, trackBlogReadComplete } from "@/lib/gtag";
+import { trackPostReadComplete, trackPostView } from "@/lib/gtag";
 
-interface BlogPostTrackerProps {
+interface PostTrackerProps {
   slug: string;
   tags: string[];
   title: string;
 }
 
-const BlogPostTracker = ({ slug, tags, title }: BlogPostTrackerProps) => {
+const PostTracker = ({ slug, tags, title }: PostTrackerProps) => {
   const readFiredRef = useRef(false);
 
   useEffect(() => {
-    trackBlogPostView(slug, title, tags);
+    trackPostView(slug, title, tags);
   }, [slug, title, tags]);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const BlogPostTracker = ({ slug, tags, title }: BlogPostTrackerProps) => {
 
       if (total > 0 && scrolled / total >= 0.9) {
         readFiredRef.current = true;
-        trackBlogReadComplete(slug, title);
+        trackPostReadComplete(slug, title);
       }
     };
 
@@ -37,4 +37,4 @@ const BlogPostTracker = ({ slug, tags, title }: BlogPostTrackerProps) => {
   return null;
 };
 
-export default BlogPostTracker;
+export default PostTracker;

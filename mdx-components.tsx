@@ -33,10 +33,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </ol>
     ),
     li: ({ children }) => <li className="leading-relaxed">{children}</li>,
-    code: ({ children, className }) => {
-      const isBlock = className?.includes("language-");
+    code: ({ children, ...props }) => {
+      const isBlock = "data-language" in props;
       if (isBlock) {
-        return <code className={`${className} text-xs`}>{children}</code>;
+        return (
+          <code className="text-xs" {...props}>
+            {children}
+          </code>
+        );
       }
       return (
         <code className="font-mono text-xs bg-[var(--surface)] border border-[var(--border)] text-[var(--foreground)] px-1.5 py-0.5 rounded">
@@ -44,8 +48,16 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </code>
       );
     },
-    pre: ({ children }) => (
-      <pre className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-4 overflow-x-auto text-xs font-mono mb-4 leading-relaxed">
+    figure: ({ children, ...props }) => (
+      <figure className="mb-4" {...props}>
+        {children}
+      </figure>
+    ),
+    pre: ({ children, ...props }) => (
+      <pre
+        className="bg-[var(--surface)] border border-[var(--border)] rounded-lg p-4 overflow-x-auto text-xs font-mono leading-relaxed"
+        {...props}
+      >
         {children}
       </pre>
     ),

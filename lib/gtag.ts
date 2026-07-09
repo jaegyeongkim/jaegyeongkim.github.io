@@ -18,26 +18,26 @@ export function trackEvent(
   window.gtag("event", eventName, params);
 }
 
-export function trackBlogLinkClick(
+export function trackPostLinkClick(
   slug: string,
   source: "portfolio" | "resume",
 ) {
-  trackEvent("blog_link_click", {
+  trackEvent("post_link_click", {
     post_slug: slug,
     source,
   });
 }
 
-export function trackBlogPostView(slug: string, title: string, tags: string[]) {
-  trackEvent("blog_post_view", {
+export function trackPostView(slug: string, title: string, tags: string[]) {
+  trackEvent("post_view", {
     post_slug: slug,
     post_title: title,
     post_tags: tags.join(","),
   });
 }
 
-export function trackBlogReadComplete(slug: string, title: string) {
-  trackEvent("blog_read_complete", {
+export function trackPostReadComplete(slug: string, title: string) {
+  trackEvent("post_read_complete", {
     post_slug: slug,
     post_title: title,
   });

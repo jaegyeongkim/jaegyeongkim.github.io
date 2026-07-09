@@ -1,16 +1,16 @@
 import type { Dictionary } from "@/lib/locale";
 
 interface Achievement {
-  blogSlug?: string;
   detail: string[];
+  postSlug?: string;
   problem: string;
   results: string[];
   title: string;
 }
 
 interface OtherImprovement {
-  blogSlug?: string;
   description: string;
+  postSlug?: string;
   title: string;
 }
 
@@ -41,7 +41,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "불일치 발생 즉시 원인 필드 특정 가능 & 빠르게 이슈 대응 가능",
         ],
         title: "타입 안전 API 검증",
-        blogSlug: "typia-runtime-validation",
+        postSlug: "typia-runtime-validation",
       },
       {
         detail: [
@@ -60,12 +60,12 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "반복적인 수동 작업 제거로 휴먼 에러 방지",
         ],
         title: "CI/CD 자동화",
-        blogSlug: "github-actions-cicd",
+        postSlug: "github-actions-cicd",
       },
       {
         detail: [
           "10개로 흩어져 있던 멀티 레포를 Turborepo 기반 모노레포 1개로 전환",
-          "공용 코드를 apis · components · hooks · utils · services · types · styles 8개 카테고리 패키지로 구조화 — 컴포넌트 164개, hooks 46개, utils 40개 등 총 300개+ 모듈",
+          "공용 코드를 apis · components · hooks · utils · services · types · styles 10개 카테고리 패키지로 구조화 — 컴포넌트 164개, hooks 46개, utils 40개 등 총 300개+ 모듈",
           "Vitest + Testing Library로 hooks·utils·components에 테스트 153개 구축 → 공용 코드 변경 시 오류 사전 감지",
         ],
         problem:
@@ -75,7 +75,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "hooks 46개 중 44개, utils 40개 중 37개, components 164개 중 72개에 테스트 적용 — 공용 코드 라인 커버리지 52%로 핵심 로직 안전망 확보",
         ],
         title: "모노레포 아키텍처",
-        blogSlug: "monorepo-shared-components",
+        postSlug: "monorepo-shared-components",
       },
       {
         detail: [
@@ -90,7 +90,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "manualChunks 적용 후 index.js 최대 91% 감소 (carInspection 925kB → 86kB)",
         ],
         title: "번들 최적화",
-        blogSlug: "vite-manual-chunks",
+        postSlug: "vite-manual-chunks",
       },
       {
         detail: [
@@ -108,7 +108,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "10개 앱 전체 불필요 리렌더링 구조 개선",
         ],
         title: "전역 상태 최적화",
-        blogSlug: "context-to-zustand",
+        postSlug: "context-to-zustand",
       },
     ],
     otherImprovements: [
@@ -116,7 +116,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
         description:
           "버튼 연속 클릭 시 같은 API가 여러 번 실행되는 문제를 막기 위해 useMutation 기반 커스텀 훅을 만들었습니다. 진행 중인 요청에 고유 ID를 부여해 중복 요청을 차단하고, 훅을 쓸 때 에러 처리 방식(전역 / 화면별)을 반드시 선택하도록 강제해 팀 내 에러 처리 누락을 방지했습니다.",
         title: "API 중복 호출 방지 (useSafeMutation)",
-        blogSlug: "duplicate-api-call",
+        postSlug: "duplicate-api-call",
       },
       {
         description:
@@ -132,7 +132,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
         description:
           "모노레포에서 i18next 번역 타입 선언 규모가 커지면서 VSCode IntelliSense 자동완성 계산에 최대 10초가 걸렸습니다. TypeScript 5 업그레이드, 서비스별 JSON 분리, 타입 선언 단순화(typeof json → Record<key, string>), 배럴 파일 약 1,600개 제거를 단계적으로 적용해 2초로 단축했습니다(-80%).",
         title: "VSCode 자동완성 속도 개선 (10초 → 2초)",
-        blogSlug: "vite-manual-chunks",
+        postSlug: "vite-manual-chunks",
       },
     ],
   },
@@ -154,7 +154,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "The offending field can be pinpointed the moment a mismatch occurs",
         ],
         title: "Type-safe API Layer",
-        blogSlug: "typia-runtime-validation",
+        postSlug: "typia-runtime-validation",
       },
       {
         detail: [
@@ -174,7 +174,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "Eliminated repetitive manual work, preventing human error",
         ],
         title: "CI/CD Automation",
-        blogSlug: "github-actions-cicd",
+        postSlug: "github-actions-cicd",
       },
       {
         detail: [
@@ -189,7 +189,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "44 of 46 hooks, 37 of 40 utils, and 72 of 164 components have tests — 52% line coverage across shared packages",
         ],
         title: "Monorepo Architecture",
-        blogSlug: "monorepo-shared-components",
+        postSlug: "monorepo-shared-components",
       },
       {
         detail: [
@@ -204,7 +204,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "index.js cut up to 91% after manualChunks (carInspection 925kB → 86kB)",
         ],
         title: "Bundle Optimization",
-        blogSlug: "vite-manual-chunks",
+        postSlug: "vite-manual-chunks",
       },
       {
         detail: [
@@ -222,7 +222,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "Overhauled the unnecessary re-render structure across all 10 apps",
         ],
         title: "Global State Optimization",
-        blogSlug: "context-to-zustand",
+        postSlug: "context-to-zustand",
       },
     ],
     otherImprovements: [
@@ -230,13 +230,13 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
         description:
           "As the i18next translation type declarations grew in the monorepo, autocomplete computation took up to 10 seconds. Upgraded to TypeScript 5, split JSON per service, simplified type declarations (typeof json → Record<key, string>), and removed roughly 1,600 barrel files in stages, cutting it to 2 seconds (-80%).",
         title: "Faster VSCode autocomplete (10s → 2s)",
-        blogSlug: "vite-manual-chunks",
+        postSlug: "vite-manual-chunks",
       },
       {
         description:
           "Built a useMutation-based custom hook to stop the same API firing multiple times on rapid button clicks. Assigns a unique ID to in-flight requests to block duplicates, and forces every hook usage to explicitly choose an error-handling mode (global or per-screen), preventing missed error handling across the team.",
         title: "Duplicate API call prevention (useSafeMutation)",
-        blogSlug: "duplicate-api-call",
+        postSlug: "duplicate-api-call",
       },
       {
         description:

@@ -1,4 +1,4 @@
-export interface BlogPost {
+export interface Post {
   date: string;
   description: string;
   slug: string;
@@ -6,13 +6,13 @@ export interface BlogPost {
   title: string;
 }
 
-export const BLOG_POSTS: BlogPost[] = [
+export const POSTS: Post[] = [
   {
     slug: "typia-runtime-validation",
     title:
-      "API 타입 불일치를 서비스 중단 없이 처리하기 — Typia + RecursiveUndefined 설계",
+      '"어? 화면이 안 보여요" API 명세 불일치를 서비스 중단 없이 막아낸 이야기',
     description:
-      "백엔드 API 명세가 프론트 타입과 다를 때 화면이 터지는 문제를 해결한 방법. Typia 런타임 검증과 Pessimistic 타입 설계로 불일치 필드를 격리하고 서비스를 계속 유지한 과정을 공유합니다.",
+      "Typia 런타임 검증과 RecursiveUndefined 타입 설계로 API 불일치 필드를 격리하고, 200곳 넘게 반복되던 검증 코드를 팩토리 패턴으로 줄인 과정을 공유합니다.",
     date: "2026-06-25",
     tags: ["TypeScript", "Typia", "API", "타입설계"],
   },
@@ -87,8 +87,5 @@ export const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
-// 블로그 임시 비활성화 중에도 Typia, Turborepo 관련 글만 예외적으로 노출
-export const VISIBLE_BLOG_SLUGS: string[] = [
-  "typia-runtime-validation",
-  "monorepo-shared-components",
-];
+// 포스트 임시 비활성화 중에도 검토가 끝난 글만 예외적으로 노출
+export const VISIBLE_POST_SLUGS: string[] = ["typia-runtime-validation"];

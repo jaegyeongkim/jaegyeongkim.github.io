@@ -1,10 +1,10 @@
 import type { Dictionary } from "@/lib/locale";
 
-interface BlogLinkCopy {
+interface PostLinkCopy {
   readMore: string;
 }
 
-export const blogLinkCopy: Dictionary<BlogLinkCopy> = {
+export const postLinkCopy: Dictionary<PostLinkCopy> = {
   ko: { readMore: "글 읽기 →" },
   en: { readMore: "Read article (KR) →" },
 };

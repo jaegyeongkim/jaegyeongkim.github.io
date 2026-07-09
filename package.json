@@ -30,7 +30,9 @@
     "next": "16.2.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "remark-gfm": "^4.0.1"
+    "rehype-pretty-code": "^0.14.4",
+    "remark-gfm": "^4.0.1",
+    "shiki": "^4.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",

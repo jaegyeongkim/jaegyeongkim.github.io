@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 
-import BlogPostTracker from "@/components/BlogPostTracker";
 import Footer from "@/components/Footer";
-import { BLOG_POSTS } from "@/lib/blog-posts";
+import PostTracker from "@/components/PostTracker";
+import { POSTS } from "@/lib/posts";
 
 const SITE_URL = "https://jaegyeongkim.github.io";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
+  return POSTS.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -20,11 +20,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = POSTS.find((p) => p.slug === slug);
 
   if (!post) return {};
 
-  const url = `${SITE_URL}/blog/${post.slug}`;
+  const url = `${SITE_URL}/post/${post.slug}`;
   const title = post.title;
   const description = post.description;
 
@@ -39,7 +39,7 @@ export async function generateMetadata({
       title,
       description,
       locale: "ko_KR",
-      siteName: "김재경 블로그",
+      siteName: "김재경 포스트",
       images: [
         {
           url: "/og-image.png",
@@ -64,15 +64,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({
+export default async function PostDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug);
+  const post = POSTS.find((p) => p.slug === slug);
 
-  const { default: Post } = await import(`@/content/blog/${slug}.mdx`);
+  const { default: PostBody } = await import(`@/content/post/${slug}.mdx`);
 
   const jsonLd = post
     ? {
@@ -92,12 +92,12 @@ export default async function BlogPostPage({
           name: "김재경",
           url: SITE_URL,
         },
-        url: `${SITE_URL}/blog/${post.slug}`,
+        url: `${SITE_URL}/post/${post.slug}`,
         keywords: post.tags.join(", "),
         inLanguage: "ko",
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `${SITE_URL}/blog/${post.slug}`,
+          "@id": `${SITE_URL}/post/${post.slug}`,
         },
       }
     : null;
@@ -106,7 +106,7 @@ export default async function BlogPostPage({
     <>
       {jsonLd && (
         <Script
-          id="blog-post-jsonld"
+          id="post-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
@@ -114,9 +114,9 @@ export default async function BlogPostPage({
       <main className="max-w-3xl mx-auto px-6 md:px-12 py-12 md:py-16">
         <Link
           className="inline-flex items-center gap-1 text-xs font-mono text-[var(--muted)] hover:text-[var(--foreground)] transition-colors mb-8"
-          href="/blog"
+          href="/post"
         >
-          ← 블로그 목록
+          ← 포스트 목록
         </Link>
 
         {post && (
@@ -140,14 +140,10 @@ export default async function BlogPostPage({
         )}
 
         {post && (
-          <BlogPostTracker
-            slug={post.slug}
-            tags={post.tags}
-            title={post.title}
-          />
+          <PostTracker slug={post.slug} tags={post.tags} title={post.title} />
         )}
         <article>
-          <Post />
+          <PostBody />
         </article>
       </main>
       <Footer compact />
