@@ -64,7 +64,6 @@ const Nav = () => {
       >
         {t.portfolio}
       </Link>
-      {/* 블로그 임시 비활성화 (추후 재작업 예정)
       <Link
         className={`text-xs px-3 py-1.5 rounded-full transition-colors duration-150 ${
           pathname.startsWith("/blog")
@@ -75,7 +74,6 @@ const Nav = () => {
       >
         {t.blog}
       </Link>
-      */}
     </nav>
   );
 };

@@ -86,3 +86,9 @@ export const BLOG_POSTS: BlogPost[] = [
     tags: ["MSW", "테스트", "DX", "S3"],
   },
 ];
+
+// 블로그 임시 비활성화 중에도 Typia, Turborepo 관련 글만 예외적으로 노출
+export const VISIBLE_BLOG_SLUGS: string[] = [
+  "typia-runtime-validation",
+  "monorepo-shared-components",
+];

@@ -1,6 +1,6 @@
-// 블로그 임시 비활성화 (추후 재작업 예정)
-// import BlogLink from "@/components/BlogLink";
+import BlogLink from "@/components/BlogLink";
 import { achievementsCopy } from "@/content/copy/achievements";
+import { VISIBLE_BLOG_SLUGS } from "@/lib/blog-posts";
 import type { Locale } from "@/lib/locale";
 
 interface AchievementsProps {
@@ -35,15 +35,13 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
                   <h3 className="text-xl font-semibold text-[var(--foreground)]">
                     {title}
                   </h3>
-                  {/* 블로그 임시 비활성화 (추후 재작업 예정)
-                  {blogSlug && (
+                  {blogSlug && VISIBLE_BLOG_SLUGS.includes(blogSlug) && (
                     <BlogLink
                       locale={locale}
                       slug={blogSlug}
                       source="portfolio"
                     />
                   )}
-                  */}
                 </div>
 
                 {/* Card body */}
@@ -118,15 +116,13 @@ const Achievements = ({ locale = "ko" }: AchievementsProps) => {
                 <p className="text-sm text-[var(--muted)] leading-relaxed">
                   {description}
                 </p>
-                {/* 블로그 임시 비활성화 (추후 재작업 예정)
-                {blogSlug && (
+                {blogSlug && VISIBLE_BLOG_SLUGS.includes(blogSlug) && (
                   <BlogLink
                     locale={locale}
                     slug={blogSlug}
                     source="portfolio"
                   />
                 )}
-                */}
               </div>
             ))}
           </div>

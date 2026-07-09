@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import Footer from "@/components/Footer";
-import { BLOG_POSTS } from "@/lib/blog-posts";
+import { BLOG_POSTS, VISIBLE_BLOG_SLUGS } from "@/lib/blog-posts";
+
+// 블로그 임시 비활성화 중, Typia·Turborepo 관련 글만 목록에 노출
+const VISIBLE_POSTS = BLOG_POSTS.filter((post) =>
+  VISIBLE_BLOG_SLUGS.includes(post.slug),
+);
 
 export const metadata: Metadata = {
   title: "블로그 | 김재경",
@@ -64,7 +69,7 @@ const BlogPage = () => {
         </header>
 
         <div className="space-y-0">
-          {BLOG_POSTS.map((post, i) => (
+          {VISIBLE_POSTS.map((post, i) => (
             <article key={post.slug}>
               <Link className="group block py-6" href={`/blog/${post.slug}`}>
                 <div className="flex items-start justify-between gap-4 mb-2">
@@ -89,7 +94,7 @@ const BlogPage = () => {
                   ))}
                 </div>
               </Link>
-              {i < BLOG_POSTS.length - 1 && (
+              {i < VISIBLE_POSTS.length - 1 && (
                 <div className="h-px bg-[var(--border)]" />
               )}
             </article>

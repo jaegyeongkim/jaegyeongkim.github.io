@@ -32,15 +32,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </ol>
     ),
-    li: ({ children }) => (
-      <li className="leading-relaxed">{children}</li>
-    ),
+    li: ({ children }) => <li className="leading-relaxed">{children}</li>,
     code: ({ children, className }) => {
       const isBlock = className?.includes("language-");
       if (isBlock) {
-        return (
-          <code className={`${className} text-xs`}>{children}</code>
-        );
+        return <code className={`${className} text-xs`}>{children}</code>;
       }
       return (
         <code className="font-mono text-xs bg-[var(--surface)] border border-[var(--border)] text-[var(--foreground)] px-1.5 py-0.5 rounded">
@@ -59,7 +55,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </blockquote>
     ),
     strong: ({ children }) => (
-      <strong className="font-semibold text-[var(--foreground)]">{children}</strong>
+      <strong className="font-semibold text-[var(--foreground)]">
+        {children}
+      </strong>
     ),
     hr: () => <hr className="border-[var(--border)] my-8" />,
     a: ({ children, href }) => (
