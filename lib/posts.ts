@@ -13,7 +13,7 @@ export const POSTS: Post[] = [
       '"어? 화면이 안 보여요" API 명세 불일치를 서비스 중단 없이 막아낸 이야기',
     description:
       "Typia 런타임 검증과 RecursiveUndefined 타입 설계로 API 불일치 필드를 격리하고, 200곳 넘게 반복되던 검증 코드를 팩토리 패턴으로 줄인 과정을 공유합니다.",
-    date: "2026-06-25",
+    date: "2026-07-09",
     tags: ["TypeScript", "Typia", "API", "타입설계"],
   },
   {
