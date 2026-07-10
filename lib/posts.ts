@@ -27,11 +27,10 @@ export const POSTS: Post[] = [
   },
   {
     slug: "monorepo-shared-components",
-    title:
-      "10개 앱이 공용 컴포넌트 206개를 안전하게 쓰는 방법 — pnpm workspace + Turborepo",
+    title: "디자인 하나 바뀔 때마다 레포 10개를 돌아야 했던 이야기",
     description:
-      "공용 컴포넌트 수정이 일부 앱만 깨뜨리는 문제를 Turborepo 파이프라인과 Vitest로 해결한 방법. 모노레포 전환 의사결정부터 패키지 구조 설계까지 공유합니다.",
-    date: "2026-06-25",
+      "같은 피그마 디자인을 쓰는 10개 어드민이 레포마다 흩어져 있던 문제를 모노레포로 합친 과정. Turborepo 도구 선택, 캐시 신뢰 문제, 공용 코드 테스트 자동화까지 공유합니다.",
+    date: "2026-07-10",
     tags: ["Turborepo", "Monorepo", "pnpm", "아키텍처"],
   },
   {
