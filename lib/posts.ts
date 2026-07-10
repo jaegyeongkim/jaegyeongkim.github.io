@@ -88,4 +88,7 @@ export const POSTS: Post[] = [
 ];
 
 // 포스트 임시 비활성화 중에도 검토가 끝난 글만 예외적으로 노출
-export const VISIBLE_POST_SLUGS: string[] = ["typia-runtime-validation"];
+export const VISIBLE_POST_SLUGS: string[] = [
+  "typia-runtime-validation",
+  "monorepo-shared-components",
+];
