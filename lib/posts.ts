@@ -8,6 +8,15 @@ export interface Post {
 
 export const POSTS: Post[] = [
   {
+    slug: "github-actions-cicd",
+    title:
+      '"다음엔 누가 배포하죠?" — 인수인계 없이 버튼 하나로 끝나는 GitHub Actions 배포 파이프라인',
+    description:
+      "매번 사람이 손으로 하던 배포를 GitHub Actions로 자동화해, 담당자가 바뀌어도 절차를 새로 배울 필요 없이 버튼 하나로 배포·롤백할 수 있게 만든 과정. 버전별 S3 폴더링으로 재빌드 없는 롤백, build·release 분리로 실측 빌드 43%·배포 26% 단축, 공용 validation 워크플로우로 배포 전 자동 검증까지 다룹니다.",
+    date: "2026-07-10",
+    tags: ["GitHub Actions", "CI/CD", "AWS", "IAM Role"],
+  },
+  {
     slug: "monorepo-shared-components",
     title: "디자인 하나 바뀔 때마다 레포 10개를 돌아야 했던 이야기",
     description:
@@ -42,14 +51,7 @@ export const POSTS: Post[] = [
     date: "2026-06-25",
     tags: ["Zustand", "React", "성능최적화", "버그추적"],
   },
-  {
-    slug: "github-actions-cicd",
-    title: "10개 앱의 배포를 자동화하기 — GitHub Actions 20개 파이프라인 설계",
-    description:
-      "React SPA는 S3+CloudFront, Next.js는 Docker+ECR+EC2로 배포 전략이 다른 10개 앱을 GitHub Actions로 자동화한 과정. Turborepo 필터링으로 변경된 앱만 빌드하고, 수동 롤백 워크플로우까지 구성했습니다.",
-    date: "2026-06-25",
-    tags: ["GitHub Actions", "CI/CD", "AWS", "Docker"],
-  },
+
   {
     slug: "duplicate-api-call",
     title: "따닥 클릭으로 API가 두 번 호출되는 문제를 API 레이어에서 막기",
@@ -99,4 +101,5 @@ export const POSTS: Post[] = [
 export const VISIBLE_POST_SLUGS: string[] = [
   "typia-runtime-validation",
   "monorepo-shared-components",
+  "github-actions-cicd",
 ];
