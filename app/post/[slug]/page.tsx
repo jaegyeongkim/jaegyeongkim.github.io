@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 
+import Comments from "@/components/Comments";
 import Footer from "@/components/Footer";
 import PostTracker from "@/components/PostTracker";
 import { POSTS } from "@/lib/posts";
@@ -145,6 +146,12 @@ export default async function PostDetailPage({
         <article>
           <PostBody />
         </article>
+
+        {post && (
+          <div className="mt-16 pt-8 border-t border-[var(--border)]">
+            <Comments />
+          </div>
+        )}
       </main>
       <Footer compact />
     </>
