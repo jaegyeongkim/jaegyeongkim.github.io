@@ -114,6 +114,12 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
     otherImprovements: [
       {
         description:
+          "API 서버가 준비되기 전에도 화면 개발이 막히지 않도록 MSW를 도입했습니다. 신규 이벤트 앱(kokkok-event)의 MSW·Typia 세팅과 친구 초대·출석체크·룰렛 3개 이벤트 mock 개발을 주도했고, 서버 enum이 바뀔 때마다 영향받는 mock을 일괄 갱신했습니다. 5개 앱에 mock 핸들러 70개가 적용돼 있고, 신규 앱 생성 스크립트에도 MSW가 기본 템플릿으로 포함돼 있습니다.",
+        title: "MSW 기반 개발 환경",
+        postSlug: "msw-adoption",
+      },
+      {
+        description:
           "버튼 연속 클릭 시 같은 API가 여러 번 실행되는 문제를 막기 위해 useMutation 기반 커스텀 훅을 만들었습니다. 진행 중인 요청에 고유 ID를 부여해 중복 요청을 차단하고, 훅을 쓸 때 에러 처리 방식(전역 / 화면별)을 반드시 선택하도록 강제해 팀 내 에러 처리 누락을 방지했습니다.",
         title: "API 중복 호출 방지 (useSafeMutation)",
         postSlug: "duplicate-api-call",
@@ -226,6 +232,12 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       },
     ],
     otherImprovements: [
+      {
+        description:
+          "Introduced MSW so screen development wouldn't be blocked while the API server was still in progress. Led MSW and Typia setup for a new event app (kokkok-event) and built mocks for its 3 event features — friend invites, attendance check-in, and a roulette wheel — and batch-updated affected mocks whenever server enums changed. Mock handlers now cover 70 files across 5 apps, with MSW templated by default in the app-scaffolding script.",
+        title: "MSW-based Dev Environment",
+        postSlug: "msw-adoption",
+      },
       {
         description:
           "As the i18next translation type declarations grew in the monorepo, autocomplete computation took up to 10 seconds. Upgraded to TypeScript 5, split JSON per service, simplified type declarations (typeof json → Record<key, string>), and removed roughly 1,600 barrel files in stages, cutting it to 2 seconds (-80%).",

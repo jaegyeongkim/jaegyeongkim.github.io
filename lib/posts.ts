@@ -84,6 +84,15 @@ export const POSTS: Post[] = [
     date: "2026-06-25",
     tags: ["MSW", "테스트", "DX", "S3"],
   },
+  {
+    slug: "msw-adoption",
+    title:
+      '"서버는 아직인데 화면은 언제 볼 수 있어요?" MSW로 API 없이 이벤트 3종을 완성한 이야기',
+    description:
+      "신규 이벤트 앱 kokkok-event를 만들며 API 서버가 준비되기 전에 MSW로 화면부터 완성한 과정. 룰렛 애니메이션과 mock 응답을 맞추는 로직, 서버 enum이 바뀔 때마다 mock을 갱신해 스펙 불일치를 막은 경험을 공유합니다.",
+    date: "2026-07-10",
+    tags: ["MSW", "DX", "협업", "이벤트"],
+  },
 ];
 
 // 포스트 임시 비활성화 중에도 검토가 끝난 글만 예외적으로 노출
