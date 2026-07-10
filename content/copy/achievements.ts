@@ -45,6 +45,21 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       },
       {
         detail: [
+          "10개로 흩어져 있던 멀티 레포를 Turborepo 기반 모노레포 1개로 전환",
+          "공용 코드를 apis · components · hooks · utils · services · types · styles 10개 카테고리 패키지로 구조화 — 컴포넌트 164개, hooks 46개, utils 40개 등 총 300개+ 모듈",
+          "Vitest + Testing Library로 hooks·utils·components에 테스트 153개 구축 → 공용 코드 변경 시 오류 사전 감지",
+        ],
+        problem:
+          "KOKKOK 플랫폼 내 서비스가 늘어날수록 관리해야 할 레포도 함께 늘어났고, 동일한 컴포넌트와 유틸이 레포마다 중복 복사됐습니다. 한 레포에서 컴포넌트 버그를 고쳐도 다른 레포에는 반영되지 않아 코드 불일치 문제가 반복됐습니다. 코드를 일치시키려면 레포 수만큼 같은 작업과 PR 확인을 반복해야 해서 업무 비효율이 컸습니다.",
+        results: [
+          "10개 앱에서 동일 공용 패키지 사용 — 수정 즉시 전 앱 반영, 관리할 레포 수 감소로 업무 효율 향상",
+          "hooks 46개 중 44개, utils 40개 중 37개, components 164개 중 72개에 테스트 적용 — 공용 코드 라인 커버리지 52%로 핵심 로직 안전망 확보",
+        ],
+        title: "모노레포 아키텍처",
+        postSlug: "monorepo-shared-components",
+      },
+      {
+        detail: [
           "React(SPA) — 재빌드 없이 이미 올라간 버전으로 즉시 재배포·롤백할 수 있도록, 빌드·S3 업로드용과 배포·CloudFront 무효화용 GitHub Actions 2개로 단계를 분리",
           "Next.js(SSR) — 매번 새로 빌드하지 않고 ECR에 쌓인 이미지로 재배포할 수 있도록, Docker 이미지 빌드 / AWS ECR 푸시 / EC2 Pull·컨테이너 실행 GitHub Actions 3개로 단계를 분리",
           "공용 validation 워크플로우로 배포 전 버전 형식·환경별 실행 권한·AWS 리소스 존재 여부를 자동 검증",
@@ -61,21 +76,6 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
         ],
         title: "CI/CD 자동화",
         postSlug: "github-actions-cicd",
-      },
-      {
-        detail: [
-          "10개로 흩어져 있던 멀티 레포를 Turborepo 기반 모노레포 1개로 전환",
-          "공용 코드를 apis · components · hooks · utils · services · types · styles 10개 카테고리 패키지로 구조화 — 컴포넌트 164개, hooks 46개, utils 40개 등 총 300개+ 모듈",
-          "Vitest + Testing Library로 hooks·utils·components에 테스트 153개 구축 → 공용 코드 변경 시 오류 사전 감지",
-        ],
-        problem:
-          "KOKKOK 플랫폼 내 서비스가 늘어날수록 관리해야 할 레포도 함께 늘어났고, 동일한 컴포넌트와 유틸이 레포마다 중복 복사됐습니다. 한 레포에서 컴포넌트 버그를 고쳐도 다른 레포에는 반영되지 않아 코드 불일치 문제가 반복됐습니다. 코드를 일치시키려면 레포 수만큼 같은 작업과 PR 확인을 반복해야 해서 업무 비효율이 컸습니다.",
-        results: [
-          "10개 앱에서 동일 공용 패키지 사용 — 수정 즉시 전 앱 반영, 관리할 레포 수 감소로 업무 효율 향상",
-          "hooks 46개 중 44개, utils 40개 중 37개, components 164개 중 72개에 테스트 적용 — 공용 코드 라인 커버리지 52%로 핵심 로직 안전망 확보",
-        ],
-        title: "모노레포 아키텍처",
-        postSlug: "monorepo-shared-components",
       },
       {
         detail: [
@@ -164,6 +164,21 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       },
       {
         detail: [
+          "Migrated 10 scattered multi-repos into a single Turborepo-based monorepo",
+          "Structured shared code into 8 category packages — apis · components · hooks · utils · services · types · styles — with 164 components, 46 hooks, 40 utils, and 300+ modules in total",
+          "Built 153 tests across hooks, utils, and components with Vitest + Testing Library, catching regressions before they ship",
+        ],
+        problem:
+          "As services grew, shared components and utilities kept getting copy-pasted across repos. Fixing a bug in one place didn't propagate to the others, causing repeated version drift.",
+        results: [
+          "10 apps share identical packages — fixes apply instantly everywhere",
+          "44 of 46 hooks, 37 of 40 utils, and 72 of 164 components have tests — 52% line coverage across shared packages",
+        ],
+        title: "Monorepo Architecture",
+        postSlug: "monorepo-shared-components",
+      },
+      {
+        detail: [
           "React (SPA) — split build/upload from deploy across 2 GitHub Actions workflows, so an already-built version can redeploy or roll back instantly without rebuilding",
           "Next.js (SSR) — split image build, ECR push, and container run across 3 GitHub Actions workflows, so an image already in ECR can redeploy without rebuilding",
           "A shared validation workflow automatically checks version format, per-environment permissions, and that the target AWS resources exist before every deploy",
@@ -181,21 +196,6 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
         ],
         title: "CI/CD Automation",
         postSlug: "github-actions-cicd",
-      },
-      {
-        detail: [
-          "Migrated 10 scattered multi-repos into a single Turborepo-based monorepo",
-          "Structured shared code into 8 category packages — apis · components · hooks · utils · services · types · styles — with 164 components, 46 hooks, 40 utils, and 300+ modules in total",
-          "Built 153 tests across hooks, utils, and components with Vitest + Testing Library, catching regressions before they ship",
-        ],
-        problem:
-          "As services grew, shared components and utilities kept getting copy-pasted across repos. Fixing a bug in one place didn't propagate to the others, causing repeated version drift.",
-        results: [
-          "10 apps share identical packages — fixes apply instantly everywhere",
-          "44 of 46 hooks, 37 of 40 utils, and 72 of 164 components have tests — 52% line coverage across shared packages",
-        ],
-        title: "Monorepo Architecture",
-        postSlug: "monorepo-shared-components",
       },
       {
         detail: [
