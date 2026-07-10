@@ -8,6 +8,14 @@ export interface Post {
 
 export const POSTS: Post[] = [
   {
+    slug: "monorepo-shared-components",
+    title: "디자인 하나 바뀔 때마다 레포 10개를 돌아야 했던 이야기",
+    description:
+      "같은 피그마 디자인을 쓰는 10개 어드민이 레포마다 흩어져 있던 문제를 모노레포로 합친 과정. Turborepo 도구 선택, 캐시 신뢰 문제, 공용 코드 테스트 자동화까지 공유합니다.",
+    date: "2026-07-10",
+    tags: ["Turborepo", "Monorepo", "pnpm", "아키텍처"],
+  },
+  {
     slug: "typia-runtime-validation",
     title:
       '"어? 화면이 안 보여요" API 명세 불일치를 서비스 중단 없이 막아낸 이야기',
@@ -24,14 +32,6 @@ export const POSTS: Post[] = [
       "10개 어드민 앱이 공유하는 모노레포에서 번들 사이즈를 92% 줄인 과정. lazy import, manualChunks 청크 전략, 배럴 파일 제거까지 단계별로 정리합니다.",
     date: "2026-06-25",
     tags: ["Vite", "번들최적화", "DX", "Turborepo"],
-  },
-  {
-    slug: "monorepo-shared-components",
-    title: "디자인 하나 바뀔 때마다 레포 10개를 돌아야 했던 이야기",
-    description:
-      "같은 피그마 디자인을 쓰는 10개 어드민이 레포마다 흩어져 있던 문제를 모노레포로 합친 과정. Turborepo 도구 선택, 캐시 신뢰 문제, 공용 코드 테스트 자동화까지 공유합니다.",
-    date: "2026-07-10",
-    tags: ["Turborepo", "Monorepo", "pnpm", "아키텍처"],
   },
   {
     slug: "context-to-zustand",
