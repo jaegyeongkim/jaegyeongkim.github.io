@@ -23,7 +23,8 @@ export const teamLeadCopy: Dictionary<TeamLeadCopy> = {
         title: "일일 스크럼 운영",
       },
       {
-        description: "코드 컨벤션·아키텍처·배포 프로세스 문서화 및 질문 대응",
+        description:
+          "로컬 환경 셋업부터 코드 컨벤션·아키텍처·배포 프로세스까지 문서화 — 신규 입사자가 문서만으로 스스로 온보딩 가능하도록 구성해 커뮤니케이션 비용 절감",
         title: "신규 팀원 온보딩",
       },
       {
@@ -48,7 +49,7 @@ export const teamLeadCopy: Dictionary<TeamLeadCopy> = {
       },
       {
         description:
-          "Documented code conventions, architecture, and deploy process, and answered follow-up questions",
+          "Documented everything from local environment setup to code conventions, architecture, and deploy process — thorough enough for new hires to onboard on their own, cutting communication overhead",
         title: "New Hire Onboarding",
       },
       {
