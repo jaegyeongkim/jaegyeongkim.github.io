@@ -37,6 +37,7 @@ export const TECH_EXPERIENCE = [
   "Redux-Toolkit",
   "Redux-Saga",
   "Styled-components",
+  "TailwindCSS",
 ];
 
 interface ResumeAchievement {
