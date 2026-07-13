@@ -61,13 +61,12 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       {
         detail: [
           "React(SPA) — 재빌드 없이 이미 올라간 버전으로 즉시 재배포·롤백할 수 있도록, 빌드·S3 업로드용과 배포·CloudFront 무효화용 GitHub Actions 2개로 단계를 분리",
-          "Next.js(SSR) — 매번 새로 빌드하지 않고 ECR에 쌓인 이미지로 재배포할 수 있도록, Docker 이미지 빌드 / AWS ECR 푸시 / EC2 Pull·컨테이너 실행 GitHub Actions 3개로 단계를 분리",
           "공용 validation 워크플로우로 배포 전 버전 형식·환경별 실행 권한·AWS 리소스 존재 여부를 자동 검증",
           "모노레포 안에서도 10개 서비스를 한 번에 배포하지 않고, 원하는 서비스만 원하는 시점에 독립적으로 배포할 수 있도록 구성",
           "시맨틱 버저닝으로 S3에 버전별 결과물을 보관해 문제 발생 시 즉시 이전 버전으로 롤백",
         ],
         problem:
-          "React(SPA)는 로컬 빌드 → S3 업로드 → CloudFront 초기화 과정을 배포할 때마다 사람이 수동으로 반복해야했습니다. 또한, Next.js(SSR)는 EC2 접속 → git pull → 빌드 → 재시작을 배포할 때마다 사람이 직접 반복해야 했습니다. 배포 절차가 문서로 작성되어 있었지만, 관리해야할 문서도 많았고, 수동 작업이 많아 휴먼 에러도 자주 발생했습니다. 롤백도 수동 복구라 오래 걸렸습니다.",
+          "React(SPA)는 로컬 빌드 → S3 업로드 → CloudFront 초기화 과정을 배포할 때마다 사람이 수동으로 반복해야했습니다. 배포 절차가 문서로 작성되어 있었지만, 관리해야할 문서도 많았고, 수동 작업이 많아 휴먼 에러도 자주 발생했습니다. 롤백도 수동 복구라 오래 걸렸습니다.",
         results: [
           "복잡한 배포 지식 없이 누구나 간단하게 배포 명령만 실행",
           "validation 워크플로우가 버전 형식·환경 권한을 자동 검증해 잘못된 배포를 사전에 차단",
@@ -180,13 +179,12 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       {
         detail: [
           "React (SPA) — split build/upload from deploy across 2 GitHub Actions workflows, so an already-built version can redeploy or roll back instantly without rebuilding",
-          "Next.js (SSR) — split image build, ECR push, and container run across 3 GitHub Actions workflows, so an image already in ECR can redeploy without rebuilding",
           "A shared validation workflow automatically checks version format, per-environment permissions, and that the target AWS resources exist before every deploy",
           "Even inside the monorepo, services deploy independently rather than all at once — any service can ship on its own schedule",
           "Semantic versioning keeps every build in S3, enabling instant rollback",
         ],
         problem:
-          "Even though 10 apps lived in one monorepo, every deploy meant a person manually repeating the same steps — a local build, S3 upload, and CloudFront invalidation for React; SSH into EC2, git pull, build, and restart for Next.js. The procedure lived in people's heads instead of being automated, so it had to be re-explained every time ownership changed, and all that manual work meant human error kept creeping in. Rollbacks were manual recoveries that took a long time too.",
+          "Even though 10 apps lived in one monorepo, every deploy meant a person manually repeating the same steps — a local build, S3 upload, and CloudFront invalidation for React. The procedure lived in people's heads instead of being automated, so it had to be re-explained every time ownership changed, and all that manual work meant human error kept creeping in. Rollbacks were manual recoveries that took a long time too.",
         results: [
           "Anyone can run the same deploy procedure without hand-offs, no matter who owns the service now",
           "No deployment expertise needed — anyone can ship with a single command",
