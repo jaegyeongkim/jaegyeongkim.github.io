@@ -22,7 +22,7 @@ const STATS: StatCard[] = [
     anchor: "#achievements",
     label: "Shared Components",
     suffix: "+",
-    value: "206",
+    value: "164",
   },
   { anchor: "#achievements", label: "Tests", suffix: "+", value: "153" },
   {

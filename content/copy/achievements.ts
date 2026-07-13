@@ -46,7 +46,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       {
         detail: [
           "10개로 흩어져 있던 멀티 레포를 Turborepo 기반 모노레포 1개로 전환",
-          "공용 코드를 apis · components · hooks · utils · services · types · styles 10개 카테고리 패키지로 구조화 — 컴포넌트 164개, hooks 46개, utils 40개 등 총 300개+ 모듈",
+          "공용 코드를 apis · components · hooks · utils · services · types · styles 7개 카테고리 패키지로 구조화 — 컴포넌트 164개, hooks 46개, utils 40개 등",
           "Vitest + Testing Library로 hooks·utils·components에 테스트 153개 구축 → 공용 코드 변경 시 오류 사전 감지",
         ],
         problem:
@@ -164,7 +164,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
       {
         detail: [
           "Migrated 10 scattered multi-repos into a single Turborepo-based monorepo",
-          "Structured shared code into 8 category packages — apis · components · hooks · utils · services · types · styles — with 164 components, 46 hooks, 40 utils, and 300+ modules in total",
+          "Structured shared code into 7 category packages — apis · components · hooks · utils · services · types · styles — with 164 components, 46 hooks, and 40 utils",
           "Built 153 tests across hooks, utils, and components with Vitest + Testing Library, catching regressions before they ship",
         ],
         problem:
