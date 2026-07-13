@@ -24,7 +24,7 @@ const STATS: StatCard[] = [
     suffix: "+",
     value: "206",
   },
-  { anchor: "#achievements", label: "Tests", suffix: "+", value: "165" },
+  { anchor: "#achievements", label: "Tests", suffix: "+", value: "153" },
   {
     anchor: "#achievements",
     label: "Bundle Reduction",
