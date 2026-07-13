@@ -122,7 +122,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
       {
         postSlug: "github-actions-cicd",
         description:
-          "React(SPA) 2단계 · Next.js(SSR) 3단계로 배포 파이프라인 분리, validation 워크플로우로 배포 전 자동 검증. 모노레포 안에서도 서비스별 독립 배포, 배포·롤백 수 분 내 처리",
+          "React(SPA) 배포 파이프라인을 빌드·배포 2단계로 분리, validation 워크플로우로 배포 전 자동 검증. 모노레포 안에서도 서비스별 독립 배포, 배포·롤백 수 분 내 처리",
         title: "CI/CD 자동화",
       },
       {
@@ -240,7 +240,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
       {
         postSlug: "github-actions-cicd",
         description:
-          "Split deploy pipelines into 2 stages for React (SPA) and 3 stages for Next.js (SSR), with a shared validation workflow that checks every deploy automatically. Even inside the monorepo, services deploy independently, deploy and rollback in minutes",
+          "Split the React (SPA) deploy pipeline into build and deploy stages, with a shared validation workflow that checks every deploy automatically. Even inside the monorepo, services deploy independently, deploy and rollback in minutes",
         title: "CI/CD Automation",
       },
       {
