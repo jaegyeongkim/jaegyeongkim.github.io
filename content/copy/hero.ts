@@ -20,9 +20,9 @@ const STATS: StatCard[] = [
   { anchor: "#projects", label: "Admin Services", suffix: "+", value: "10" },
   {
     anchor: "#achievements",
-    label: "Shared Components",
+    label: "Shared Code",
     suffix: "+",
-    value: "164",
+    value: "200",
   },
   { anchor: "#achievements", label: "Tests", suffix: "+", value: "153" },
   {

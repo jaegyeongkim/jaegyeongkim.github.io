@@ -53,7 +53,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "KOKKOK 플랫폼 내 서비스가 늘어날수록 관리해야 할 레포도 함께 늘어났고, 동일한 컴포넌트와 유틸이 레포마다 중복 복사됐습니다. 한 레포에서 컴포넌트 버그를 고쳐도 다른 레포에는 반영되지 않아 코드 불일치 문제가 반복됐습니다. 코드를 일치시키려면 레포 수만큼 같은 작업과 PR 확인을 반복해야 해서 업무 비효율이 컸습니다.",
         results: [
           "10개 앱에서 동일 공용 패키지 사용 — 수정 즉시 전 앱 반영, 관리할 레포 수 감소로 업무 효율 향상",
-          "hooks·utils·components 250개 모듈 중 153개(61%)에 테스트 적용 — 공용 코드 라인 커버리지 52%로 핵심 로직 안전망 확보",
+          "hooks·utils·components 250개 모듈 중 153개에 테스트 적용 — push 전 자동 실행으로 공용 코드 회귀 버그 사전 차단",
         ],
         title: "모노레포 아키텍처",
         postSlug: "monorepo-shared-components",
@@ -171,7 +171,7 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
           "As services grew, shared components and utilities kept getting copy-pasted across repos. Fixing a bug in one place didn't propagate to the others, causing repeated version drift.",
         results: [
           "10 apps share identical packages — fixes apply instantly everywhere",
-          "153 of 250 hooks/utils/components modules (61%) have tests — 52% line coverage across shared packages",
+          "153 of 250 hooks/utils/components modules have tests — run automatically before every push to catch regressions in shared code early",
         ],
         title: "Monorepo Architecture",
         postSlug: "monorepo-shared-components",

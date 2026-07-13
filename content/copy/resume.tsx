@@ -117,7 +117,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
       {
         postSlug: "monorepo-shared-components",
         description:
-          "pnpm workspace + Turborepo 기반 전환. 10개 앱이 동일 공용 패키지 사용, 공용 컴포넌트 164개 · 테스트 153개, 라인 커버리지 52%",
+          "pnpm workspace + Turborepo 기반 전환. 10개 앱이 동일 공용 패키지 사용, 공용 코드 200개+ · 테스트 153개로 핵심 로직 안전망 확보",
         title: "모노레포 아키텍처",
       },
       {
@@ -235,7 +235,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
       {
         postSlug: "monorepo-shared-components",
         description:
-          "Migrated to pnpm workspace + Turborepo. 10 apps share identical packages — 164 shared components · 153 tests, 52% line coverage",
+          "Migrated to pnpm workspace + Turborepo. 10 apps share identical packages — 200+ shared code modules · 153 tests safeguarding core logic",
         title: "Monorepo Architecture",
       },
       {
