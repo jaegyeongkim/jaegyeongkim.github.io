@@ -77,7 +77,7 @@ export const projectsCopy: Dictionary<ProjectsCopy> = {
     mainProjects: [
       {
         description:
-          "라오스 음식 배달·마트 배달·이커머스·eGift·드라이버·고객·지원 관리 등 KOKKOK 플랫폼 전체를 관리하는 메인 어드민. 7개 이상의 비즈니스 도메인을 통합 관리하며 도메인별 접근 권한 제어·다국어·실시간 지도 연동·대량 데이터 테이블 처리가 복합적으로 얽혀 있습니다.",
+          "라오스 음식 배달·마트 배달·이커머스·eGift·드라이버·고객·지원 관리 등 KOKKOK 플랫폼 전체를 관리하는 메인 어드민. 4개의 비즈니스 도메인을 통합 관리하며 도메인별 접근 권한 제어·다국어·실시간 지도 연동·대량 데이터 테이블 처리가 복합적으로 얽혀 있습니다.",
         isPrivate: true,
         links: [
           {
@@ -88,7 +88,7 @@ export const projectsCopy: Dictionary<ProjectsCopy> = {
         role: "초기 아키텍처 설계, 공용 컴포넌트 설계, API 연동, 권한 시스템 설계, 운영 전반",
         stats: [
           { label: "Pages", value: "172" },
-          { label: "Domains", value: "7+" },
+          { label: "Domains", value: "4" },
           { label: "Team Size", value: "2~6인" },
         ],
         tags: [
