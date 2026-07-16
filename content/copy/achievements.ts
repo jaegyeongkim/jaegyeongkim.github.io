@@ -47,13 +47,13 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
         detail: [
           "10개로 흩어져 있던 멀티 레포를 Turborepo 기반 모노레포 1개로 전환",
           "공용 코드를 apis · components · hooks · utils · services · types · styles 7개 카테고리 패키지로 구조화 — 컴포넌트 164개, hooks 46개, utils 40개 등",
-          "Vitest + Testing Library로 hooks·utils·components에 테스트 153개 구축 → 공용 코드 변경 시 오류 사전 감지",
+          "Vitest + Testing Library로 hooks·utils·components에 테스트 1,097개 구축 → 공용 코드 변경 시 오류 사전 감지",
         ],
         problem:
           "KOKKOK 플랫폼 내 서비스가 늘어날수록 관리해야 할 레포도 함께 늘어났고, 동일한 컴포넌트와 유틸이 레포마다 중복 복사됐습니다. 한 레포에서 컴포넌트 버그를 고쳐도 다른 레포에는 반영되지 않아 코드 불일치 문제가 반복됐습니다. 코드를 일치시키려면 레포 수만큼 같은 작업과 PR 확인을 반복해야 해서 업무 비효율이 컸습니다.",
         results: [
           "10개 앱에서 동일 공용 패키지 사용 — 수정 즉시 전 앱 반영, 관리할 레포 수 감소로 업무 효율 향상",
-          "hooks·utils·components 250개 모듈 중 153개에 테스트 적용 — push 전 자동 실행으로 공용 코드 회귀 버그 사전 차단",
+          "hooks·utils·components에 테스트 1,097개 — push 전 자동 실행으로 공용 코드 회귀 버그 사전 차단",
         ],
         title: "모노레포 아키텍처",
         postSlug: "monorepo-shared-components",
@@ -165,13 +165,13 @@ export const achievementsCopy: Dictionary<AchievementsCopy> = {
         detail: [
           "Migrated 10 scattered multi-repos into a single Turborepo-based monorepo",
           "Structured shared code into 7 category packages — apis · components · hooks · utils · services · types · styles — with 164 components, 46 hooks, and 40 utils",
-          "Built 153 tests across hooks, utils, and components with Vitest + Testing Library, catching regressions before they ship",
+          "Built 1,097 tests across hooks, utils, and components with Vitest + Testing Library, catching regressions before they ship",
         ],
         problem:
           "As services grew, shared components and utilities kept getting copy-pasted across repos. Fixing a bug in one place didn't propagate to the others, causing repeated version drift.",
         results: [
           "10 apps share identical packages — fixes apply instantly everywhere",
-          "153 of 250 hooks/utils/components modules have tests — run automatically before every push to catch regressions in shared code early",
+          "1,097 tests across hooks/utils/components modules — run automatically before every push to catch regressions in shared code early",
         ],
         title: "Monorepo Architecture",
         postSlug: "monorepo-shared-components",

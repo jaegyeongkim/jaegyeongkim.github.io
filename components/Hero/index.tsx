@@ -63,7 +63,7 @@ const Hero = ({ locale = "ko" }: HeroProps) => {
             <div className="space-y-1 pt-2">
               <p className="text-sm text-[var(--muted)]">{t.period}</p>
               <p className="text-base font-medium text-[var(--foreground)]">
-                Frontend Team Lead{" "}
+                {t.role}{" "}
                 <span className="text-[var(--muted)] font-normal">
                   @ Coconutsilo
                 </span>

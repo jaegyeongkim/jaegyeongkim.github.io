@@ -72,7 +72,7 @@ export const projectsCopy: Dictionary<ProjectsCopy> = {
     otherAdminsLabel: "그 외 어드민",
     sideIntro: "사이드 프로젝트",
     workIntro:
-      "라오스 현지 O2O 플랫폼. React 어드민 10개, Next.js 랜딩 페이지 3개를 설계·개발·운영.",
+      "라오스 현지 O2O 플랫폼. React 기반 서비스 10개, Next.js 랜딩 페이지 3개를 설계·개발·운영.",
     workTitle: "KOKKOK Platform",
     mainProjects: [
       {
@@ -193,6 +193,11 @@ export const projectsCopy: Dictionary<ProjectsCopy> = {
       { description: "IoT 기기 관리 어드민", title: "KOKKOK Move IoT" },
       { description: "출석체크·룰렛 등 이벤트 페이지", title: "KOKKOK Event" },
       { description: "스토어 관리 어드민", title: "KOKKOK Store" },
+      {
+        description:
+          "택시 기사 랭킹 뷰 — 순위·평균 운행 지표 확인 (기사용, 1개 페이지)",
+        title: "KOKKOK Move Ranking",
+      },
     ],
     sideProjects: [
       {
@@ -276,12 +281,12 @@ export const projectsCopy: Dictionary<ProjectsCopy> = {
     otherAdminsLabel: "Other Admin Tools",
     sideIntro: "Side projects",
     workIntro:
-      "An O2O platform in Laos. Designed, built, and operate 10 React admin tools and 3 Next.js landing pages.",
+      "An O2O platform in Laos. Designed, built, and operate 10 React-based services and 3 Next.js landing pages.",
     workTitle: "KOKKOK Platform",
     mainProjects: [
       {
         description:
-          "The main admin managing the entire KOKKOK platform — food delivery, mart delivery, e-commerce, eGift, driver/customer management, and support. Integrates 7+ business domains, combining domain-level access control, i18n, real-time map integration, and large-scale data tables.",
+          "The main admin managing the entire KOKKOK platform — food delivery, mart delivery, e-commerce, eGift, driver/customer management, and support. Integrates 4 business domains, combining domain-level access control, i18n, real-time map integration, and large-scale data tables.",
         isPrivate: true,
         links: [
           {
@@ -292,7 +297,7 @@ export const projectsCopy: Dictionary<ProjectsCopy> = {
         role: "Initial architecture design, shared component design, API integration, permission system design, ongoing operations",
         stats: [
           { label: "Pages", value: "172" },
-          { label: "Domains", value: "7+" },
+          { label: "Domains", value: "4" },
           { label: "Team Size", value: "2–6" },
         ],
         tags: [
@@ -406,6 +411,11 @@ export const projectsCopy: Dictionary<ProjectsCopy> = {
         title: "KOKKOK Event",
       },
       { description: "Store management admin", title: "KOKKOK Store" },
+      {
+        description:
+          "Driver-facing ranking view — rank and average trip metrics (1 page)",
+        title: "KOKKOK Move Ranking",
+      },
     ],
     sideProjects: [
       {

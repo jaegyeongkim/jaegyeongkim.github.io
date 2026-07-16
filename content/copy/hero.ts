@@ -9,6 +9,7 @@ interface StatCard {
 
 interface HeroCopy {
   name: string;
+  role: string;
   avatarAlt: string;
   period: string;
   printLabel: string;
@@ -17,14 +18,14 @@ interface HeroCopy {
 }
 
 const STATS: StatCard[] = [
-  { anchor: "#projects", label: "Admin Services", suffix: "+", value: "10" },
+  { anchor: "#projects", label: "Services", suffix: "", value: "10" },
   {
     anchor: "#achievements",
     label: "Shared Code",
     suffix: "+",
     value: "200",
   },
-  { anchor: "#achievements", label: "Tests", suffix: "+", value: "153" },
+  { anchor: "#achievements", label: "Tests", suffix: "", value: "1,097" },
   {
     anchor: "#achievements",
     label: "Bundle Reduction",
@@ -39,15 +40,17 @@ export const heroCopy: Dictionary<HeroCopy> = {
     name: "김재경",
     period: "2020.12 ~ 현재",
     printLabel: "PDF로 저장",
+    role: "Frontend Engineer / FE Team Lead (2021~)",
     stats: STATS,
-    tagline: "문제를 끝까지 파고들어 개선하는 개발자",
+    tagline: "문제를 끝까지 파고들어 구조로 개선하는 개발자",
   },
   en: {
     avatarAlt: "Jaegyeong Kim",
     name: "Jaegyeong Kim",
     period: "Dec 2020 – Present",
     printLabel: "Save as PDF",
+    role: "Frontend Engineer / FE Team Lead (since 2021)",
     stats: STATS,
-    tagline: "Engineer who digs into problems until they're solved",
+    tagline: "Engineer who digs into problems until they become structure",
   },
 };

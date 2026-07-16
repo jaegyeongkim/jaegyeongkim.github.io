@@ -13,7 +13,7 @@ export const aboutCopy: Dictionary<AboutCopy> = {
       <>
         라오스 O2O 플랫폼 KOKKOK의{" "}
         <span className="underline underline-offset-4 decoration-[var(--accent)]">
-          어드민 서비스 10개
+          React 기반 서비스 10개
         </span>
         를<br className="hidden md:block" />
         설계·운영해온 프론트엔드 엔지니어입니다.
@@ -26,8 +26,8 @@ export const aboutCopy: Dictionary<AboutCopy> = {
         <strong className="text-[var(--foreground)] font-medium">
           어드민 웹 서비스를 처음부터 함께 만들고 운영
         </strong>
-        했습니다. React 어드민 10개, Next.js 랜딩 페이지 3개를 설계·개발하며
-        2~6인 규모의 프론트엔드 팀을 리드해왔습니다.
+        했습니다. React 기반 서비스 10개, Next.js 랜딩 페이지 3개를
+        설계·개발하며 2~6인 규모의 프론트엔드 팀을 리드해왔습니다.
       </>,
       <>
         기능 구현에 머물지 않고,{" "}
@@ -55,7 +55,7 @@ export const aboutCopy: Dictionary<AboutCopy> = {
       <>
         A frontend engineer who has designed and operated{" "}
         <span className="underline underline-offset-4 decoration-[var(--accent)]">
-          10 admin services
+          10 React-based services
         </span>{" "}
         for KOKKOK, an O2O platform in Laos.
       </>
@@ -68,9 +68,9 @@ export const aboutCopy: Dictionary<AboutCopy> = {
           built and operated admin web services from the ground up
         </strong>{" "}
         for KOKKOK, an O2O platform in Laos spanning e-commerce, ride-hailing,
-        logistics, and taxi services. I&apos;ve designed and built 10 React
-        admin tools and 3 Next.js landing pages, leading a 2–6 person frontend
-        team along the way.
+        logistics, and taxi services. I&apos;ve designed and built 10
+        React-based services and 3 Next.js landing pages, leading a 2–6 person
+        frontend team along the way.
       </>,
       <>
         Beyond shipping features, I&apos;ve{" "}

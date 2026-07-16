@@ -217,7 +217,14 @@ const ResumeView = ({ locale = "ko" }: ResumeViewProps) => {
             Career
           </h2>
           {t.career.map(
-            ({ company, description, migrations, period, role }) => (
+            ({
+              company,
+              description,
+              highlights,
+              migrations,
+              period,
+              role,
+            }) => (
               <div className="space-y-3" key={company}>
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -233,6 +240,13 @@ const ResumeView = ({ locale = "ko" }: ResumeViewProps) => {
                 <p className="text-sm text-[var(--muted)] leading-relaxed">
                   {description}
                 </p>
+                {highlights && (
+                  <ul className="space-y-1.5 text-sm text-[var(--muted)] leading-relaxed list-disc pl-5">
+                    {highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+                )}
                 <div className="flex flex-wrap items-center gap-1.5 pt-1">
                   <span className="text-xs text-[var(--muted)] mr-1">
                     {t.careerMigrationsLabel}

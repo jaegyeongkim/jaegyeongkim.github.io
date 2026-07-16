@@ -29,15 +29,22 @@ export const TECH_INFRA = [
   "Docker",
   "Vercel",
 ];
-export const TECH_SIDE = ["Supabase", "Flutter", "Dart", "R2"];
-export const TECH_EXPERIENCE = [
+export const TECH_SIDE = [
+  "Supabase",
+  "Flutter",
+  "Dart",
+  "R2",
+  "Drizzle ORM",
+  "Recharts",
+  "TailwindCSS",
   "Playwright",
+];
+export const TECH_EXPERIENCE = [
   "Storybook",
   "Redux",
   "Redux-Toolkit",
   "Redux-Saga",
   "Styled-components",
-  "TailwindCSS",
 ];
 
 interface ResumeAchievement {
@@ -50,6 +57,7 @@ interface CareerItem {
   role: string;
   company: string;
   description: string;
+  highlights?: string[];
   migrations: string[];
   period: string;
 }
@@ -95,16 +103,17 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
     tagline: "문제를 끝까지 파고들어 구조로 개선하는 개발자",
     intro1: (
       <>
-        6년차 프론트엔드 엔지니어로, 라오스 O2O 플랫폼 KOKKOK의 어드민 서비스
-        10개와 랜딩 페이지 3개를 설계·개발하며 2~6인 규모의 팀을 리드해왔습니다.
+        6년차 프론트엔드 엔지니어로, 라오스 O2O 플랫폼 KOKKOK의 React 기반
+        서비스 10개와 랜딩 페이지 3개를 설계·개발하며 2~6인 규모의 팀을
+        리드해왔습니다.
       </>
     ),
     intro2: (
       <>
         10개의 서비스를 모노레포로 통합하고, 수동 배포를 CI/CD로 자동화했으며,
         런타임 타입 검증 체계를 도입해 API 불안정성으로 인한 장애를 줄이는 등,
-        초기 번들 92% 감소와 개발 서버 기동 88% 단축까지 팀 전체의 개발 속도와
-        안정성을 끌어올려왔습니다.
+        초기 번들 최대 92% 감소와 개발 서버 기동 최대 88% 단축까지 팀 전체의
+        개발 속도와 안정성을 끌어올려왔습니다.
       </>
     ),
     achievements: [
@@ -117,7 +126,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
       {
         postSlug: "monorepo-shared-components",
         description:
-          "pnpm workspace + Turborepo 기반 전환. 10개 앱이 동일 공용 패키지 사용, 공용 코드 200개+ · 테스트 153개로 핵심 로직 안전망 확보",
+          "pnpm workspace + Turborepo 기반 전환. 10개 앱이 동일 공용 패키지 사용, 공용 코드 200개+ · 테스트 1,097개로 핵심 로직 안전망 확보",
         title: "모노레포 아키텍처",
       },
       {
@@ -129,7 +138,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
       {
         postSlug: "vite-manual-chunks",
         description:
-          "lazy import · manualChunks · 배럴 파일 1,600개 제거. 초기 번들 92% 감소 (4,990kB → 375kB), index.js 91% 감소 (925kB → 86kB)",
+          "lazy import · manualChunks · 배럴 파일 1,600개 제거. 초기 번들 최대 92% 감소 (4,990kB → 375kB), index.js 최대 91% 감소 (925kB → 86kB)",
         title: "번들 최적화",
       },
       {
@@ -143,7 +152,12 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
       {
         company: "코코넛사일로",
         description:
-          "라오스 O2O 플랫폼 KOKKOK. React 어드민 10개, Next.js 랜딩 페이지 3개 설계·개발·운영. 2021년부터 2~6인 FE 팀 리드.",
+          "라오스 O2O 플랫폼 KOKKOK. React 기반 서비스 10개, Next.js 랜딩 페이지 3개 설계·개발·운영. 2021년부터 2~6인 FE 팀 리드.",
+        highlights: [
+          "TypeScript 도입, 모노레포 전환, Vite 마이그레이션 등 스택 전환 시점과 방향 결정",
+          "로컬 셋업·코드 컨벤션·아키텍처·배포 프로세스 문서화 — 신규 입사자가 문서만으로 자립 온보딩, 커뮤니케이션 비용 절감",
+          "타입 네이밍 규칙, 컴포넌트 패턴, 사전 PR 체크리스트 수립",
+        ],
         migrations: [
           "TypeScript",
           "TanStack Query",
@@ -213,16 +227,17 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
     intro1: (
       <>
         A frontend engineer with 6 years of experience, I&apos;ve designed and
-        built 10 admin tools and 3 landing pages for KOKKOK, an O2O platform in
-        Laos, leading a 2–6 person team along the way.
+        built 10 React-based services and 3 landing pages for KOKKOK, an O2O
+        platform in Laos, leading a 2–6 person team along the way.
       </>
     ),
     intro2: (
       <>
         I consolidated separate repos into a monorepo, automated manual deploys
         with CI/CD, and introduced runtime type validation to cut outages from
-        API drift — trimming the initial bundle by 92% and dev server startup by
-        88%, raising the whole team&apos;s development speed and stability.
+        API drift — trimming the initial bundle by up to 92% and dev server
+        startup by up to 88%, raising the whole team&apos;s development speed
+        and stability.
       </>
     ),
     achievements: [
@@ -235,7 +250,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
       {
         postSlug: "monorepo-shared-components",
         description:
-          "Migrated to pnpm workspace + Turborepo. 10 apps share identical packages — 200+ shared code modules · 153 tests safeguarding core logic",
+          "Migrated to pnpm workspace + Turborepo. 10 apps share identical packages — 200+ shared code modules · 1,097 tests safeguarding core logic",
         title: "Monorepo Architecture",
       },
       {
@@ -247,7 +262,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
       {
         postSlug: "vite-manual-chunks",
         description:
-          "Lazy imports · manualChunks · removed 1,600 barrel files. Initial bundle cut 92% (4,990kB → 375kB), index.js cut 91% (925kB → 86kB)",
+          "Lazy imports · manualChunks · removed 1,600 barrel files. Initial bundle cut up to 92% (4,990kB → 375kB), index.js cut up to 91% (925kB → 86kB)",
         title: "Bundle Optimization",
       },
       {
@@ -261,7 +276,12 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
       {
         company: "Coconutsilo",
         description:
-          "KOKKOK, an O2O platform in Laos. Designed, built, and operate 10 React admin tools and 3 Next.js landing pages. Leading a 2–6 person FE team since 2021.",
+          "KOKKOK, an O2O platform in Laos. Designed, built, and operate 10 React-based services and 3 Next.js landing pages. Leading a 2–6 person FE team since 2021.",
+        highlights: [
+          "Led timing and direction decisions for TypeScript adoption, monorepo migration, and Vite migration",
+          "Documented local setup, code conventions, architecture, and deploy process — new hires onboard on their own, cutting communication overhead",
+          "Established type naming rules, component patterns, and a pre-PR checklist",
+        ],
         migrations: [
           "TypeScript",
           "TanStack Query",

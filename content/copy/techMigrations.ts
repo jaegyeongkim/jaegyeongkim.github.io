@@ -25,7 +25,7 @@ export const techMigrationsCopy: Dictionary<TechMigrationsCopy> = {
       {
         background: "서버 상태 코드 과다",
         from: "Redux + Redux-Saga",
-        result: "서버 상태 코드 30–40% 감소",
+        result: "서버 상태 보일러플레이트 대폭 감소",
         to: "TanStack Query",
       },
       {
@@ -55,7 +55,7 @@ export const techMigrationsCopy: Dictionary<TechMigrationsCopy> = {
       {
         background: "node_modules 중복으로 디스크·설치 느림",
         from: "npm",
-        result: "설치 속도 50%+ 단축, 수십 GB 절감",
+        result: "설치 속도·디스크 사용량 체감상 크게 개선",
         to: "pnpm",
       },
       {
@@ -78,7 +78,7 @@ export const techMigrationsCopy: Dictionary<TechMigrationsCopy> = {
       {
         background: "Excessive server-state boilerplate",
         from: "Redux + Redux-Saga",
-        result: "30–40% less server-state code",
+        result: "Significantly less server-state boilerplate",
         to: "TanStack Query",
       },
       {
@@ -108,7 +108,7 @@ export const techMigrationsCopy: Dictionary<TechMigrationsCopy> = {
       {
         background: "Duplicate node_modules slowed disk and installs",
         from: "npm",
-        result: "50%+ faster installs, tens of GB saved",
+        result: "Noticeably faster installs, lower disk usage",
         to: "pnpm",
       },
       {
