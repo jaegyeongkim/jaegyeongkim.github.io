@@ -8,6 +8,15 @@ export interface Post {
 
 export const POSTS: Post[] = [
   {
+    slug: "moveadmin-marker-clusterer",
+    title:
+      "지도 위 마커가 드라이버 수만큼 그대로 쌓이던 문제 — MarkerClusterer로 렌더링 부하 잡기",
+    description:
+      "실시간으로 갱신되는 드라이버 위치 마커가 DOM 노드 그대로 쌓여 지도가 겹치고 느려지던 문제를, MarkerClusterer 도입으로 풀어간 과정. 클러스터링보다 먼저 풀어야 했던 AdvancedMarkerElement 마이그레이션과, 기존 mutate 기반 마커 선택·정리 로직 덕분에 클러스터링을 얹고도 손댈 필요가 없었던 지점까지 다룹니다.",
+    date: "2026-07-19",
+    tags: ["React", "성능최적화", "Google Maps", "실시간 렌더링"],
+  },
+  {
     slug: "moveranking-chunked-rendering",
     title: "원인 불명의 렌더링 버그 — 가상 스크롤에서 청크 렌더링으로",
     description:
@@ -111,4 +120,5 @@ export const VISIBLE_POST_SLUGS: string[] = [
   "monorepo-shared-components",
   "github-actions-cicd",
   "moveranking-chunked-rendering",
+  "moveadmin-marker-clusterer",
 ];
