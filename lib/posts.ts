@@ -17,23 +17,6 @@ export const POSTS: Post[] = [
     tags: ["React", "성능최적화", "렌더링", "프론트엔드"],
   },
   {
-    slug: "moveadmin-marker-clusterer",
-    title:
-      "지도 위 마커가 드라이버 수만큼 그대로 쌓이던 문제 — MarkerClusterer로 렌더링 부하 잡기",
-    description:
-      "실시간으로 갱신되는 드라이버 위치 마커가 DOM 노드 그대로 쌓여 지도가 겹치고 느려지던 문제를, MarkerClusterer 도입으로 풀어간 과정. 클러스터링보다 먼저 풀어야 했던 AdvancedMarkerElement 마이그레이션과, 기존 mutate 기반 마커 선택·정리 로직 덕분에 클러스터링을 얹고도 손댈 필요가 없었던 지점까지 다룹니다.",
-    date: "2026-07-19",
-    tags: ["React", "성능최적화", "Google Maps", "실시간 렌더링"],
-  },
-  {
-    slug: "moveranking-chunked-rendering",
-    title: "원인 불명의 렌더링 버그 — 가상 스크롤에서 청크 렌더링으로",
-    description:
-      "드라이버 수가 무제한으로 늘어나는 랭킹 리스트를 가상 스크롤(@tanstack/react-virtual)로 최적화하려다, 재현은 되지만 원인은 끝내 특정하지 못한 렌더링 버그를 만나 롤백한 과정. 더 단순한 청크 렌더링 + 무한 스크롤로 전환하면서도 driverId 기반 '내 순위로 이동' 기능을 2단계 로직으로 지켜낸 이야기를 공유합니다.",
-    date: "2026-07-19",
-    tags: ["React", "성능최적화", "무한스크롤", "리팩토링"],
-  },
-  {
     slug: "github-actions-cicd",
     title:
       '"다음엔 누가 배포하죠?" — 인수인계 없이 버튼 하나로 끝나는 GitHub Actions 배포 파이프라인',
@@ -129,6 +112,4 @@ export const VISIBLE_POST_SLUGS: string[] = [
   "monorepo-shared-components",
   "github-actions-cicd",
   "frontend-large-data-rendering",
-  "moveranking-chunked-rendering",
-  "moveadmin-marker-clusterer",
 ];
