@@ -8,6 +8,14 @@ export interface Post {
 
 export const POSTS: Post[] = [
   {
+    slug: "moveranking-chunked-rendering",
+    title: "원인 불명의 렌더링 버그 — 가상 스크롤에서 청크 렌더링으로",
+    description:
+      "드라이버 수가 무제한으로 늘어나는 랭킹 리스트를 가상 스크롤(@tanstack/react-virtual)로 최적화하려다, 재현은 되지만 원인은 끝내 특정하지 못한 렌더링 버그를 만나 롤백한 과정. 더 단순한 청크 렌더링 + 무한 스크롤로 전환하면서도 driverId 기반 '내 순위로 이동' 기능을 2단계 로직으로 지켜낸 이야기를 공유합니다.",
+    date: "2026-07-19",
+    tags: ["React", "성능최적화", "무한스크롤", "리팩토링"],
+  },
+  {
     slug: "github-actions-cicd",
     title:
       '"다음엔 누가 배포하죠?" — 인수인계 없이 버튼 하나로 끝나는 GitHub Actions 배포 파이프라인',
@@ -102,4 +110,5 @@ export const VISIBLE_POST_SLUGS: string[] = [
   "typia-runtime-validation",
   "monorepo-shared-components",
   "github-actions-cicd",
+  "moveranking-chunked-rendering",
 ];
