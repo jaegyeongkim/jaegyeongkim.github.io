@@ -8,6 +8,15 @@ export interface Post {
 
 export const POSTS: Post[] = [
   {
+    slug: "frontend-large-data-rendering",
+    title:
+      '"대용량 데이터 다뤄보셨어요?" — 프론트엔드가 부딪힌 건 데이터 크기가 아니라 렌더링이었다',
+    description:
+      "무한히 길어지는 리스트와 좌표 위에 겹쳐 쌓이는 지도 마커, 두 화면에서 만난 같은 문제 — 데이터가 늘어나는 만큼 DOM 노드가 그대로 늘어나던 렌더링 부하를 풀어간 이야기. 그려지는 노드 수를 데이터 크기에서 떼어낸다는 하나의 원칙 아래, 가상 스크롤에서 점진적 렌더링으로 전환한 판단과 클러스터링 튜닝·기존 설계 덕을 본 지점, 그리고 정량 측정이 빠진 한계까지 정직하게 정리했습니다.",
+    date: "2026-07-19",
+    tags: ["React", "성능최적화", "렌더링", "프론트엔드"],
+  },
+  {
     slug: "moveadmin-marker-clusterer",
     title:
       "지도 위 마커가 드라이버 수만큼 그대로 쌓이던 문제 — MarkerClusterer로 렌더링 부하 잡기",
@@ -119,6 +128,7 @@ export const VISIBLE_POST_SLUGS: string[] = [
   "typia-runtime-validation",
   "monorepo-shared-components",
   "github-actions-cicd",
+  "frontend-large-data-rendering",
   "moveranking-chunked-rendering",
   "moveadmin-marker-clusterer",
 ];
