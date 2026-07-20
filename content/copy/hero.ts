@@ -15,6 +15,7 @@ interface HeroCopy {
   printLabel: string;
   stats: StatCard[];
   tagline: string;
+  viewOnlineLabel: string;
 }
 
 const STATS: StatCard[] = [
@@ -43,6 +44,7 @@ export const heroCopy: Dictionary<HeroCopy> = {
     role: "Frontend Engineer / FE Team Lead (2021~)",
     stats: STATS,
     tagline: "문제를 끝까지 파고들어 구조로 개선하는 개발자",
+    viewOnlineLabel: "브라우저에서 보기 ↗",
   },
   en: {
     avatarAlt: "Jaegyeong Kim",
@@ -52,5 +54,6 @@ export const heroCopy: Dictionary<HeroCopy> = {
     role: "Frontend Engineer / FE Team Lead (since 2021)",
     stats: STATS,
     tagline: "Engineer who digs into problems until they become structure",
+    viewOnlineLabel: "View in browser ↗",
   },
 };

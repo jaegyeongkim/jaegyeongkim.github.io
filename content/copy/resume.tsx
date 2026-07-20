@@ -90,6 +90,7 @@ interface ResumeCopy {
   intro2: ReactNode;
   sideProjects: SideProjectItem[];
   tagline: string;
+  viewOnlineLabel: string;
 }
 
 export const resumeCopy: Dictionary<ResumeCopy> = {
@@ -101,6 +102,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
     name: "김재경",
     role: "Frontend Engineer",
     tagline: "문제를 끝까지 파고들어 구조로 개선하는 개발자",
+    viewOnlineLabel: "브라우저에서 보기 ↗",
     intro1: (
       <>
         6년차 프론트엔드 엔지니어로, 라오스 O2O 플랫폼 KOKKOK의 React 기반
@@ -224,6 +226,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
     name: "Jaegyeong Kim",
     role: "Frontend Engineer",
     tagline: "Engineer who digs into problems until they become structure",
+    viewOnlineLabel: "View in browser ↗",
     intro1: (
       <>
         A frontend engineer with 6 years of experience, I&apos;ve designed and

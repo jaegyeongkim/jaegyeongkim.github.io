@@ -65,6 +65,10 @@ body {
   color: var(--background);
 }
 
+.print-only {
+  display: none !important;
+}
+
 @media print {
   /* Force exact color rendering for all elements */
   * {
@@ -74,6 +78,10 @@ body {
 
   .no-print {
     display: none !important;
+  }
+
+  .print-only {
+    display: inline-flex !important;
   }
 
   nav {

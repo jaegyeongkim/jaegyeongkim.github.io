@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import PostLink from "@/components/PostLink";
 import PrintButton from "@/components/PrintButton";
 import TableOfContents, { RESUME_SECTIONS } from "@/components/TableOfContents";
+import ViewOnlineLink from "@/components/ViewOnlineLink";
 import { footerCopy } from "@/content/copy/footer";
 import { heroCopy } from "@/content/copy/hero";
 import {
@@ -40,13 +41,20 @@ const ResumeView = ({ locale = "ko" }: ResumeViewProps) => {
   const hero = heroCopy[locale];
   const footer = footerCopy[locale];
   const portfolioHref = locale === "en" ? "/en/portfolio" : "/portfolio";
+  const resumeHref = locale === "en" ? "/en" : "/";
+  const resumeUrl = `https://jaegyeongkim.github.io${resumeHref}`;
 
   return (
     <>
       <TableOfContents sections={RESUME_SECTIONS} />
       <main className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-16 space-y-10">
         {/* Header */}
-        <header className="space-y-5" id="resume-intro">
+        <header className="relative space-y-5" id="resume-intro">
+          <ViewOnlineLink
+            className="absolute top-14 right-0"
+            href={resumeUrl}
+            label={t.viewOnlineLabel}
+          />
           <div className="flex items-start justify-between gap-6">
             <div className="flex items-start gap-5">
               <Image

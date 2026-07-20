@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import PrintButton from "@/components/PrintButton";
+import ViewOnlineLink from "@/components/ViewOnlineLink";
 import { heroCopy } from "@/content/copy/hero";
 import type { Locale } from "@/lib/locale";
 
@@ -12,13 +13,19 @@ interface HeroProps {
 const Hero = ({ locale = "ko" }: HeroProps) => {
   const t = heroCopy[locale];
   const portfolioPath = locale === "en" ? "/en/portfolio" : "/portfolio";
+  const portfolioUrl = `https://jaegyeongkim.github.io${portfolioPath}`;
 
   return (
     <section
       className="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 py-10"
       id="hero"
     >
-      <div className="max-w-6xl mx-auto w-full">
+      <div className="relative max-w-6xl mx-auto w-full">
+        <ViewOnlineLink
+          className="absolute top-0 right-0"
+          href={portfolioUrl}
+          label={t.viewOnlineLabel}
+        />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="space-y-8">
             <div className="flex items-center gap-4">
