@@ -94,7 +94,7 @@ interface ResumeCopy {
 
 export const resumeCopy: Dictionary<ResumeCopy> = {
   ko: {
-    achievementsLink: "상세 내용 보기 →",
+    achievementsLink: "포트폴리오 보기 →",
     careerMigrationsLabel: "기술 전환",
     emailHref: "mailto:tkwk1205@naver.com",
     githubLabel: "github.com/jaegyeongkim",
@@ -217,7 +217,7 @@ export const resumeCopy: Dictionary<ResumeCopy> = {
     ],
   },
   en: {
-    achievementsLink: "See full details →",
+    achievementsLink: "View portfolio →",
     careerMigrationsLabel: "Tech migrations",
     emailHref: "mailto:tkwk1205@naver.com",
     githubLabel: "github.com/jaegyeongkim",

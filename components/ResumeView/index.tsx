@@ -181,9 +181,17 @@ const ResumeView = ({ locale = "ko" }: ResumeViewProps) => {
         <div className="h-px bg-[var(--border)]" />
 
         <section className="space-y-6" id="resume-achievements">
-          <h2 className="text-xs font-mono text-[var(--muted)] uppercase tracking-widest">
-            Key Achievements
-          </h2>
+          <div className="flex items-center justify-between gap-2">
+            <h2 className="text-xs font-mono text-[var(--muted)] uppercase tracking-widest">
+              Key Achievements
+            </h2>
+            <Link
+              className="inline-flex items-center gap-1 text-sm text-[var(--accent)] hover:underline"
+              href={`${portfolioHref}#achievements`}
+            >
+              {t.achievementsLink}
+            </Link>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {t.achievements.map(({ description, postSlug, title }) => (
               <div className="space-y-1.5" key={title}>
@@ -201,12 +209,6 @@ const ResumeView = ({ locale = "ko" }: ResumeViewProps) => {
               </div>
             ))}
           </div>
-          <Link
-            className="inline-flex items-center gap-1 text-sm text-[var(--accent)] hover:underline"
-            href={`${portfolioHref}#achievements`}
-          >
-            {t.achievementsLink}
-          </Link>
         </section>
 
         <div className="h-px bg-[var(--border)]" />
